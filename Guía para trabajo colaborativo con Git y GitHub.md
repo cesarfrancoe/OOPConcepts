@@ -1,4 +1,4 @@
-### Guía para trabajo colaborativo con Git/GitHub
+### Guía para Trabajo Colaborativo con Git/GitHub
 
 Esta guía detalla los pasos necesarios para llevar a cabo un proyecto colaborativo utilizando Git y GitHub. El proyecto implica la creación de un repositorio llamado ShapesRepo, donde se desarrollarán diferentes clases para representar formas geométricas. El líder del equipo, Desarrollador 1, será responsable de coordinar el flujo de trabajo y gestionar el repositorio, mientras que los Desarrolladores 2 y 3 contribuirán con la implementación de clases específicas.
 
@@ -18,81 +18,88 @@ Esta guía detalla los pasos necesarios para llevar a cabo un proyecto colaborat
 5. **Desarrollador 1**: Crear la clase Shape.java en el repositorio local.
    - En el repositorio local, crea un archivo llamado `Shape.java` con la estructura básica de una clase en la raíz del repositorio.
 
-6. **Desarrollador 2**: Realizar un pull del repositorio.
+6. **Desarrollador 1**: Realizar push de la clase Shape.java.
+   ```bash
+   git add Shape.java
+   git commit -m "Agregando clase Shape"
+   git push origin main
+   ```
+
+7. **Desarrollador 2**: Realizar un pull del repositorio.
    ```bash
    git pull origin main
    ```
 
-7. **Desarrollador 3**: Realizar un pull del repositorio.
+8. **Desarrollador 3**: Realizar un pull del repositorio.
    ```bash
    git pull origin main
    ```
 
-8. **Desarrollador 1**: Crear una rama.
+9. **Desarrollador 1**: Crear una rama.
    ```bash
    git checkout -b triangle_feature
    ```
 
-9. **Desarrollador 2**: Crear una rama.
-   ```bash
-   git checkout -b circle_feature
-   ```
+10. **Desarrollador 2**: Crear una rama.
+    ```bash
+    git checkout -b circle_feature
+    ```
 
-10. **Desarrollador 3**: Crear una rama.
+11. **Desarrollador 3**: Crear una rama.
     ```bash
     git checkout -b square_feature
     ```
 
-11. **Desarrollador 1**: Crear la clase Triangle.java en el repositorio local.
+12. **Desarrollador 1**: Crear la clase Triangle.java en el repositorio local.
     - En el repositorio local, crea un archivo llamado `Triangle.java` con la implementación de la clase Triangle en la rama `triangle_feature`.
 
-12. **Desarrollador 2**: Crear la clase Circle.java en el repositorio local.
+13. **Desarrollador 2**: Crear la clase Circle.java en el repositorio local.
     - En el repositorio local, crea un archivo llamado `Circle.java` con la implementación de la clase Circle en la rama `circle_feature`.
 
-13. **Desarrollador 3**: Crear la clase Square.java en el repositorio local.
+14. **Desarrollador 3**: Crear la clase Square.java en el repositorio local.
     - En el repositorio local, crea un archivo llamado `Square.java` con la implementación de la clase Square en la rama `square_feature`.
 
-14. **Desarrollador 1**: Hacer commit y push.
+15. **Desarrollador 1**: Hacer commit y push.
     ```bash
     git add Triangle.java
     git commit -m "Agregando clase Triangle"
     git push origin triangle_feature
     ```
 
-15. **Desarrollador 2**: Hacer commit y push.
+16. **Desarrollador 2**: Hacer commit y push.
     ```bash
     git add Circle.java
     git commit -m "Agregando clase Circle"
     git push origin circle_feature
     ```
 
-16. **Desarrollador 3**: Hacer commit y push.
+17. **Desarrollador 3**: Hacer commit y push.
     ```bash
     git add Square.java
     git commit -m "Agregando clase Square"
     git push origin square_feature
     ```
 
-17. **Desarrollador 1**: Crear una solicitud de extracción.
+18. **Desarrollador 1**: Crear una solicitud de extracción.
     - Desde GitHub, crea una solicitud de extracción (pull request) para fusionar la rama `triangle_feature` en la rama `main`.
 
-18. **Desarrollador 2**: Crear una solicitud de extracción.
+19. **Desarrollador 2**: Crear una solicitud de extracción.
     - Desde GitHub, crea una solicitud de extracción (pull request) para fusionar la rama `circle_feature` en la rama `main`.
 
-19. **Desarrollador 3**: Crear una solicitud de extracción.
+20. **Desarrollador 3**: Crear una solicitud de extracción.
     - Desde GitHub, crea una solicitud de extracción (pull request) para fusionar la rama `square_feature` en la rama `main`.
 
-20. **Desarrollador 1**: Actualizar el repositorio local.
+21. **Desarrollador 1**: Actualizar el repositorio local.
     ```bash
     git pull origin main
     ```
 
-21. **Desarrollador 2**: Actualizar el repositorio local.
+22. **Desarrollador 2**: Actualizar el repositorio local.
     ```bash
     git pull origin main
     ```
 
-22. **Desarrollador 3**: Actualizar el repositorio local.
+23. **Desarrollador 3**: Actualizar el repositorio local.
     ```bash
     git pull origin main
     ```
