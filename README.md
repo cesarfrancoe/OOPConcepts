@@ -1,4 +1,4 @@
-## ✨ Introducción
+## Introducción
 
 La Programación Orientada a Objetos (POO) es un paradigma que modela el software a partir de **objetos**, los cuales representan entidades del mundo real o abstracto. Cada objeto posee:
 
@@ -8,7 +8,7 @@ La Programación Orientada a Objetos (POO) es un paradigma que modela el softwar
 
 ---
 
-## 📅 Conceptos Clave
+## Conceptos Clave
 
 ### Clase
 
@@ -20,7 +20,7 @@ Un **objeto** es una instancia de una clase. Tiene valores específicos para sus
 
 ---
 
-## 🔧 Atributos y Métodos
+## Atributos y Métodos
 
 | Elemento                  | Descripción                                                                    |
 | ------------------------- | ------------------------------------------------------------------------------ |
@@ -28,4 +28,39 @@ Un **objeto** es una instancia de una clase. Tiene valores específicos para sus
 | **Atributo de clase**     | Variable compartida entre todos los objetos de la clase (`static`).            |
 | **Método de instancia**   | Opera sobre atributos del objeto y requiere una instancia.                     |
 | **Método de clase**       | Pertenece a la clase, se declara `static`, no accede a atributos individuales. |
+
+## Ejemplo 
+```java
+public class Car {
+    String brand;
+    int speed;
+
+    void accelerate() {
+        speed += 10;
+        System.out.println(brand + " aceleró a " + speed + " km/h");
+    }
+
+    void brake() {
+        speed -= 10;
+        System.out.println(brand + " frenó a " + speed + " km/h");
+    }
+}
+```
+
+```java
+// Programa principal
+public class TestCar {
+
+    public static void main(String[] args) {
+        Car car1 = new Car();
+        car1.brand = "Toyota";
+        car1.speed = 0;
+
+        car1.accelerate(); // Toyota aceleró a 10 km/h
+        car1.brake();      // Toyota frenó a 0 km/h
+    }
+}
+```
+
+
 
