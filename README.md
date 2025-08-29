@@ -62,5 +62,65 @@ public class TestCar {
 }
 ```
 
+---
 
+## Encapsulamiento
 
+El **encapsulamiento** es un principio que consiste en proteger el acceso directo a los atributos de un objeto, exponiendo solo aquellos métodos necesarios para interactuar con ellos. Esto permite:
+
+* Evitar modificaciones incorrectas.
+* Controlar el acceso con condiciones.
+* Ocultar detalles internos de implementación.
+
+### 📖 Ejemplo: Clase `Car` con Encapsulamiento
+
+```java
+public class Car {
+    private String brand = "";
+    private int speed = 0;
+
+    void accelerate(){
+        speed += 10;
+    }
+
+    void brake(){
+        if (speed >= 10){
+            speed -= 10;
+        }
+    }
+
+    public int getSpeed(){
+        return speed;
+    }
+
+    public String getBrand(){
+        return brand;
+    }
+
+    public void setBrand(String newBrand){
+        if (newBrand.equals("Toyota") || newBrand.equals("Ford") || newBrand.equals("Ferrari")){
+            brand = newBrand;
+        } else {
+            brand = "";
+        }
+    }
+}
+```
+
+```java
+public class TestCar {
+    public static void main(String[] args) {
+        Car car1 = new Car();
+
+        car1.setBrand("Xyz");
+        car1.accelerate();
+        car1.accelerate();
+        System.out.println(car1.getBrand());
+        System.out.println(car1.getSpeed());
+        car1.brake();
+        System.out.println(car1.getSpeed());
+    }
+}
+```
+
+> **Nota:** Gracias al encapsulamiento, evitamos asignar marcas no permitidas o valores de velocidad arbitrarios como `car1.speed = 200;`.
