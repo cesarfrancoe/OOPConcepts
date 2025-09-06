@@ -228,7 +228,12 @@ public class Human {
 ```
 
 ```java
-
+public class TestHuman {
+    public static void main(String[] args) {
+        Human human = new Human();
+        System.out.println("Latidos por minuto: " + human.getHeart().getBeatsPerMinute());
+    }
+}
 ```
 
 ### Ejemplo 2: Composición uno a muchos
