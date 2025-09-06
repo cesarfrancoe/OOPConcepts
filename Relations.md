@@ -176,6 +176,22 @@ public class Library {
 }
 ```
 
+```java
+public class TestLibrary {
+    public static void main(String[] args) {
+        List<Book> books = new ArrayList<>();
+        books.add(new Book("Cien años de soledad"));
+        books.add(new Book("El Principito"));
+
+        Library library = new Library(books);
+
+        for (Book book : library.getBooks()) {
+            System.out.println("Libro: " + book.getTitle());
+        }
+    }
+}
+```
+
 ## 3. Composición
 
 ### Definición
@@ -211,6 +227,10 @@ public class Human {
 }
 ```
 
+```java
+
+```
+
 ### Ejemplo 2: Composición uno a muchos
 
 ```java
@@ -231,6 +251,17 @@ public class Document {
         pages = new ArrayList<>();
         for (int i = 1; i <= totalPages; i++) {
             pages.add(new Page(i));
+        }
+    }
+}
+```
+
+```java
+public class TestDocument {
+    public static void main(String[] args) {
+        Document doc = new Document(3);
+        for (Page p : doc.getPages()) {
+            System.out.println("Página: " + p.getPageNumber());
         }
     }
 }
