@@ -3,13 +3,9 @@
 
 **Objetivo:** Entender los diferentes tipos de relaciones entre clases en POO: asociación, agregación y composición, sus diferencias conceptuales y cómo implementarlas en Java con relaciones de tipo uno a uno y uno a muchos.
 
----
-
 ## Introducción
 
 En la Programación Orientada a Objetos, las clases no solo definen objetos individuales, también se relacionan entre sí para formar sistemas más complejos. Estas relaciones permiten modelar el comportamiento y las estructuras del mundo real.
-
----
 
 ## 1. Asociación
 
@@ -77,7 +73,9 @@ public class Teacher {
         this.name = name;
     }
 }
+```
 
+```java
 public class School {
     private List<Teacher> teachers;
 
@@ -91,7 +89,21 @@ public class School {
 }
 ```
 
----
+```java
+public class TestSchool {
+    public static void main(String[] args) {
+        List<Teacher> teachers = new ArrayList<>();
+        teachers.add(new Teacher("John"));
+        teachers.add(new Teacher("Jane"));
+
+        School school = new School(teachers);
+
+        for (Teacher t : school.getTeachers()) {
+            System.out.println("Docente: " + t.getName());
+        }
+    }
+}
+```
 
 ## 2. Agregación
 
