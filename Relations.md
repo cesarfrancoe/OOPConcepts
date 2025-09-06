@@ -76,6 +76,8 @@ public class Teacher {
 ```
 
 ```java
+import java.util.List;
+
 public class School {
     private List<Teacher> teachers;
 
@@ -90,6 +92,9 @@ public class School {
 ```
 
 ```java
+import java.util.ArrayList;
+import java.util.List;
+
 public class TestSchool {
     public static void main(String[] args) {
         List<Teacher> teachers = new ArrayList<>();
@@ -134,7 +139,13 @@ public class Car {
     private Engine engine;
 
     public Car(Engine engine) {
-        this.engine = engine;
+        setEngine(engine);
+    }
+
+    public void setEngine(Engine engine) {
+        if (engine != null) {
+            this.engine = engine;
+        }
     }
 }
 ```
@@ -193,6 +204,9 @@ public class Library {
 ```
 
 ```java
+import java.util.ArrayList;
+import java.util.List;
+
 public class TestLibrary {
     public static void main(String[] args) {
         List<Book> books = new ArrayList<>();
