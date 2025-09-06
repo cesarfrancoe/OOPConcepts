@@ -38,7 +38,9 @@ public class Passport {
         return number;
     }
 }
+```
 
+```java
 public class Person {
     private String name;
     private Passport passport;
@@ -50,6 +52,17 @@ public class Person {
 
     public Passport getPassport() {
         return passport;
+    }
+}
+```
+
+```java
+public class TestPerson {
+    public static void main(String[] args) {
+        Passport passport = new Passport("A1234567");
+        Person person = new Person("Jane", passport);
+
+        System.out.println("Pasaporte de " + person.getPassport().getNumber());
     }
 }
 ```
