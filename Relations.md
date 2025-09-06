@@ -63,6 +63,13 @@ public class TestPerson {
 }
 ```
 
+**Justificación:**
+
+1. **`Passport` es creado fuera de `Person`**: La clase `Person` recibe un pasaporte ya existente, no lo construye internamente. Esto permite que el pasaporte exista por separado y sea reemplazado o compartido si fuera necesario.
+2. **La relación es flexible**: Podría modelarse una persona sin pasaporte, o con la posibilidad de cambiar de pasaporte más adelante. No hay una dependencia rígida.
+3. **No hay creación ni destrucción forzada**: `Person` no destruye ni controla el ciclo de vida del objeto `Passport`. Esto evidencia que se trata de una relación de asociación y no de composición.
+
+
 ### Ejemplo 2: Asociación uno a muchos
 
 ```java
@@ -109,6 +116,13 @@ public class TestSchool {
     }
 }
 ```
+
+**Justificación:**
+
+1. **Los objetos `Teacher` son creados fuera de `School`**: La clase `School` recibe una lista de docentes previamente creada. Esto significa que los objetos `Teacher` pueden existir sin pertenecer a una escuela específica y podrían asociarse a varias escuelas si se quisiera.
+2. **No hay control del ciclo de vida**: La escuela no es responsable de crear ni destruir los docentes. Si la escuela desaparece, los objetos `Teacher` siguen existiendo, lo que demuestra independencia.
+3. **La relación se basa en una referencia lógica**: `School` mantiene una referencia a los docentes, pero no impone reglas internas ni validaciones estrictas sobre su gestión. Es una relación débil, típica de una asociación.
+
 
 ## 2. Agregación
 
