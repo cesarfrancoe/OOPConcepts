@@ -127,12 +127,25 @@ public class Engine {
         this.model = model;
     }
 }
+```
 
+```java
 public class Car {
     private Engine engine;
 
     public Car(Engine engine) {
         this.engine = engine;
+    }
+}
+```
+
+```java
+public class TestCar {
+    public static void main(String[] args) {
+        Engine engine = new Engine("V8 Turbo");
+        Car car = new Car(engine);
+
+        System.out.println("Motor del auto: " + car.getEngine().getModel());
     }
 }
 ```
@@ -147,7 +160,9 @@ public class Book {
         this.title = title;
     }
 }
+````
 
+```java
 public class Library {
     private List<Book> books;
 
@@ -160,8 +175,6 @@ public class Library {
     }
 }
 ```
-
----
 
 ## 3. Composición
 
@@ -186,7 +199,9 @@ public class Heart {
         this.beatsPerMinute = bpm;
     }
 }
+```
 
+```java
 public class Human {
     private final Heart heart;
 
@@ -206,7 +221,9 @@ public class Page {
         this.pageNumber = number;
     }
 }
+```
 
+```java
 public class Document {
     private List<Page> pages;
 
@@ -219,7 +236,6 @@ public class Document {
 }
 ```
 
----
 
 ## Comparación General
 
@@ -229,7 +245,6 @@ public class Document {
 | Agregación       | No (pero lógica fuerte)  | Parcial   | Biblioteca – Libros |
 | Composición      | Sí                       | Total     | Documento – Páginas |
 
----
 
 ## Comparación: ¿Se implementan igual?
 
