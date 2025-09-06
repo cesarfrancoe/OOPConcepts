@@ -151,20 +151,38 @@ public class Engine {
     public Engine(String model) {
         this.model = model;
     }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String newModel) {
+        model = newModel;
+    }
 }
 ```
 
 ```java
 public class Car {
+    private String plate;
     private Engine engine;
 
-    public Car(Engine engine) {
-        setEngine(engine);
+    public Car(String newPlate) {
+        plate = newPlate;
     }
 
-    public void setEngine(Engine engine) {
-        if (engine != null) {
-            this.engine = engine;
+    public Car(String newPlate, Engine newEngine) {
+        this(newPlate);
+        setEngine(newEngine);
+    }
+
+    public Engine getEngine() {
+        return engine;
+    }
+
+    public void setEngine(Engine newEngine) {
+        if (newEngine != null) {
+            engine = newEngine;
         }
     }
 }
@@ -180,6 +198,13 @@ public class TestCar {
     }
 }
 ```
+
+**Justificación:**
+
+1. **El objeto `Engine` se construye fuera de `Car`**: El motor no es creado internamente por el carro, sino que se recibe como parámetro, permitiendo que exista de forma independiente.
+2. **La clase `Car` valida y asigna el motor mediante un setter**: Esto permite establecer o cambiar el motor dinámicamente, siempre que sea válido.
+3. **Independencia de ciclo de vida**: El motor podría ser compartido por otras clases, sustituido o eliminado sin afectar la existencia del objeto `Car`. Por tanto, se trata de una relación de agregación.
+
 
 ### Ejemplo 2: Agregación uno a muchos
 
