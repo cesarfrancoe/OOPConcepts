@@ -163,11 +163,27 @@ public class Book {
 ````
 
 ```java
+import java.util.ArrayList;
+import java.util.List;
+
 public class Library {
     private List<Book> books;
 
+    public Library() {
+        this.books = new ArrayList<>();
+    }
+
     public Library(List<Book> books) {
-        this.books = books;
+        this();
+        for (Book book : books) {
+            addBook(book);
+        }
+    }
+
+    public void addBook(Book book) {
+        if (book != null && !books.contains(book)) {
+            books.add(book); // validación y control de agregación
+        }
     }
 
     public List<Book> getBooks() {
