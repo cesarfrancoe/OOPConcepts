@@ -33,7 +33,11 @@ public class Passport {
     public String getNumber() {
         return number;
     }
-}
+
+    public void setNumber(String newNumber){
+        number = newNumber;
+    }
+} 
 ```
 
 ```java
@@ -65,9 +69,9 @@ public class TestPerson {
 
 **Justificación:**
 
-1. **`Passport` es creado fuera de `Person`**: La clase `Person` recibe un pasaporte ya existente, no lo construye internamente. Esto permite que el pasaporte exista por separado y sea reemplazado o compartido si fuera necesario.
-2. **La relación es flexible**: Podría modelarse una persona sin pasaporte, o con la posibilidad de cambiar de pasaporte más adelante. No hay una dependencia rígida.
-3. **No hay creación ni destrucción forzada**: `Person` no destruye ni controla el ciclo de vida del objeto `Passport`. Esto evidencia que se trata de una relación de asociación y no de composición.
+1. **`Passport` es creado fuera de `Person`**: La clase `Person` recibe o asigna un pasaporte ya existente, sin crearlo ni destruirlo. Esto permite la independencia entre los objetos.
+2. **Flexibilidad total**: El pasaporte puede cambiarse dinámicamente mediante `setPassport()`, y la persona puede existir incluso sin uno. La relación es claramente opcional.
+3. **Relación débil y no estructural**: `Person` conoce a `Passport`, pero no depende de él para existir. No hay una relación de propiedad ni de composición.
 
 
 ### Ejemplo 2: Asociación uno a muchos
@@ -95,6 +99,8 @@ public class School {
     public List<Teacher> getTeachers() {
         return teachers;
     }
+
+
 }
 ```
 
@@ -119,9 +125,9 @@ public class TestSchool {
 
 **Justificación:**
 
-1. **Los objetos `Teacher` son creados fuera de `School`**: La clase `School` recibe una lista de docentes previamente creada. Esto significa que los objetos `Teacher` pueden existir sin pertenecer a una escuela específica y podrían asociarse a varias escuelas si se quisiera.
-2. **No hay control del ciclo de vida**: La escuela no es responsable de crear ni destruir los docentes. Si la escuela desaparece, los objetos `Teacher` siguen existiendo, lo que demuestra independencia.
-3. **La relación se basa en una referencia lógica**: `School` mantiene una referencia a los docentes, pero no impone reglas internas ni validaciones estrictas sobre su gestión. Es una relación débil, típica de una asociación.
+1. **Los objetos `Teacher` se crean fuera de `School`**: La escuela no es responsable de construir los docentes; simplemente los recibe y almacena. Esto permite que los mismos docentes puedan estar asociados a distintas escuelas si se desea.
+2. **La relación es opcional y dinámica**: La lista de docentes puede establecerse o modificarse en cualquier momento mediante `setTeachers()`. Incluso podría quedar vacía sin afectar la existencia de `School`.
+3. **No hay dependencia estructural**: `School` conoce a los `Teacher`, pero su existencia y funcionamiento no dependen de ellos. Esto confirma que se trata de una relación de asociación y no de agregación o composición.
 
 
 ## 2. Agregación
