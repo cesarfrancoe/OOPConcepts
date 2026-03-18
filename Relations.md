@@ -104,7 +104,7 @@ Person --------> Passport
 Interpretación:
 
 * El `0..1` cerca de `Passport` indica cuántos pasaportes puede tener una persona
-* El valor cerca de `Person` indica a cuántas personas puede estar asociado un pasaporte (por ejemplo: `1`, `0..1`, `0..*`, etc., según el modelo)
+* El `1` cerca de `Person` indica a cuántas personas puede estar asociado un pasaporte (por ejemplo: `1`, `0..1`, `0..*`, etc., según el modelo)
 
 > La cardinalidad siempre se interpreta desde el extremo opuesto de la relación.
 
