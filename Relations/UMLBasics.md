@@ -1,8 +1,7 @@
-# Estructura de una relación en UML
-
-Antes de estudiar los tipos de relaciones entre clases, es necesario entender **cómo se representa una relación en un diagrama de clases UML**.
-
-Una relación entre dos clases se compone de tres elementos fundamentales:
+# Estructura de una relación en un diagrama de clases UML
+En un diagrama de clases UML, las relaciones permiten representar cómo interactúan las clases dentro de un sistema.
+Para definir correctamente una relación, es necesario comprender sus elementos fundamentales y cómo se interpretan.
+Una relación entre dos clases se compone de tres elementos principales:
 
 * Las clases
 * La línea de conexión
