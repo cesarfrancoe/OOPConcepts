@@ -2,7 +2,6 @@
 
 ## Prerrequisito
 
-Antes de continuar, se recomienda revisar:
 [Fundamentos de relaciones en UML](UMLBasics.md)
 
 ## Definición
