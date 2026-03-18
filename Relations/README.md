@@ -6,5 +6,6 @@ Este conjunto de documentos presenta los diferentes tipos de relaciones entre cl
 
 1. [Fundamentos UML](UMLBasics.md)
 2. [Asociación](Association.md)
-3. [Agregación](Aggregation.md)
-4. [Composición](Composition.md)
+3. [Composición](Composition.md)
+4. [Agregación](Aggregation.md)
+
