@@ -153,10 +153,8 @@ Interpretación:
 Una relación en UML se define mediante:
 
 * Dos clases (cajas)
-* Una línea con dirección (flecha)
+* Una línea con dirección (flecha) y el tipo (rombo) si es requerido.
 * Una cardinalidad en cada extremo
-
-Este esquema será la base para entender los diferentes tipos de relaciones entre clases.
 
 ## 2. Asociación
 
