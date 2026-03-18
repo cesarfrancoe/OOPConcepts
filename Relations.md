@@ -42,16 +42,12 @@ Una relación entre dos clases se compone de tres elementos fundamentales:
 * La línea de conexión
 * La cardinalidad (multiplicidad)
 
----
-
 ## Representación básica
 
 ```text
 [ClassA] --------> [ClassB]
       1              0..*
 ```
-
----
 
 ## Clases
 
@@ -62,8 +58,6 @@ Cada caja corresponde a una clase del sistema:
 ```text
 [Person]        [Passport]
 ```
-
----
 
 ## Línea de relación
 
@@ -88,8 +82,6 @@ Adicionalmente, según el tipo de relación, la línea puede incluir un símbolo
 
 El símbolo siempre se ubica en el lado de la clase que representa el **todo** en una relación todo-parte.
 
----
-
 ## Cardinalidad (multiplicidad)
 
 La cardinalidad se ubica en **cada extremo de la línea**, no en el centro.
@@ -108,8 +100,6 @@ Interpretación:
 
 > La cardinalidad siempre se interpreta desde el extremo opuesto de la relación.
 
----
-
 ## Tipos de cardinalidad
 
 La cardinalidad puede expresarse de dos formas:
@@ -125,8 +115,6 @@ Ejemplo:
 
 * `1` → exactamente una instancia
 
----
-
 ### Rango (mínimo..máximo)
 
 Cuando se expresa como un rango:
@@ -140,14 +128,10 @@ Ejemplos:
 * `1..*` → una o muchas instancias
 * `0..*` → cero o muchas instancias
 
----
-
 ## Nota importante
 
 > El símbolo `*` representa “muchos”, es decir, un número no limitado de instancias.
 > En UML es común utilizar `*` como abreviación de `0..*`. Sin embargo, en este documento se utilizará siempre `0..*` para hacer explícito que la relación permite desde cero hasta muchas instancias.
-
----
 
 ## Ejemplo completo
 
