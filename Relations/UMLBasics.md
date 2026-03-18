@@ -42,8 +42,9 @@ Interpretación:
 Adicionalmente, según el tipo de relación, la línea puede incluir un símbolo en uno de sus extremos:
 
 * **Sin símbolo** → [Asociación](Association.md)
-* **Rombo negro (◆)** → [Composición](Composition.md)
 * **Rombo blanco (◇)** → [Agregación](Aggregation.md)
+* **Rombo negro (◆)** → [Composición](Composition.md)
+
 
 El símbolo siempre se ubica en el lado de la clase que representa el **todo** en una relación todo-parte.
 
