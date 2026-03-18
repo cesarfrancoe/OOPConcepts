@@ -1,13 +1,181 @@
 # Programación Orientada a Objetos
-# Relaciones entre Clases (sin herencia)
 
-**Objetivo:** Entender los diferentes tipos de relaciones entre clases en POO: asociación, agregación y composición, sus diferencias conceptuales y cómo implementarlas en Java con relaciones de tipo uno a uno y uno a muchos.
+# Introducción
 
-## Introducción
+En la Programación Orientada a Objetos (POO), las clases no se utilizan de forma aislada. En la práctica, los sistemas están compuestos por múltiples clases que **interactúan y se relacionan entre sí** para representar entidades y comportamientos del mundo real.
 
-En la Programación Orientada a Objetos, las clases no solo definen objetos individuales, también se relacionan entre sí para formar sistemas más complejos. Estas relaciones permiten modelar el comportamiento y las estructuras del mundo real.
+Estas relaciones no solo permiten organizar el código, sino que constituyen una parte fundamental del **diseño del sistema**, ya que determinan:
 
-## 1. Asociación
+* El nivel de acoplamiento entre clases
+* La responsabilidad de cada objeto
+* La gestión del ciclo de vida de los objetos
+* La flexibilidad y mantenibilidad del sistema
+
+Desde el punto de vista del modelado, estas relaciones se representan mediante el **diagrama de clases UML (UML Class Diagram)**, donde se definen aspectos como:
+
+* Tipo de relación (asociación, agregación, composición)
+* Cardinalidad (cuántos objetos participan en la relación)
+* Direccionalidad (qué clase conoce a la otra)
+
+En este documento se estudiarán tres tipos fundamentales de relaciones entre clases:
+
+* **Asociación**: relación débil basada en conocimiento o uso
+* **Agregación**: relación todo-parte con independencia de ciclo de vida
+* **Composición**: relación todo-parte con dependencia total
+
+Además, se analizarán conceptos complementarios necesarios para un modelado correcto:
+
+* Cardinalidad
+* Direccionalidad
+* Representación en UML (diagrama de clases)
+* Relaciones de tipo uno a uno, uno a muchos y muchos a muchos
+
+El objetivo no es únicamente implementar estas relaciones en Java, sino **comprender cuándo utilizar cada una** en función del problema que se desea modelar.
+
+# 1. Estructura de una relación en UML
+
+Antes de estudiar los tipos de relaciones entre clases, es necesario entender **cómo se representa una relación en un diagrama de clases UML**.
+
+Una relación entre dos clases se compone de tres elementos fundamentales:
+
+* Las clases
+* La línea de conexión
+* La cardinalidad (multiplicidad)
+
+---
+
+## Representación básica
+
+```text
+[ClassA] --------> [ClassB]
+      1              0..*
+```
+
+---
+
+## Clases
+
+Las clases se representan como **rectángulos (cajas)**.
+
+Cada caja corresponde a una clase del sistema:
+
+```text
+[Person]        [Passport]
+```
+
+---
+
+## Línea de relación
+
+Las clases se conectan mediante una **línea**, que representa la existencia de una relación.
+
+En este documento, siempre se utilizará una **línea con flecha** para indicar direccionalidad:
+
+```text
+Person --------> Passport
+```
+
+Interpretación:
+
+* `Person` conoce a `Passport`
+* `Person` tiene una referencia hacia `Passport`
+
+Adicionalmente, según el tipo de relación, la línea puede incluir un símbolo en uno de sus extremos:
+
+* **Sin símbolo** → Asociación
+* **Rombo blanco (◇)** → Agregación
+* **Rombo negro (◆)** → Composición
+
+El símbolo siempre se ubica en el lado de la clase que representa el **todo** en una relación todo-parte.
+
+---
+
+## Cardinalidad (multiplicidad)
+
+La cardinalidad se ubica en **cada extremo de la línea**, no en el centro.
+
+Indica cuántas instancias de una clase pueden relacionarse con instancias de la clase del otro extremo.
+
+```text
+Person --------> Passport
+   1               0..1
+```
+
+Interpretación:
+
+* El `0..1` cerca de `Passport` indica cuántos pasaportes puede tener una persona
+* El valor cerca de `Person` indica a cuántas personas puede estar asociado un pasaporte (por ejemplo: `1`, `0..1`, `0..*`, etc., según el modelo)
+
+> La cardinalidad siempre se interpreta desde el extremo opuesto de la relación.
+
+---
+
+## Tipos de cardinalidad
+
+La cardinalidad puede expresarse de dos formas:
+
+### Valor único
+
+Cuando se muestra un solo número (por ejemplo, `1`):
+
+* Indica una **cantidad exacta**
+* No hay variación posible
+
+Ejemplo:
+
+* `1` → exactamente una instancia
+
+---
+
+### Rango (mínimo..máximo)
+
+Cuando se expresa como un rango:
+
+* El primer valor indica el **mínimo**
+* El segundo valor indica el **máximo**
+
+Ejemplos:
+
+* `0..1` → cero o una instancia (opcional)
+* `1..*` → una o muchas instancias
+* `0..*` → cero o muchas instancias
+
+---
+
+## Nota importante
+
+> El símbolo `*` representa “muchos”, es decir, un número no limitado de instancias.
+
+> En UML es común utilizar `*` como abreviación de `0..*`. Sin embargo, en este documento se utilizará siempre `0..*` para hacer explícito que la relación permite desde cero hasta muchas instancias.
+
+---
+
+## Ejemplo completo
+
+```text
+[School] --------> [Teacher]
+     1                0..*
+```
+
+Interpretación:
+
+* Una escuela puede tener muchos docentes
+* Un docente está asociado a una escuela (según este modelo)
+* Solo `School` conoce a `Teacher`
+
+---
+
+## Conclusión
+
+Una relación en UML se define mediante:
+
+* Dos clases (cajas)
+* Una línea con dirección (flecha)
+* Una cardinalidad en cada extremo
+
+Este esquema será la base para entender los diferentes tipos de relaciones entre clases.
+
+## 2. Asociación
 
 ### Definición
 
