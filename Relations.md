@@ -145,7 +145,6 @@ Ejemplos:
 ## Nota importante
 
 > El símbolo `*` representa “muchos”, es decir, un número no limitado de instancias.
-
 > En UML es común utilizar `*` como abreviación de `0..*`. Sin embargo, en este documento se utilizará siempre `0..*` para hacer explícito que la relación permite desde cero hasta muchas instancias.
 
 ---
