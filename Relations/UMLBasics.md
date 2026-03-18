@@ -4,7 +4,7 @@ Para definir correctamente una relación, es necesario comprender sus elementos 
 Una relación entre dos clases se compone de tres elementos principales:
 
 * Las clases
-* La línea de conexión y el tipo (rombo) si es requerido.
+* La línea de conexión y, si aplica, el símbolo que indica el tipo de relación
 * La cardinalidad (multiplicidad)
 
 ## Representación básica
