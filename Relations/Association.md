@@ -20,7 +20,11 @@ En UML, se representa mediante **una línea con dirección (flecha) y sin símbo
 * Puede ser 1:1, 1:N o N:N
 * Bajo acoplamiento
 
+---
+
 ## Asociación uno a uno (1:1)
+
+---
 
 ### Representación UML (unidireccional)
 
@@ -61,8 +65,6 @@ public class Person {
 }
 ```
 
----
-
 ### Test (unidireccional)
 
 ```java
@@ -75,6 +77,8 @@ public class TestPerson {
     }
 }
 ```
+
+---
 
 ### Representación UML (bidireccional)
 
@@ -145,6 +149,8 @@ public class TestPersonBidirectional {
     }
 }
 ```
+
+---
 
 ## Asociación uno a muchos (1:N)
 
@@ -298,6 +304,8 @@ public class TestSchoolBidirectional {
     }
 }
 ```
+
+---
 
 ## Asociación muchos a muchos (N:N)
 
