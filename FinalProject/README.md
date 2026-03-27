@@ -69,7 +69,7 @@ Diseñar e implementar una aplicación orientada a objetos en Java que simule un
 13. El código debe compilar y ejecutarse correctamente desde Visual Studio Code (VS Code) o desde la consola.
 14. No se permite el uso de bases de datos, frameworks ni librerías externas.
 15. Todo el código debe incluir comentarios en inglés que expliquen el propósito de las clases y métodos.
-
+16. El sistema debe incluir un componente básico de IA orientado a una de las siguientes tareas: recomendación, clasificación o predicción, implementado sin librerías externas. Este componente deberá integrarse con los datos del sistema y exponerse desde la interfaz de usuario.
 ---
 
 ## Criterios de evaluación (100%)
