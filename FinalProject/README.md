@@ -2,27 +2,32 @@
 
 ## Objetivo general
 
-Diseñar e implementar una aplicación orientada a objetos en Java que simule un sistema del mundo real, aplicando correctamente los principios de abstracción, encapsulamiento, herencia y polimorfismo, junto con el manejo de colecciones y persistencia de objetos mediante archivos serializados.
+Diseñar e implementar una aplicación orientada a objetos en Java que simule un sistema del mundo real desde la perspectiva de una aplicación de gestión interna, orientada al uso por parte de un empleado, operador o administrador, aplicando correctamente los principios de abstracción, encapsulamiento, herencia y polimorfismo, junto con el manejo de colecciones y persistencia de objetos mediante archivos serializados.
 
 ---
 
-## Requisitos generales
+## Requisitos generales 
 
 1. El proyecto debe desarrollarse en Java 17 o Java 21 (solo versiones LTS).
+
 2. Trabajo en parejas (máximo 2 estudiantes).
+
 3. El código fuente debe escribirse completamente en inglés, incluyendo nombres de variables, métodos, clases y comentarios.
+
 4. Se deben aplicar las convenciones oficiales de estilo de Java:
 
    * UpperCamelCase para nombres de clases (por ejemplo, `StudentRecord`, `ParkingSystem`).
    * camelCase para nombres de variables y métodos (por ejemplo, `studentName`, `calculateTotal`).
    * UPPER_SNAKE_CASE para constantes (por ejemplo, `MAX_SIZE`, `DEFAULT_PATH`).
+
 5. La estructura mínima de paquetes será:
 
    ```
    ui/       → interfaz de usuario (consola o Swing)
    domain/   → clases del modelo (entidades, lógica de negocio)
-   data/     → clases para lectura/escritura de archivos serializados y archivos .csv
+   data/     → clases para persistencia e intercambio de datos
    ```
+
 6. Si la interfaz de usuario es por consola, debe incluir una clase auxiliar llamada `Console` con los métodos:
 
    ```java
@@ -31,13 +36,26 @@ Diseñar e implementar una aplicación orientada a objetos en Java que simule un
    ```
 
    Si la interfaz se desarrolla con Swing, esta clase no es necesaria.
-7. El almacenamiento de datos debe realizarse en archivos serializados, utilizando `ObjectOutputStream` y `ObjectInputStream`.
+
+7. Persistencia de datos (obligatoria):
+   El sistema debe guardar y cargar la información utilizando archivos serializados mediante `ObjectOutputStream` y `ObjectInputStream`.
+   Este mecanismo corresponde a la persistencia principal del sistema y debe permitir conservar el estado completo de la aplicación entre ejecuciones.
+
 8. El proyecto debe manejar los objetos en memoria usando únicamente una de las siguientes colecciones:
 
    * `ArrayList<T>`
    * `LinkedList<T>`
+
 9. Se deben implementar funciones de registro, búsqueda, listado, modificación y eliminación de objetos.
-10. El sistema debe permitir, de forma opcional, importar datos desde tablas en archivos `.csv`.
+
+10. Importación y exportación de datos (opcional):
+    El sistema podrá incluir funcionalidades para:
+
+    * importar datos desde archivos `.csv`,
+    * exportar datos del sistema a archivos `.csv`.
+
+    Estas funcionalidades son independientes del mecanismo de persistencia y se utilizarán para carga inicial de datos o generación de reportes.
+
 11. La interfaz de usuario puede implementarse de una de las siguientes maneras:
     a) mediante un menú de texto en consola (requisito mínimo obligatorio), o
     b) mediante una interfaz gráfica desarrollada con Java Swing, la cual puede reemplazar completamente la interfaz en consola, siempre que:
@@ -45,7 +63,12 @@ Diseñar e implementar una aplicación orientada a objetos en Java que simule un
     * mantenga la arquitectura por capas (`ui`, `domain`, `data`),
     * implemente todas las funcionalidades requeridas, y
     * permita guardar y cargar datos correctamente.
-12. El proyecto debe subirse a un repositorio en GitHub cumpliendo las siguientes condiciones:
+
+12. Enfoque del sistema:
+    El proyecto debe desarrollarse como una aplicación de uso interno, orientada al personal del sistema (empleado, operador o administrador).
+    No debe plantearse como una aplicación para el cliente final ni como un sistema de autoservicio.
+
+13. El proyecto debe subirse a un repositorio en GitHub cumpliendo las siguientes condiciones:
 
     * El repositorio debe ser público.
     * Nombre del repositorio:
@@ -60,17 +83,37 @@ Diseñar e implementar una aplicación orientada a objetos en Java que simule un
 
         * Título del proyecto.
         * Integrantes (nombres y códigos).
-        * Descripción general del sistema (objetivo, alcance y breve explicación del funcionamiento).
-        * Instrucciones para ejecutar el programa.
+        * Descripción general del sistema.
+        * Instrucciones para ejecutar.
         * Ejemplo de entrada/salida.
-        * Enlace al diagrama de clases del modelo de datos (`ModelDiagram.gif`) ubicado en la raíz del repositorio.
+        * Enlace al diagrama de clases (`ModelDiagram.gif`).
       * Archivo `ModelDiagram.gif` en la raíz del repositorio.
       * Al menos 5 commits significativos distribuidos entre los dos miembros.
-13. El código debe compilar y ejecutarse correctamente desde Visual Studio Code (VS Code) o desde la consola.
-14. No se permite el uso de bases de datos, frameworks ni librerías externas.
-15. Todo el código debe incluir comentarios en inglés que expliquen el propósito de las clases y métodos.
-16. El sistema debe incluir un componente básico de IA orientado a una de las siguientes tareas: recomendación, clasificación o predicción, implementado sin librerías externas. Este componente deberá integrarse con los datos del sistema y exponerse desde la interfaz de usuario.
----
+
+14. El código debe compilar y ejecutarse correctamente desde Visual Studio Code (VS Code) o desde la consola.
+
+15. No se permite el uso de bases de datos, frameworks ni librerías externas.
+
+16. Todo el código debe incluir comentarios en inglés que expliquen el propósito de las clases y métodos.
+
+17. El sistema debe incluir un componente básico de IA orientado a una de las siguientes tareas: recomendación, clasificación o predicción, implementado sin librerías externas. Este componente debe integrarse con los datos del sistema y exponerse desde la interfaz de usuario.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## Criterios de evaluación (100%)
 
