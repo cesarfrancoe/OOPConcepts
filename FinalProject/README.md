@@ -98,37 +98,22 @@ Diseñar e implementar una aplicación orientada a objetos en Java que simule un
 
 17. El sistema debe incluir un componente básico de IA orientado a una de las siguientes tareas: recomendación, clasificación o predicción, implementado sin librerías externas. Este componente debe integrarse con los datos del sistema y exponerse desde la interfaz de usuario.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+---
 
 ## Criterios de evaluación (100%)
 
-| Criterio                                                                                                                                                                                                                                                          | Peso |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---- |
-| Diseño orientado a objetos (herencia, composición, polimorfismo)                                                                                                                                                                                                  | 20%  |
-| Organización del código y estructura por paquetes                                                                                                                                                                                                                 | 10%  |
-| Convenciones de escritura y documentación en inglés                                                                                                                                                                                                               | 10%  |
-| Uso correcto de ArrayList o LinkedList                                                                                                                                                                                                                            | 10%  |
-| Persistencia mediante archivos serializados                                                                                                                                                                                                                       | 15%  |
-| Interfaz de usuario (consola o Swing): usabilidad, flujo, validaciones, manejo de errores                                                                                                                                                                         | 10%  |
-| Uso de GitHub (commits, README, diagrama de clases)                                                                                                                                                                                                               | 10%  |
-| Extensiones opcionales no relacionadas con UI (por ejemplo: importación desde .csv, búsquedas/filtrados avanzados, reportes, `Comparable`/`Comparator`, excepciones personalizadas, pruebas unitarias, logging, empaquetado ejecutable, archivo de configuración) | 15%  |
+| Criterio                                                                                                                                                                                        | Peso |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---- |
+| Diseño orientado a objetos (herencia, composición, polimorfismo)                                                                                                                                | 20%  |
+| Organización del código y estructura por paquetes                                                                                                                                               | 10%  |
+| Convenciones de escritura y documentación en inglés                                                                                                                                             | 10%  |
+| Uso correcto de ArrayList o LinkedList                                                                                                                                                          | 10%  |
+| Persistencia mediante archivos serializados                                                                                                                                                     | 15%  |
+| Interfaz de usuario (consola o Swing): usabilidad, flujo, validaciones, manejo de errores                                                                                                       | 10%  |
+| Uso de GitHub (commits, README, diagrama de clases)                                                                                                                                             | 10%  |
+| Extensiones opcionales (por ejemplo: importación/exportación `.csv`, componente básico de IA, búsquedas o filtrados avanzados, reportes, `Comparable`/`Comparator`, excepciones personalizadas) | 15%  |
 
-Nota: implementar Swing no otorga puntos adicionales en el criterio 8; la UI (ya sea consola o Swing) se evalúa exclusivamente en el criterio 6.
+Nota: la interfaz de usuario se evalúa únicamente en el criterio correspondiente. La implementación con Swing no otorga puntaje adicional por sí misma.
 
 ---
 
@@ -136,53 +121,104 @@ Nota: implementar Swing no otorga puntos adicionales en el criterio 8; la UI (ya
 
 Cada pareja deberá seleccionar una de las siguientes opciones (previa aprobación del docente).
 
+---
+
 ### 1. Smart Parking System
 
-Simula un sistema para administrar un parqueadero inteligente, controlando vehículos, plazas disponibles y tarifas por tipo de vehículo.
+Sistema utilizado por el personal de un parqueadero para registrar la entrada y salida de vehículos, controlar la ocupación y calcular el valor a pagar.
+
 Clases sugeridas: `Vehicle`, `Car`, `Motorcycle`, `ParkingSpot`, `Ticket`, `ParkingLot`.
-Funciones clave: entrada y salida de vehículos, cálculo de tarifa, búsqueda de cupos y listado de ocupación.
+
+Funciones clave: registro de ingreso y salida, cálculo de tarifas, consulta de disponibilidad y control de ocupación.
+
+---
 
 ### 2. Hotel Management System
 
-Administra habitaciones, huéspedes y reservas.
+Sistema utilizado por el personal de recepción o administración para gestionar habitaciones, huéspedes y reservas.
+
 Clases sugeridas: `Room`, `Guest`, `Reservation`, `Hotel`.
-Funciones clave: registro de habitaciones y clientes, reservas, cancelaciones y listado de disponibilidad.
+
+Funciones clave: registro de habitaciones, gestión de reservas, cancelaciones y consulta de disponibilidad.
+
+---
 
 ### 3. Video Game Store
 
-Registra videojuegos, clientes y ventas.
+Sistema utilizado por empleados de una tienda para gestionar el inventario de videojuegos y registrar ventas.
+
 Clases sugeridas: `VideoGame`, `Customer`, `Sale`, `Store`.
-Funciones clave: registro de juegos, búsqueda por género o título, registro de ventas y reporte de ingresos.
+
+Funciones clave: registro de productos, búsqueda por categoría, registro de ventas y cálculo de ingresos.
+
+---
 
 ### 4. Veterinary Clinic System
 
-Gestiona mascotas, dueños y citas médicas.
+Sistema utilizado por el personal de una clínica veterinaria para gestionar mascotas, dueños y citas.
+
 Clases sugeridas: `Pet`, `Owner`, `Appointment`, `VeterinaryClinic`.
-Funciones clave: registro de dueños y mascotas, agendamiento de citas y consulta de historial médico.
+
+Funciones clave: registro de mascotas, agendamiento de citas, consulta de historial.
+
+---
 
 ### 5. Movie Rental System
 
-Administra una tienda de alquiler de películas.
+Sistema utilizado por empleados para gestionar el alquiler y devolución de películas.
+
 Clases sugeridas: `Movie`, `Customer`, `Rental`, `Store`.
-Funciones clave: registro de películas, alquiler y devolución, cálculo de tarifas y listado de películas disponibles.
+
+Funciones clave: registro de películas, alquiler, devolución y control de disponibilidad.
+
+---
 
 ### 6. Event Ticketing System
 
-Gestiona la venta de entradas para conciertos o eventos.
+Sistema utilizado por el personal organizador para gestionar eventos y la venta de entradas.
+
 Clases sugeridas: `Event`, `Customer`, `Ticket`, `Venue`, `TicketOffice`.
-Funciones clave: registro de eventos, venta de boletos, control de aforo y generación de reportes.
+
+Funciones clave: registro de eventos, control de aforo, venta de entradas y generación de reportes.
+
+---
 
 ### 7. Restaurant Order Management
 
-Simula el sistema de pedidos de un restaurante.
+Sistema utilizado por el personal de un restaurante para registrar pedidos, calcular cuentas y gestionar mesas.
+
 Clases sugeridas: `MenuItem`, `Order`, `Customer`, `Table`, `Restaurant`.
-Funciones clave: creación de pedidos, cálculo de total, listado de órdenes activas y cierre de cuenta.
+
+Funciones clave: creación de pedidos, cálculo de total, control de órdenes y cierre de cuentas.
+
+---
 
 ### 8. Delivery Service System
 
-Administra pedidos y entregas de un servicio de domicilios.
+Sistema utilizado por el personal de un servicio de domicilios para registrar pedidos y asignar repartidores.
+
 Clases sugeridas: `Customer`, `DeliveryPerson`, `Order`, `Product`, `DeliveryService`.
-Funciones clave: registro de clientes y repartidores, asignación de entregas, seguimiento de estado y cálculo de costos.
+
+Funciones clave: registro de pedidos, asignación de entregas, seguimiento de estado y cálculo de costos.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ---
 
