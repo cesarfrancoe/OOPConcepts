@@ -2,7 +2,7 @@
 
 ## Objetivo general
 
-Diseñar e implementar una aplicación orientada a objetos en Java que simule un sistema del mundo real desde la perspectiva de una aplicación de gestión interna, orientada al uso por parte de un empleado, operador o administrador, aplicando correctamente los principios de abstracción, encapsulamiento, herencia y polimorfismo, junto con el manejo de colecciones y persistencia de objetos mediante archivos serializados.
+Diseñar e implementar una aplicación orientada a objetos en Java que modele un sistema de gestión del mundo real desde la perspectiva de una aplicación de uso interno, orientada al trabajo de un empleado, operador o administrador, aplicando correctamente los principios de abstracción, encapsulamiento, herencia y polimorfismo, junto con el manejo de colecciones y persistencia de objetos mediante archivos serializados.
 
 ---
 
@@ -121,15 +121,28 @@ Nota: la interfaz de usuario se evalúa únicamente en el criterio correspondien
 
 Cada pareja deberá seleccionar una de las siguientes opciones (previa aprobación del docente).
 
+Todos los proyectos deben enfocarse en procesos administrativos u operativos internos y no en aplicaciones orientadas al cliente final.
+
+Además, cada proyecto debe incluir como mínimo 6 clases pertenecientes a la capa `domain`, relacionadas con el modelo y la lógica de negocio del sistema. Estas clases deben participar activamente en el funcionamiento de la aplicación y mantener relaciones coherentes entre sí.
+
+No se tendrán en cuenta clases utilitarias, clases de interfaz (`ui`), clases de persistencia (`data`) ni excepciones personalizadas para cumplir este requisito mínimo.
+
 ---
 
 ### 1. Smart Parking System
 
 Sistema utilizado por el personal de un parqueadero para registrar la entrada y salida de vehículos, controlar la ocupación y calcular el valor a pagar.
 
-Clases sugeridas: `Vehicle`, `Car`, `Motorcycle`, `ParkingSpot`, `Ticket`, `ParkingLot`.
+Clases sugeridas:
+`Vehicle`, `Car`, `Motorcycle`, `ParkingSpot`, `Ticket`, `ParkingLot`.
 
-Funciones clave: registro de ingreso y salida, cálculo de tarifas, consulta de disponibilidad y control de ocupación.
+Funciones clave:
+
+* Registro de ingreso y salida de vehículos.
+* Cálculo automático de tarifas.
+* Consulta de cupos disponibles.
+* Control de ocupación del parqueadero.
+* Generación de reportes básicos.
 
 ---
 
@@ -137,9 +150,17 @@ Funciones clave: registro de ingreso y salida, cálculo de tarifas, consulta de 
 
 Sistema utilizado por el personal de recepción o administración para gestionar habitaciones, huéspedes y reservas.
 
-Clases sugeridas: `Room`, `Guest`, `Reservation`, `Hotel`.
+Clases sugeridas:
+`Room`, `Guest`, `Reservation`, `Employee`, `Payment`, `Hotel`.
 
-Funciones clave: registro de habitaciones, gestión de reservas, cancelaciones y consulta de disponibilidad.
+Funciones clave:
+
+* Registro de huéspedes y habitaciones.
+* Gestión de reservas.
+* Registro de pagos.
+* Consulta de disponibilidad.
+* Control de ocupación.
+* Generación de reportes básicos.
 
 ---
 
@@ -147,9 +168,17 @@ Funciones clave: registro de habitaciones, gestión de reservas, cancelaciones y
 
 Sistema utilizado por empleados de una tienda para gestionar el inventario de videojuegos y registrar ventas.
 
-Clases sugeridas: `VideoGame`, `Customer`, `Sale`, `Store`.
+Clases sugeridas:
+`VideoGame`, `Category`, `Customer`, `Sale`, `Employee`, `Store`.
 
-Funciones clave: registro de productos, búsqueda por categoría, registro de ventas y cálculo de ingresos.
+Funciones clave:
+
+* Registro de videojuegos.
+* Clasificación por categorías.
+* Registro de ventas.
+* Consulta de inventario.
+* Cálculo de ingresos.
+* Generación de reportes básicos.
 
 ---
 
@@ -157,9 +186,17 @@ Funciones clave: registro de productos, búsqueda por categoría, registro de ve
 
 Sistema utilizado por el personal de una clínica veterinaria para gestionar mascotas, dueños y citas.
 
-Clases sugeridas: `Pet`, `Owner`, `Appointment`, `VeterinaryClinic`.
+Clases sugeridas:
+`Pet`, `Owner`, `Appointment`, `Veterinarian`, `Treatment`, `VeterinaryClinic`.
 
-Funciones clave: registro de mascotas, agendamiento de citas, consulta de historial.
+Funciones clave:
+
+* Registro de mascotas y propietarios.
+* Agendamiento de citas.
+* Registro de tratamientos.
+* Consulta de historial médico.
+* Gestión de veterinarios.
+* Generación de reportes básicos.
 
 ---
 
@@ -167,9 +204,17 @@ Funciones clave: registro de mascotas, agendamiento de citas, consulta de histor
 
 Sistema utilizado por empleados para gestionar el alquiler y devolución de películas.
 
-Clases sugeridas: `Movie`, `Customer`, `Rental`, `Store`.
+Clases sugeridas:
+`Movie`, `Category`, `Customer`, `Rental`, `Employee`, `Store`.
 
-Funciones clave: registro de películas, alquiler, devolución y control de disponibilidad.
+Funciones clave:
+
+* Registro de películas.
+* Gestión de alquileres y devoluciones.
+* Consulta de disponibilidad.
+* Clasificación por categorías.
+* Cálculo de tarifas.
+* Generación de reportes básicos.
 
 ---
 
@@ -177,9 +222,17 @@ Funciones clave: registro de películas, alquiler, devolución y control de disp
 
 Sistema utilizado por el personal organizador para gestionar eventos y la venta de entradas.
 
-Clases sugeridas: `Event`, `Customer`, `Ticket`, `Venue`, `TicketOffice`.
+Clases sugeridas:
+`Event`, `Customer`, `Ticket`, `Venue`, `Employee`, `TicketOffice`.
 
-Funciones clave: registro de eventos, control de aforo, venta de entradas y generación de reportes.
+Funciones clave:
+
+* Registro de eventos.
+* Venta de entradas.
+* Control de aforo.
+* Gestión de escenarios o sedes.
+* Consulta de disponibilidad.
+* Generación de reportes básicos.
 
 ---
 
@@ -187,9 +240,17 @@ Funciones clave: registro de eventos, control de aforo, venta de entradas y gene
 
 Sistema utilizado por el personal de un restaurante para registrar pedidos, calcular cuentas y gestionar mesas.
 
-Clases sugeridas: `MenuItem`, `Order`, `Customer`, `Table`, `Restaurant`.
+Clases sugeridas:
+`MenuItem`, `Order`, `Customer`, `Table`, `Employee`, `Restaurant`.
 
-Funciones clave: creación de pedidos, cálculo de total, control de órdenes y cierre de cuentas.
+Funciones clave:
+
+* Registro de pedidos.
+* Gestión de mesas.
+* Cálculo de cuentas.
+* Consulta de órdenes activas.
+* Administración del menú.
+* Generación de reportes básicos.
 
 ---
 
@@ -197,16 +258,53 @@ Funciones clave: creación de pedidos, cálculo de total, control de órdenes y 
 
 Sistema utilizado por el personal de un servicio de domicilios para registrar pedidos y asignar repartidores.
 
-Clases sugeridas: `Customer`, `DeliveryPerson`, `Order`, `Product`, `DeliveryService`.
+Clases sugeridas:
+`Customer`, `DeliveryPerson`, `Order`, `Product`, `Vehicle`, `DeliveryService`.
 
-Funciones clave: registro de pedidos, asignación de entregas, seguimiento de estado y cálculo de costos.
+Funciones clave:
 
+* Registro de pedidos.
+* Gestión de repartidores.
+* Asignación de entregas.
+* Seguimiento de estados.
+* Cálculo de costos.
+* Generación de reportes básicos.
 
+---
 
+### 9. Gym Membership Management System
 
+Sistema utilizado por el personal de un gimnasio para gestionar miembros, planes, pagos y control de acceso.
 
+Clases sugeridas:
+`Member`, `MembershipPlan`, `Payment`, `Trainer`, `AccessRecord`, `Gym`.
 
+Funciones clave:
 
+* Registro de miembros.
+* Gestión de planes de membresía.
+* Registro de pagos.
+* Control de acceso al gimnasio.
+* Asignación de entrenadores.
+* Generación de reportes básicos.
+
+---
+
+### 10. Pharmacy Inventory System
+
+Sistema utilizado por el personal de una farmacia para gestionar medicamentos, proveedores y ventas.
+
+Clases sugeridas:
+`Medicine`, `Category`, `Supplier`, `Sale`, `Employee`, `Pharmacy`.
+
+Funciones clave:
+
+* Registro de medicamentos.
+* Control de inventario.
+* Gestión de proveedores.
+* Registro de ventas.
+* Consulta de disponibilidad.
+* Generación de reportes básicos.
 
 
 
