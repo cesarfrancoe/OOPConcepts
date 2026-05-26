@@ -28,7 +28,7 @@ Diseñar e implementar una aplicación orientada a objetos en Java que modele un
    data/     → clases para persistencia e intercambio de datos
    ```
 
-6. Si la interfaz de usuario es por consola, debe incluir una clase auxiliar llamada `Console` con los métodos:
+6. Si la interfaz de usuario es por consola, debe incluir una clase auxiliar llamada `Console` con almenos los métodos:
 
    ```java
    public static void writeLine(Object message)
