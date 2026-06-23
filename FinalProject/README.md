@@ -96,7 +96,7 @@ Diseñar e implementar una aplicación orientada a objetos en Java que modele un
 
 16. Todo el código debe incluir comentarios en inglés que expliquen el propósito de las clases y métodos.
 
-17. El sistema debe incluir un componente básico de IA orientado a una de las siguientes tareas: recomendación, clasificación o predicción, implementado sin librerías externas. Este componente debe integrarse con los datos del sistema y exponerse desde la interfaz de usuario.
+17. El sistema debe incluir un componente básico orientado a una de las siguientes tareas: recomendación, clasificación o predicción, implementado sin librerías externas. Este componente debe integrarse con los datos del sistema y exponerse desde la interfaz de usuario.
 
 ---
 
