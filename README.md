@@ -245,15 +245,17 @@ public class TestUser {
     public static void main(String[] args) {
         User user = new User();
 
-        boolean result1 = user.setEmail("jane.doe@mail.com");
+        if (user.setEmail("jane.doe@mail.com")) {
+            System.out.println("Email actualizado: " + user.getEmail());
+        } else {
+            System.out.println("No fue posible actualizar el email.");
+        }
 
-        System.out.println(result1);
-        System.out.println(user.getEmail());
-
-        boolean result2 = user.setEmail("invalid-email");
-
-        System.out.println(result2);
-        System.out.println(user.getEmail());
+        if (user.setEmail("invalid-email")) {
+            System.out.println("Email actualizado: " + user.getEmail());
+        } else {
+            System.out.println("No fue posible actualizar el email.");
+        }
     }
 }
 ```
@@ -261,10 +263,8 @@ public class TestUser {
 Salida:
 
 ```text
-true
-jane.doe@mail.com
-false
-jane.doe@mail.com
+Email actualizado: jane.doe@mail.com
+No fue posible actualizar el email.
 ```
 
 Observa un aspecto fundamental: después de intentar asignar `"invalid-email"`, el atributo conserva `"jane.doe@mail.com"`.
@@ -329,17 +329,35 @@ public class TestUser {
     public static void main(String[] args) {
         User user = new User();
 
-        int result1 = user.setEmail("jane.doe@mail.com");
-        System.out.println(result1);
-        System.out.println(user.getEmail());
+        int result = user.setEmail("jane.doe@mail.com");
 
-        int result2 = user.setEmail("JANE.DOE@MAIL.COM");
-        System.out.println(result2);
-        System.out.println(user.getEmail());
+        if (result == 0) {
+            System.out.println("Email actualizado: " + user.getEmail());
+        } else if (result > 0) {
+            System.out.println("Email actualizado con advertencias: " + user.getEmail());
+        } else {
+            System.out.println("Error al actualizar el email.");
+        }
 
-        int result3 = user.setEmail("invalid-email");
-        System.out.println(result3);
-        System.out.println(user.getEmail());
+        result = user.setEmail("JANE.DOE@MAIL.COM");
+
+        if (result == 0) {
+            System.out.println("Email actualizado: " + user.getEmail());
+        } else if (result > 0) {
+            System.out.println("Email actualizado con advertencias: " + user.getEmail());
+        } else {
+            System.out.println("Error al actualizar el email.");
+        }
+
+        result = user.setEmail("invalid-email");
+
+        if (result == 0) {
+            System.out.println("Email actualizado: " + user.getEmail());
+        } else if (result > 0) {
+            System.out.println("Email actualizado con advertencias: " + user.getEmail());
+        } else {
+            System.out.println("Error al actualizar el email.");
+        }
     }
 }
 ```
@@ -347,12 +365,9 @@ public class TestUser {
 Salida:
 
 ```text
-0
-jane.doe@mail.com
-1
-jane.doe@mail.com
--2
-jane.doe@mail.com
+Email actualizado: jane.doe@mail.com
+Email actualizado con advertencias: jane.doe@mail.com
+Error al actualizar el email.
 ```
 
 En este caso:
@@ -422,11 +437,27 @@ public class TestUser {
     public static void main(String[] args) {
         User user = new User();
 
-        user.setName("Jane Doe")
-            .setEmail("jane.doe@mail.com");
+        try {
+            user.setName("Jane Doe")
+                .setEmail("jane.doe@mail.com");
 
-        System.out.println(user.getName());
-        System.out.println(user.getEmail());
+            System.out.println(user.getName());
+            System.out.println(user.getEmail());
+
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+
+        try {
+            user.setName("Jane Doe")
+                .setEmail("invalid-email");
+
+            System.out.println(user.getName());
+            System.out.println(user.getEmail());
+
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
     }
 }
 ```
@@ -436,6 +467,7 @@ Salida:
 ```text
 Jane Doe
 jane.doe@mail.com
+Error: Invalid email
 ```
 
 En un setter fluido, retornar `this` permite utilizar el objeto inmediatamente para realizar otra operación.
