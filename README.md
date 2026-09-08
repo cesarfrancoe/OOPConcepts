@@ -6,8 +6,6 @@ La Programación Orientada a Objetos (POO) es un paradigma que modela el softwar
 * **Comportamiento:** definido por sus métodos.
 * **Identidad:** cada objeto es único en la memoria.
 
----
-
 ## Conceptos Clave
 
 ### Clase
@@ -17,8 +15,6 @@ Una **clase** es una plantilla o molde que define las características (atributo
 ### Objeto
 
 Un **objeto** es una instancia de una clase. Tiene valores específicos para sus atributos y puede ejecutar métodos.
-
----
 
 ## Atributos y Métodos
 
@@ -30,6 +26,9 @@ Un **objeto** es una instancia de una clase. Tiene valores específicos para sus
 | **Método de clase**       | Pertenece a la clase, se declara `static`, no accede a atributos individuales. |
 
 ## Ejemplo 
+
+**Archivo: `Car.java`**
+
 ```java
 public class Car {
     String brand;
@@ -37,15 +36,15 @@ public class Car {
 
     void accelerate() {
         speed += 10;
-        System.out.println(brand + " aceleró a " + speed + " km/h");
     }
 
     void brake() {
         speed -= 10;
-        System.out.println(brand + " frenó a " + speed + " km/h");
     }
 }
 ```
+
+**Archivo: `TestCar.java`**
 
 ```java
 // Programa principal
@@ -56,8 +55,11 @@ public class TestCar {
         car1.brand = "Toyota";
         car1.speed = 0;
 
-        car1.accelerate(); // Toyota aceleró a 10 km/h
-        car1.brake();      // Toyota frenó a 0 km/h
+        car1.accelerate();
+        System.out.println(car1.brand + " aceleró a " + car1.speed + " km/h");
+
+        car1.brake();
+        System.out.println(car1.brand + " frenó a " + car1.speed + " km/h");
     }
 }
 ```
@@ -80,9 +82,9 @@ El encapsulamiento **real** implica:
 * Evitar que el objeto almacene **valores inválidos**.
 * Controlar **cómo** y **cuándo** se modifica la información.
 
----
-
 ### Ejemplo 1: Clase `Car` con Encapsulamiento
+
+**Archivo: `Car.java`**
 
 ```java
 public class Car {
@@ -117,6 +119,8 @@ public class Car {
 }
 ```
 
+**Archivo: `TestCar.java`**
+
 ```java
 public class TestCar {
     public static void main(String[] args) {
@@ -135,8 +139,6 @@ public class TestCar {
 
 > **Nota:** Gracias al encapsulamiento, evitamos asignar marcas no permitidas o valores de velocidad arbitrarios como `car1.speed = 200;`.
 
----
-
 ## Limitación de los setters simples
 
 Muchos entornos de desarrollo permiten generar automáticamente métodos `get` y `set`. Por ejemplo:
@@ -153,13 +155,15 @@ Este enfoque es **insuficiente**, porque:
 * Permite estados inválidos.
 * Convierte el atributo en “público disfrazado”.
 
----
-
 ## 📖 Ejemplo 2: Encapsulamiento con validación (Email)
 
 Supongamos que queremos almacenar el correo electrónico de un usuario.
 
-### Versión incorrecta (setter simple)
+### Versión 1: Setter simple
+
+Esta es la implementación más básica y la menos recomendable, ya que el setter permite modificar el atributo sin aplicar ninguna restricción.
+
+**Archivo: `User.java`**
 
 ```java
 public class User {
@@ -175,19 +179,39 @@ public class User {
 }
 ```
 
-Problema:
+**Archivo: `TestUser.java`**
 
 ```java
-user.setEmail("abc");
-user.setEmail("@@@");
-user.setEmail(null);
+public class TestUser {
+
+    public static void main(String[] args) {
+        User user = new User();
+
+        user.setEmail("jane.doe@mail.com");
+        System.out.println(user.getEmail());
+
+        user.setEmail("invalid-email");
+        System.out.println(user.getEmail());
+    }
+}
 ```
 
-Todos estos valores serían aceptados, aunque son inválidos.
+Salida:
 
----
+```text
+jane.doe@mail.com
+invalid-email
+```
 
-### Versión con validación (`boolean`)
+El objeto acepta `"invalid-email"` porque el mutador realiza una asignación directa sin comprobar el valor recibido.
+
+> Un setter simple proporciona acceso indirecto al atributo, pero no necesariamente protege la integridad de la información. Por esta razón, siempre que existan restricciones sobre los valores permitidos, es recomendable incorporarlas en el mutador.
+
+### Versión 2: Setter con validación y retorno `boolean`
+
+Podemos mejorar el mutador haciendo que valide el valor antes de modificar el atributo.
+
+**Archivo: `User.java`**
 
 ```java
 public class User {
@@ -198,6 +222,7 @@ public class User {
             this.email = email;
             return true;
         }
+
         return false;
     }
 
@@ -206,20 +231,141 @@ public class User {
     }
 
     private boolean isValidEmail(String email) {
-        return email != null && email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$");
+        return email != null
+                && email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$");
     }
 }
 ```
 
-Aquí:
+**Archivo: `TestUser.java`**
 
-* Se valida el formato.
-* Se evita almacenar información incorrecta.
-* El método indica si la operación fue exitosa.
+```java
+public class TestUser {
 
----
+    public static void main(String[] args) {
+        User user = new User();
 
-### Versión con resultado tipado (`enum`)
+        boolean result1 = user.setEmail("jane.doe@mail.com");
+
+        System.out.println(result1);
+        System.out.println(user.getEmail());
+
+        boolean result2 = user.setEmail("invalid-email");
+
+        System.out.println(result2);
+        System.out.println(user.getEmail());
+    }
+}
+```
+
+Salida:
+
+```text
+true
+jane.doe@mail.com
+false
+jane.doe@mail.com
+```
+
+Observa un aspecto fundamental: después de intentar asignar `"invalid-email"`, el atributo conserva `"jane.doe@mail.com"`.
+
+El objeto **rechaza la modificación y conserva un estado válido**.
+
+### Versión 3: Setter con múltiples estados
+
+En algunas situaciones, `true` y `false` no son suficientes para describir el resultado de una operación. Un mutador podría retornar un entero para representar diferentes estados:
+
+* `0`: operación correcta.
+* Valores positivos: operación correcta, pero con advertencias.
+* Valores negativos: error; la modificación fue rechazada.
+
+Por ejemplo, podemos aceptar un correo escrito con mayúsculas o espacios adicionales, pero normalizarlo antes de almacenarlo.
+
+**Archivo: `User.java`**
+
+```java
+public class User {
+    private String email;
+
+    public int setEmail(String email) {
+        if (email == null || email.isBlank()) {
+            return -1;
+        }
+
+        String normalizedEmail = email.trim().toLowerCase();
+
+        if (!isValidEmail(normalizedEmail)) {
+            return -2;
+        }
+
+        email = email.trim();
+
+        if (!email.equals(normalizedEmail)) {
+            this.email = normalizedEmail;
+            return 1;
+        }
+
+        this.email = email;
+        return 0;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    private boolean isValidEmail(String email) {
+        return email.matches(
+                "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$"
+        );
+    }
+}
+```
+
+**Archivo: `TestUser.java`**
+
+```java
+public class TestUser {
+
+    public static void main(String[] args) {
+        User user = new User();
+
+        int result1 = user.setEmail("jane.doe@mail.com");
+        System.out.println(result1);
+        System.out.println(user.getEmail());
+
+        int result2 = user.setEmail("JANE.DOE@MAIL.COM");
+        System.out.println(result2);
+        System.out.println(user.getEmail());
+
+        int result3 = user.setEmail("invalid-email");
+        System.out.println(result3);
+        System.out.println(user.getEmail());
+    }
+}
+```
+
+Salida:
+
+```text
+0
+jane.doe@mail.com
+1
+jane.doe@mail.com
+-2
+jane.doe@mail.com
+```
+
+En este caso:
+
+* `0` indica que el dato fue aceptado sin modificaciones.
+* `1` indica que fue aceptado, pero se realizó una normalización.
+* `-2` indica que fue rechazado.
+
+> **Nota:** Los códigos numéricos son válidos, pero obligan a conocer el significado de cada número. En diseños más expresivos pueden reemplazarse por una enumeración.
+
+Por ejemplo:
+
+**Archivo: `Result.java`**
 
 ```java
 public enum Result {
@@ -229,60 +375,37 @@ public enum Result {
 }
 ```
 
-```java
-public class User {
-    private String email;
+Esto permite retornar `Result.OK`, `Result.WARNING` o `Result.ERROR` en lugar de códigos numéricos.
 
-    public Result setEmail(String email) {
-        if (email == null || email.isBlank()) {
-            return Result.ERROR;
-        }
+### Versión 4: Setter fluido
 
-        String normalizedEmail = email.trim().toLowerCase();
+Un setter también puede retornar el propio objeto. Esto permite encadenar varias operaciones.
 
-        if (!isValidEmail(normalizedEmail)) {
-            return Result.ERROR;
-        }
+Para que el ejemplo muestre realmente el encadenamiento, necesitamos otro atributo.
 
-        this.email = normalizedEmail;
-
-        if (!email.equals(normalizedEmail)) {
-            return Result.WARNING;
-        }
-
-        return Result.OK;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    private boolean isValidEmail(String email) {
-        return email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$");
-    }
-}
-```
-
-Interpretación:
-
-* `OK` → email válido sin cambios
-* `WARNING` → email válido pero ajustado (normalización)
-* `ERROR` → email inválido
-
----
-
-### Versión fluida (method chaining)
+**Archivo: `User.java`**
 
 ```java
 public class User {
+    private String name;
     private String email;
+
+    public User setName(String name) {
+        this.name = name;
+        return this;
+    }
 
     public User setEmail(String email) {
         if (email == null || !email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
             throw new IllegalArgumentException("Invalid email");
         }
+
         this.email = email;
         return this;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public String getEmail() {
@@ -291,21 +414,81 @@ public class User {
 }
 ```
 
-Uso:
+**Archivo: `TestUser.java`**
 
 ```java
-user.setEmail("user@mail.com");
+public class TestUser {
+
+    public static void main(String[] args) {
+        User user = new User();
+
+        user.setName("Jane Doe")
+            .setEmail("jane.doe@mail.com");
+
+        System.out.println(user.getName());
+        System.out.println(user.getEmail());
+    }
+}
 ```
 
-O encadenado:
+Salida:
+
+```text
+Jane Doe
+jane.doe@mail.com
+```
+
+En un setter fluido, retornar `this` permite utilizar el objeto inmediatamente para realizar otra operación.
+
+### Nota sobre el uso de excepciones
+
+Las excepciones **no constituyen otro tipo de setter**. Son un mecanismo para comunicar que una modificación no pudo realizarse y pueden utilizarse con diferentes tipos de mutadores.
+
+Por ejemplo:
 
 ```java
-user.setEmail("user@mail.com");
+if (!isValidEmail(email)) {
+    throw new IllegalArgumentException("Invalid email");
+}
 ```
 
-> En setters fluidos, es recomendable usar excepciones para evitar errores silenciosos.
+Son especialmente útiles en setters fluidos. Consideremos:
 
----
+```java
+user.setName("Jane Doe")
+    .setEmail("invalid-email")
+    .setAddress("Manizales");
+```
+
+Si `setEmail()` simplemente ignorara el valor inválido y retornara `this`, el encadenamiento continuaría y el error podría pasar inadvertido. Al lanzar una excepción, la ejecución del encadenamiento se interrumpe inmediatamente.
+
+### Idea fundamental
+
+El setter simple:
+
+```java
+public void setEmail(String email) {
+    this.email = email;
+}
+```
+
+debe entenderse como la alternativa **más básica y generalmente menos adecuada cuando existen reglas sobre el atributo**.
+
+El objetivo del encapsulamiento no es reemplazar:
+
+```java
+user.email = value;
+```
+
+por:
+
+```java
+user.setEmail(value);
+```
+
+El verdadero objetivo es establecer una frontera de control que permita **proteger la integridad del estado del objeto**.
+
+Por eso, generar automáticamente getters y setters desde un IDE puede ahorrar escritura de código, pero **no resuelve por sí mismo el problema del encapsulamiento**. El programador debe determinar qué atributos deben exponerse, cuáles pueden modificarse y qué restricciones deben cumplirse antes de aceptar una modificación.
 
 ## Conclusión
 
@@ -314,5 +497,3 @@ user.setEmail("user@mail.com");
 * No todos los setters son iguales: su diseño depende del nivel de control requerido.
 
 > Un objeto bien encapsulado no almacena datos inválidos, aunque el mundo exterior intente proporcionarlos.
-
-
