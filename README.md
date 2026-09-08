@@ -155,7 +155,7 @@ Este enfoque es **insuficiente**, porque:
 * Permite estados inválidos.
 * Convierte el atributo en “público disfrazado”.
 
-## 📖 Ejemplo 2: Encapsulamiento con validación (Email)
+## Ejemplo 2: Encapsulamiento con validación (Email)
 
 Supongamos que queremos almacenar el correo electrónico de un usuario.
 
