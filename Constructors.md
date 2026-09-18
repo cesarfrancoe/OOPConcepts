@@ -36,40 +36,48 @@ public class Person {
         return firstName;
     }
 
-    public void setFirstName(String newFirstName) {
+    public boolean setFirstName(String newFirstName) {
         if (isValid(newFirstName)) {
             firstName = newFirstName;
+            return true;
         }
+        return false;
     }
 
     public String getSecondName() {
         return secondName;
     }
 
-    public void setSecondName(String newSecondName) {
+    public boolean setSecondName(String newSecondName) {
         if (isValid(newSecondName)) {
             secondName = newSecondName;
+            return true;
         }
+        return false;
     }
 
     public String getFirstFamilyName() {
         return firstFamilyName;
     }
 
-    public void setFirstFamilyName(String newFirstFamilyName) {
+    public boolean setFirstFamilyName(String newFirstFamilyName) {
         if (isValid(newFirstFamilyName)) {
             firstFamilyName = newFirstFamilyName;
+            return true;
         }
+        return false;
     }
 
     public String getSecondFamilyName() {
         return secondFamilyName;
     }
 
-    public void setSecondFamilyName(String newSecondFamilyName) {
+    public boolean setSecondFamilyName(String newSecondFamilyName) {
         if (isValid(newSecondFamilyName)) {
             secondFamilyName = newSecondFamilyName;
+            return true;
         }
+        return false;
     }
 
     private boolean isValid(String value) {
