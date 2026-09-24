@@ -6,7 +6,7 @@ Este documento presenta el concepto de **herencia** en Programación Orientada a
 
 ## Introducción
 
-En la Programación Orientada a Objetos, las clases pueden relacionarse de diferentes maneras. En los documentos anteriores se estudiaron relaciones estructurales como:
+En la Programación Orientada a Objetos, las clases pueden relacionarse de diferentes maneras, unas de estas relaciones son estructurales como:
 
 * Asociación
 * Agregación
