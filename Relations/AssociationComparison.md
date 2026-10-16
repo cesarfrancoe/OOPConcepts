@@ -2,6 +2,17 @@
 
 La asociación, la agregación y la composición describen vínculos entre objetos. La agregación y la composición son formas de asociación que expresan una relación todo-parte. Esta guía retoma las comparaciones de [Relations.md](../Relations.md) y distingue el significado del modelo de las decisiones de implementación.
 
+## La duda principal: asociación o agregación
+
+**Que cada objeto pueda existir independientemente no distingue estas dos relaciones:** esa independencia es compatible con ambas. La pregunta que las separa es si el modelo expresa únicamente un vínculo o también una relación todo-parte.
+
+* **Asociación simple:** cada estudiante se inscribe en cursos. El vínculo representa una inscripción; cada curso no es una parte del estudiante.
+* **Agregación:** cada equipo agrupa jugadores como integrantes del conjunto. Cada jugador puede seguir existiendo al abandonar el equipo.
+
+La expresión «tiene» tampoco basta: cada estudiante «tiene cursos», pero eso no obliga a modelar agregación. Debe existir una interpretación todo-parte relevante para el problema. Incluso el mismo par de clases puede modelarse de manera diferente según lo que se quiera expresar.
+
+> El rombo blanco añade intención de modelado, pero no impone una sintaxis especial en Java. UML deja las reglas precisas de la agregación compartida al dominio y al modelador; por eso deben explicarse. Si no hay una relación todo-parte clara, la asociación simple es suficiente.
+
 ## Comparación conceptual
 
 En esta tabla, **asociación simple** se refiere a la asociación sin agregación ni composición.
@@ -31,6 +42,65 @@ Las tres relaciones pueden representarse mediante referencias o colecciones. La 
 
 Recibir el objeto por constructor, usar `new`, declarar un atributo `final` o utilizar una colección no basta para identificar la relación. Tampoco una validación de `null` convierte una asociación en agregación.
 
+## Del diagrama al código
+
+Cada extremo navegable puede representarse mediante una referencia o una colección. Después se implementan las multiplicidades y las reglas del modelo: valores obligatorios, límites, duplicados, coherencia bidireccional y, cuando corresponda, pertenencia y ciclo de vida.
+
+### Asociación y agregación pueden tener la misma estructura
+
+Estos fragmentos muestran solo el almacenamiento de los vínculos; no implementan todas las restricciones de un diagrama.
+
+**Asociación simple: cada estudiante conoce los cursos en los que está inscrito.**
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+public class Student {
+    private final List<Course> courses = new ArrayList<>();
+
+    public void enroll(Course course) {
+        courses.add(course);
+    }
+}
+```
+
+**Agregación: cada equipo agrupa jugadores como integrantes.**
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+public class Team {
+    private final List<Player> players = new ArrayList<>();
+
+    public void addPlayer(Player player) {
+        players.add(player);
+    }
+}
+```
+
+En ambos casos se almacenan referencias a objetos recibidos desde fuera. La colección y el método de incorporación tienen la misma estructura; la diferencia es el significado de inscripción frente al de pertenencia a un conjunto. `Course` y `Player` representan clases definidas por separado.
+
+Pueden existir diferencias de implementación si las reglas del problema las exigen. Por ejemplo, impedir que cada jugador pertenezca a varios equipos requiere validar su pertenencia. Esa restricción no surge automáticamente del rombo blanco: debe constar en el modelo. Del mismo modo, cada asociación simple puede necesitar validaciones propias.
+
+## Del código al diagrama
+
+**Sí, se puede reconstruir un diagrama a partir del código, pero no recuperar siempre toda la intención del modelo.** Este proceso se conoce como ingeniería inversa.
+
+| Lo que se observa en el código | Lo que permite proponer | Lo que todavía debe confirmarse |
+| --- | --- | --- |
+| Un atributo de tipo `B` en `A` | Un vínculo navegable desde `A` hacia `B` | Si es asociación simple, agregación o composición; si el valor es obligatorio |
+| Una colección de `B` en `A` | Un extremo que admite varios objetos | El mínimo, el máximo y las reglas de pertenencia |
+| Referencias en ambas clases | Posible navegabilidad bidireccional | Que las referencias representen la misma relación y se mantengan coherentes |
+| Creación de `B` dentro de `A` | Que `A` participa en la creación de `B` | Si existe pertenencia exclusiva y dependencia del ciclo de vida |
+
+Estos indicios requieren interpretar los atributos en su contexto. Una variable local o un parámetro usado temporalmente puede representar una dependencia de uso, sin establecer una asociación almacenada.
+
+Para decidir entre asociación y agregación, hay que consultar además los requisitos, la documentación y el significado de los objetos. Si solo se encuentra `List<Player>`, no se puede concluir que existe agregación. Tampoco `new Player()` demuestra composición.
+
+La traducción no es única: distintos diagramas pueden dar lugar a estructuras de código similares, y cada diagrama puede admitir varias implementaciones correctas. En Java, además, la recolección de basura no implementa por sí sola las reglas de eliminación del modelo.
+
 ## Cómo elegir la relación
 
 1. Si solo se necesita representar un vínculo entre objetos, usar **asociación simple**.
@@ -49,3 +119,7 @@ La multiplicidad indica **cuántos objetos** pueden participar y la navegabilida
 * [Agregación](Aggregation.md)
 * [Composición](Composition.md)
 * [Relaciones en un diagrama de clases UML](UMLClassRelationships.md)
+
+## Referencia UML
+
+[Especificación UML 2.5.1 de OMG](https://www.omg.org/spec/UML/2.5.1/PDF), sección 9.5.3: semántica de agregación compartida y composición.
