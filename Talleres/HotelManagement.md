@@ -14,7 +14,7 @@ El hotel tiene un identificador único, nombre y dirección. Ocupa **una sola to
 
 El hotel administra sus habitaciones, huéspedes y reservas. Las habitaciones son partes exclusivas de su estructura: se crean para ese hotel, no se trasladan a otros establecimientos y dejan de existir en el sistema si se elimina el hotel. Cada habitación conoce el hotel al que pertenece.
 
-El hotel establece una **tarifa básica por persona y por noche**, común a todas sus habitaciones, y el **costo del minibar por noche**, utilizado exclusivamente en las suites. Ambos valores deben ser mayores que cero. La tarifa básica por persona sirve como referencia para calcular el precio de cada tipo de habitación; no se asigna una tarifa básica independiente a cada habitación.
+El hotel establece una **única tarifa básica por persona para cada noche de alojamiento**, común a todas sus habitaciones. Es un solo valor de referencia: no existen una tarifa por persona y otra tarifa por noche. También establece el **costo del minibar por noche**, utilizado exclusivamente en las suites. Ambos valores deben ser mayores que cero. La tarifa básica por persona sirve como referencia para calcular el precio de cada tipo de habitación; no se asigna una tarifa básica independiente a cada habitación.
 
 ### 2. Habitaciones
 
@@ -22,7 +22,7 @@ Cada habitación posee un **número único dentro del hotel**, piso, configuraci
 
 Cada cama sencilla permite alojar una persona y cada cama doble, dos. La capacidad máxima se obtiene de la configuración de camas; no es un valor independiente de ella.
 
-Todas las habitaciones incluyen televisión por cable. Los canales premium son opcionales en las habitaciones individuales, dobles y familiares, pero obligatorios en las suites.
+Todas las habitaciones incluyen televisión por cable. Cada habitación individual, doble o familiar **puede tener o no canales premium**, según las características definidas al crearla; todas las suites los incluyen. El huésped puede solicitar una reserva de una habitación con canales premium, pero solo se asignará si existe una disponible. La solicitud no modifica las características de las habitaciones.
 
 Cada habitación puede estar **habilitada** o **fuera de servicio por mantenimiento**. Una habitación fuera de servicio no puede reservarse. Su disponibilidad para una nueva reserva depende tanto de su estado operativo como de la ausencia de reservas pendientes o confirmadas.
 
@@ -35,7 +35,7 @@ Se contemplan cuatro tipos:
 
 ### 3. Recargos por ubicación
 
-La tarifa básica **por persona y por noche**, establecida en el hotel, se ajusta según el piso y la vista al mar:
+La **tarifa básica por persona para cada noche de alojamiento**, establecida en el hotel, se ajusta según el piso y la vista al mar:
 
 | Ubicación | Recargo sobre la tarifa básica por persona |
 |---|---:|
@@ -48,7 +48,7 @@ Los recargos por piso y vista al mar **se suman**, sin aplicarse sucesivamente. 
 
 Para precisar el cálculo, se utilizan las siguientes variables:
 
-- **B:** tarifa básica por persona y por noche definida en el hotel.
+- **B:** tarifa básica por persona para cada noche de alojamiento, definida en el hotel.
 - **A:** tarifa por persona ajustada por ubicación: `A = B × (1 + recargoPiso + recargoVista)`.
 - **H:** número de huéspedes de la reserva.
 - **N:** número de noches.
@@ -65,7 +65,7 @@ El costo total de cada tipo de habitación se determina así:
 | Familiar, siete u ocho huéspedes, si la capacidad lo permite | `(6 × A + (H − 6) × 0.50 × A) × N` |
 | Suite, uno o dos huéspedes | `(2 × A + M) × N` |
 
-**Ejemplo:** si el hotel establece una tarifa básica de **$100.000 por persona y noche**, una habitación del piso 5 con vista al mar tiene una tarifa ajustada de **$125.000 por persona y noche** (10 % + 15 %). En ese caso, una habitación doble ocupada por una persona cuesta **$175.000 por noche** (`2 × $125.000 × 0.70`), mientras que la misma habitación ocupada por dos personas cuesta **$250.000 por noche**.
+**Ejemplo:** si el hotel establece una tarifa básica de **$100.000 por persona para cada noche**, una habitación del piso 5 con vista al mar tiene una tarifa ajustada de **$125.000 por persona para cada noche** (10 % + 15 %). En ese caso, una habitación doble ocupada por una persona cuesta **$175.000 por noche** (`2 × $125.000 × 0.70`), mientras que la misma habitación ocupada por dos personas cuesta **$250.000 por noche**.
 
 El 50 % aplicable a cada huésped adicional de una habitación familiar se calcula sobre la **tarifa por persona ajustada**, no sobre el costo total de la habitación familiar.
 
@@ -92,7 +92,7 @@ El costo de la reserva se calcula según la ubicación, el tipo de habitación, 
 
 Al confirmar una reserva se genera **un único comprobante**, con número único, identificador de la reserva, nombre del huésped responsable, número de habitación, cantidad de noches y costo total del alojamiento.
 
-El comprobante pertenece exclusivamente a la reserva que lo originó y se conserva incluso si posteriormente se cancela la reserva. El sistema debe permitir **consultar un comprobante por su número único**. La estrategia para localizarlo forma parte de las decisiones de diseño del estudiante.
+El comprobante pertenece exclusivamente a la reserva que lo originó y se conserva incluso si posteriormente se cancela la reserva. El sistema debe permitir **consultar un comprobante por su número único**. La estrategia para localizarlo forma parte de las decisiones de diseño del desarrollador.
 
 No se requiere gestionar pagos, impuestos, facturación electrónica, inventarios del minibar ni persistencia de datos.
 
@@ -102,7 +102,7 @@ No se requiere gestionar pagos, impuestos, facturación electrónica, inventario
 
 ### 1. Diagrama de clases UML
 
-Antes de programar, cada estudiante deberá:
+Antes de programar, cada desarrollador deberá:
 
 1. Identificar las clases necesarias y sus responsabilidades.
 2. Definir atributos, tipos de datos, visibilidad, métodos, parámetros, tipos de retorno y constructores.
@@ -111,7 +111,7 @@ Antes de programar, cada estudiante deberá:
 5. Establecer las validaciones y restricciones que deben garantizarse en el modelo.
 6. Elaborar **en papel** el diagrama de clases UML.
 
-El estudiante sustentará su diagrama ante el docente, quien asumirá el rol de **jefe de proyectos**. Deberá explicar cómo el diseño satisface las reglas del negocio. Se aceptan distintas soluciones justificadas; no existe un único diagrama obligatorio. **No se establece una cantidad mínima, máxima ni aproximada de clases:** cada clase deberá responder a una responsabilidad identificable y justificarse durante la sustentación.
+El desarrollador presentará y justificará su diagrama ante el **jefe de proyectos**. Deberá explicar cómo el diseño satisface las reglas del negocio. Se aceptan distintas soluciones justificadas; no existe un único diagrama obligatorio. **No se establece una cantidad mínima, máxima ni aproximada de clases:** cada clase deberá responder a una responsabilidad identificable y justificarse durante la revisión técnica.
 
 **Es indispensable obtener la aprobación del diseño antes de iniciar la implementación.**
 
@@ -131,18 +131,18 @@ Implementar el modelo de acuerdo con el diagrama UML aprobado. El código deber�
 
 ### 2B. Esquema del hotel e implementación del paquete `view`
 
-**Diseño físico individual.** Cada estudiante diseñará su propio hotel y presentará un **esquema visual** de la torre, que muestre:
+**Diseño físico individual.** Cada desarrollador diseñará su propio hotel y presentará un **esquema visual** de la torre, que muestre:
 
 - Nombre del hotel y cantidad total de pisos (mínimo ocho).
 - Distribución de habitaciones por piso, con número y tipo de habitación.
 - Orientación de cada habitación: **frente al mar (con vista al mar)** o **sin vista al mar**.
 - Configuración de camas en las habitaciones familiares.
 
-Los diseños de los estudiantes deberán ser diferentes y cumplir las mismas reglas del negocio. El esquema se presentará y sustentará ante el docente y deberá corresponder a los objetos que posteriormente se creen en Java.
+Los diseños de los desarrolladores deberán ser diferentes y cumplir las mismas reglas del negocio. El esquema se presentará y justificará ante el jefe de proyectos y deberá corresponder a los objetos que posteriormente se creen en Java.
 
 **Inicialización y pruebas.** Dentro del paquete `view`, implementar una clase **`Main`** que:
 
-1. Cree un único hotel con las características de su esquema, su tarifa básica por persona y noche y el costo diario del minibar.
+1. Cree un único hotel con las características de su esquema, su tarifa básica por persona para cada noche y el costo diario del minibar.
 2. Cree y registre las habitaciones diseñadas, con sus pisos, orientación, camas y características, utilizando la tarifa básica por persona establecida en el hotel.
 3. Registre huéspedes y realice reservas con distintas cantidades de personas y noches.
 4. Calcule y muestre tarifas que permitan verificar los recargos por ubicación y las reglas específicas de cada tipo de habitación.
@@ -167,7 +167,7 @@ HotelManagement/
 ### Requisitos de diseño
 
 - El diagrama UML debe especificar clases, responsabilidades, atributos y sus tipos, operaciones con parámetros y tipos de retorno, constructores y visibilidad.
-- Las relaciones propuestas deben incluir el tipo de relación, sus multiplicidades y navegabilidad, y ser justificadas durante la sustentación.
+- Las relaciones propuestas deben incluir el tipo de relación, sus multiplicidades y navegabilidad, y ser justificadas durante la revisión técnica.
 - Las abstracciones, especializaciones y comportamientos polimórficos deben responder a reglas reales del dominio; evitar clases, atributos o relaciones redundantes.
 - No existe una cantidad obligatoria de clases. La calidad del diseño se valorará por la asignación coherente de responsabilidades y el cumplimiento de los requisitos, no por el número de clases propuestas.
 - Las restricciones del negocio deben poder garantizarse desde el modelo, no depender únicamente de las pruebas realizadas en `Main`.
@@ -199,13 +199,13 @@ HotelManagement/
 - Identificadores del código en **inglés**: `UpperCamelCase` para clases y `lowerCamelCase` para atributos y métodos.
 - Los mensajes de consola pueden escribirse en español o inglés.
 - No se requiere base de datos, persistencia ni interfaz gráfica.
-- **Entregables:** (1) diagrama UML en papel aprobado; (2) esquema visual individual del hotel; (3) proyecto Java con `model` y `view/Main.java`; (4) sustentación de las decisiones de diseño y demostración de las pruebas.
+- **Entregables:** (1) diagrama UML en papel aprobado; (2) esquema visual individual del hotel; (3) proyecto Java con `model` y `view/Main.java`; (4) presentación y justificación técnica de las decisiones de diseño y demostración de las pruebas.
 
 Se evaluará la coherencia entre los requisitos, el diseño UML, el esquema físico y el comportamiento de la implementación.
 
 ## Diccionario español–inglés
 
-Vocabulario de apoyo para comprender y expresar los conceptos del taller en inglés. Cada estudiante deberá decidir cómo utilizar estos términos en su diseño y construir sus propios identificadores.
+Vocabulario de apoyo para comprender y expresar los conceptos del taller en inglés. Cada desarrollador deberá decidir cómo utilizar estos términos en su diseño y construir sus propios identificadores.
 
 | Español | Inglés | Español | Inglés |
 | --- | --- | --- | --- |
