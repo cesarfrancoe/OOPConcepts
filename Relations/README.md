@@ -12,6 +12,8 @@ Las relaciones entre clases permiten modelar tanto jerarquías de tipos como ví
 * [Agregación](Aggregation.md): representa una relación todo-parte en la que las partes pueden existir independientemente del todo.
 * [Composición](Composition.md): representa una relación todo-parte con pertenencia exclusiva y dependencia del ciclo de vida.
 
+[Comparación de asociación, agregación y composición](AssociationComparison.md): resumen de sus diferencias, criterios de elección y decisiones de implementación.
+
 ## Diagrama de clases UML
 
 [Relaciones en un diagrama de clases UML](UMLClassRelationships.md): guía para interpretar las relaciones entre clases mediante líneas, símbolos, navegabilidad y multiplicidades.
