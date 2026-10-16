@@ -118,7 +118,9 @@ Ejemplos:
 > El símbolo `*` representa “muchos”, es decir, un número no limitado de instancias.
 > En UML es común utilizar `*` como abreviación de `0..*`. Sin embargo, en este documento se utilizará siempre `0..*` para hacer explícito que la relación permite desde cero hasta muchas instancias.
 
-## Ejemplo completo de asociación
+## Ejemplos de asociación, agregación y composición
+
+### Asociación
 
 ```text
 +--------+          +---------+
@@ -132,6 +134,44 @@ Interpretación:
 * Cada escuela puede tener cero o muchos docentes
 * Cada docente está asociado a una escuela (según este modelo)
 * Solo `School` conoce a `Teacher`
+
+### Agregación
+
+Cada equipo agrupa jugadores que pueden existir independientemente del equipo.
+
+```text
++--------+          +--------+
+| Team   |◇-------->| Player |
++--------+          +--------+
+   0..1                0..*
+```
+
+Interpretación:
+
+* Cada equipo puede tener cero o muchos jugadores
+* Cada jugador puede pertenecer a cero o un equipo (según este modelo)
+* El rombo blanco está junto a `Team`, que representa el todo
+* Cada jugador puede seguir existiendo aunque desaparezca el equipo
+* Solo `Team` conoce a `Player`, según la convención de navegabilidad de este documento
+
+### Composición
+
+Cada casa está compuesta por habitaciones que forman parte de ella de manera exclusiva.
+
+```text
++--------+          +--------+
+| House  |◆-------->| Room   |
++--------+          +--------+
+    1                  1..*
+```
+
+Interpretación:
+
+* Cada casa tiene una o muchas habitaciones
+* Cada habitación pertenece exactamente a una casa
+* El rombo negro está junto a `House`, que representa el todo
+* Cada habitación pertenece a una sola casa a la vez; al eliminar la casa, se eliminan también sus habitaciones (según este modelo)
+* Solo `House` conoce a `Room`, según la convención de navegabilidad de este documento
 
 ## Herencia (generalización)
 
