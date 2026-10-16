@@ -2,7 +2,7 @@
 
 ## Prerrequisito
 
-[Fundamentos de relaciones en UML](UMLBasics.md)
+[Fundamentos de relaciones en UML](UMLClassRelationships.md)
 
 ## Definición
 
