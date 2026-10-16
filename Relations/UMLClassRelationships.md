@@ -1,20 +1,12 @@
 # Relaciones en un diagrama de clases UML
-En un diagrama de clases UML, las relaciones permiten representar cómo interactúan las clases dentro de un sistema.
-Para definir correctamente una relación, es necesario comprender sus elementos fundamentales y cómo se interpretan.
-En una asociación (incluidas la agregación y la composición), se distinguen tres elementos principales:
+
+En un diagrama de clases UML, las relaciones permiten representar cómo se vinculan las clases dentro de un sistema. Este documento explica la notación básica de asociación, agregación, composición y herencia.
+
+Primero se presentan los elementos de una asociación (incluidas la agregación y la composición):
 
 * Las clases
 * La línea de conexión y, si aplica, el símbolo que indica el tipo de relación
 * La multiplicidad (también llamada cardinalidad en contextos pedagógicos)
-
-## Representación básica
-
-```text
-+--------+          +--------+
-| ClassA |--------->| ClassB |
-+--------+          +--------+
-    1                  0..*
-```
 
 ## Clases
 
@@ -32,9 +24,21 @@ Cada caja corresponde a una clase del sistema:
 
 Las clases se conectan mediante una **línea**, que representa la existencia de una relación.
 
+### Símbolos de asociación, agregación y composición
+
+Según el tipo de relación, la línea puede incluir un rombo en uno de sus extremos:
+
+* **Sin rombo** → [Asociación](Association.md)
+* **Rombo blanco (◇)** → [Agregación](Aggregation.md)
+* **Rombo negro (◆)** → [Composición](Composition.md)
+
+El rombo siempre se ubica en el lado de la clase que representa el **todo** en una relación todo-parte.
+
+### Navegabilidad
+
 En las asociaciones, las flechas indican la **navegabilidad**: desde qué clase se puede acceder a la otra. En estos ejemplos se utiliza la siguiente convención simplificada.
 
-### Unidireccional
+#### Unidireccional
 
 ```text
 +--------+          +----------+
@@ -47,7 +51,7 @@ Interpretación:
 * `Person` conoce a `Passport`
 * `Person` tiene una referencia hacia `Passport`
 
-### Bidireccional
+#### Bidireccional
 
 ```text
 +--------+          +----------+
@@ -59,14 +63,75 @@ Ambas clases se conocen: `Person` tiene una referencia a `Passport` y `Passport`
 
 > En UML, una punta de flecha abierta indica un extremo navegable; una `x` indica uno no navegable. La ausencia de estos indicadores puede dejar la navegabilidad sin especificar: una línea sin flechas no implica por sí sola bidireccionalidad. En este material, una sola flecha se interpreta como unidireccional y dos flechas como bidireccional.
 
-Adicionalmente, según el tipo de relación, la línea puede incluir un símbolo en uno de sus extremos:
+## Multiplicidad (Cardinalidad)
 
-* **Sin símbolo** → [Asociación](Association.md)
-* **Rombo blanco (◇)** → [Agregación](Aggregation.md)
-* **Rombo negro (◆)** → [Composición](Composition.md)
+El término formal de UML es **multiplicidad**; **cardinalidad** es una denominación común en contextos pedagógicos. En este documento se usan ambos términos para referirse a los valores permitidos en cada extremo.
 
+La multiplicidad se ubica en **cada extremo de la línea**, no en el centro.
 
-El rombo siempre se ubica en el lado de la clase que representa el **todo** en una relación todo-parte.
+Indica cuántas instancias de una clase pueden relacionarse con instancias de la clase del otro extremo.
+
+```text
++--------+          +----------+
+| Person |--------->| Passport |
++--------+          +----------+
+    1                   0..1
+```
+
+Interpretación:
+
+* El `0..1` cerca de `Passport` indica que cada persona puede tener cero o un pasaporte
+* El `1` cerca de `Person` indica que cada pasaporte está asociado exactamente a una persona
+
+> La multiplicidad siempre se interpreta desde el extremo opuesto de la relación.
+
+### Formas de expresar la multiplicidad
+
+La multiplicidad puede expresarse de dos formas:
+
+#### Valor único
+
+Cuando se muestra un solo número (por ejemplo, `1`):
+
+* Indica una **cantidad exacta**
+* No hay variación posible
+
+Ejemplo:
+
+* `1` → exactamente una instancia
+
+#### Rango (mínimo..máximo)
+
+Cuando se expresa como un rango:
+
+* El primer valor indica el **mínimo**
+* El segundo valor indica el **máximo**
+
+Ejemplos:
+
+* `0..1` → cero o una instancia (opcional)
+* `1..*` → una o muchas instancias
+* `0..*` → cero o muchas instancias
+
+### Significado de `*`
+
+> El símbolo `*` representa “muchos”, es decir, un número no limitado de instancias.
+> En UML es común utilizar `*` como abreviación de `0..*`. Sin embargo, en este documento se utilizará siempre `0..*` para hacer explícito que la relación permite desde cero hasta muchas instancias.
+
+## Ejemplo completo de asociación
+
+```text
++--------+          +---------+
+| School |--------->| Teacher |
++--------+          +---------+
+    1                  0..*
+```
+
+Interpretación:
+
+* Cada escuela puede tener cero o muchos docentes
+* Cada docente está asociado a una escuela (según este modelo)
+* Solo `School` conoce a `Teacher`
 
 ## Herencia (generalización)
 
@@ -91,78 +156,6 @@ Interpretación:
 * La generalización no lleva multiplicidades: no cuenta objetos relacionados, sino que expresa una relación entre tipos
 
 Más detalles en [Herencia](../Inheritance.md).
-
-## Cardinalidad (multiplicidad)
-
-El término formal de UML es **multiplicidad**; **cardinalidad** es una denominación común en contextos pedagógicos. En este documento se usan ambos términos para referirse a los valores permitidos en cada extremo.
-
-La multiplicidad se ubica en **cada extremo de la línea**, no en el centro.
-
-Indica cuántas instancias de una clase pueden relacionarse con instancias de la clase del otro extremo.
-
-```text
-+--------+          +----------+
-| Person |--------->| Passport |
-+--------+          +----------+
-    1                   0..1
-```
-
-Interpretación:
-
-* El `0..1` cerca de `Passport` indica que cada persona puede tener cero o un pasaporte
-* El `1` cerca de `Person` indica que cada pasaporte está asociado exactamente a una persona
-
-> La cardinalidad siempre se interpreta desde el extremo opuesto de la relación.
-
-## Tipos de cardinalidad
-
-La cardinalidad puede expresarse de dos formas:
-
-### Valor único
-
-Cuando se muestra un solo número (por ejemplo, `1`):
-
-* Indica una **cantidad exacta**
-* No hay variación posible
-
-Ejemplo:
-
-* `1` → exactamente una instancia
-
-### Rango (mínimo..máximo)
-
-Cuando se expresa como un rango:
-
-* El primer valor indica el **mínimo**
-* El segundo valor indica el **máximo**
-
-Ejemplos:
-
-* `0..1` → cero o una instancia (opcional)
-* `1..*` → una o muchas instancias
-* `0..*` → cero o muchas instancias
-
-## Nota importante
-
-> El símbolo `*` representa “muchos”, es decir, un número no limitado de instancias.
-> En UML es común utilizar `*` como abreviación de `0..*`. Sin embargo, en este documento se utilizará siempre `0..*` para hacer explícito que la relación permite desde cero hasta muchas instancias.
-
-## Ejemplo completo
-
-```text
-+--------+          +---------+
-| School |--------->| Teacher |
-+--------+          +---------+
-    1                  0..*
-```
-
-Interpretación:
-
-* Cada escuela puede tener cero o muchos docentes
-* Cada docente está asociado a una escuela (según este modelo)
-* Solo `School` conoce a `Teacher`
-
----
 
 ## Conclusión
 
