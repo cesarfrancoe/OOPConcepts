@@ -86,7 +86,7 @@ La **herencia** expresa una relación **«es un»**: una subclase es una especia
 Interpretación:
 
 * `Dog` es la subclase y `Animal` es la superclase
-* Un `Dog` es un `Animal` y hereda sus características y comportamientos, según las reglas del lenguaje
+* Cada instancia de `Dog` es también una instancia de `Animal`; `Dog` hereda sus características y comportamientos, según las reglas del lenguaje
 * El triángulo indica generalización; no representa navegabilidad
 * La generalización no lleva multiplicidades: no cuenta objetos relacionados, sino que expresa una relación entre tipos
 
@@ -158,8 +158,8 @@ Ejemplos:
 
 Interpretación:
 
-* Una escuela puede tener cero o muchos docentes
-* Un docente está asociado a una escuela (según este modelo)
+* Cada escuela puede tener cero o muchos docentes
+* Cada docente está asociado a una escuela (según este modelo)
 * Solo `School` conoce a `Teacher`
 
 ---
