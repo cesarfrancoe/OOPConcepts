@@ -8,4 +8,5 @@ Este conjunto de documentos presenta los diferentes tipos de relaciones entre cl
 2. [Asociación](Association.md)
 3. [Agregación](Aggregation.md)
 4. [Composición](Composition.md)
+5. [Herencia](Inheritance.md)
 
