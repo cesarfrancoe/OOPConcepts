@@ -90,7 +90,7 @@ Interpretación:
 * El triángulo indica generalización; no representa navegabilidad
 * La generalización no lleva multiplicidades: no cuenta objetos relacionados, sino que expresa una relación entre tipos
 
-En Java, se declara con `class Dog extends Animal`. Más detalles en [Herencia](../Inheritance.md).
+Más detalles en [Herencia](../Inheritance.md).
 
 ## Cardinalidad (multiplicidad)
 
