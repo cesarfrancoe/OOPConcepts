@@ -14,7 +14,7 @@ El hotel tiene un identificador único, nombre y dirección. Ocupa **una sola to
 
 El hotel administra sus habitaciones, huéspedes y reservas. Las habitaciones son partes exclusivas de su estructura: se crean para ese hotel, no se trasladan a otros establecimientos y dejan de existir en el sistema si se elimina el hotel. Cada habitación conoce el hotel al que pertenece.
 
-El hotel establece una **única tarifa básica por persona para cada noche de alojamiento**, común a todas sus habitaciones. Es un solo valor de referencia: no existen una tarifa por persona y otra tarifa por noche. También establece el **costo del minibar por noche**, utilizado exclusivamente en las suites. Ambos valores deben ser mayores que cero. La tarifa básica por persona sirve como referencia para calcular el precio de cada tipo de habitación; no se asigna una tarifa básica independiente a cada habitación.
+El hotel establece una **única tarifa básica por persona para cada noche de alojamiento**, común a todas sus habitaciones. Es un solo valor de referencia: no existen una tarifa por persona y otra tarifa por noche. También establece el **costo del minibar por noche**, utilizado exclusivamente en las suites. La tarifa básica y el costo del minibar deben ser mayores que cero. El hotel también define el **costo de canales premium por habitación y por noche**, común a todas las habitaciones que los incluyen. La tarifa básica por persona sirve como referencia para calcular el precio de cada tipo de habitación; no se asigna una tarifa básica independiente a cada habitación.
 
 ### 2. Habitaciones
 
@@ -22,7 +22,7 @@ Cada habitación posee un **número único dentro del hotel**, piso, configuraci
 
 Cada cama sencilla permite alojar una persona y cada cama doble, dos. La capacidad máxima se obtiene de la configuración de camas; no es un valor independiente de ella.
 
-Todas las habitaciones incluyen televisión por cable. Cada habitación individual, doble o familiar **puede tener o no canales premium**, según las características definidas al crearla; todas las suites los incluyen. El huésped puede solicitar una reserva de una habitación con canales premium, pero solo se asignará si existe una disponible. La solicitud no modifica las características de las habitaciones.
+Todas las habitaciones incluyen televisión por cable. Cada habitación individual, doble o familiar **puede tener o no canales premium**, según las características definidas al crearla; todas las suites los incluyen. El huésped puede solicitar una reserva de una habitación con canales premium, pero solo se asignará si existe una disponible. La solicitud no modifica las características de las habitaciones. Cada habitación con canales premium genera el cargo correspondiente por cada noche reservada, independientemente de la cantidad de huéspedes; en las habitaciones sin canales premium ese cargo es cero.
 
 Cada habitación puede estar **habilitada** o **fuera de servicio por mantenimiento**. Una habitación fuera de servicio no puede reservarse. Su disponibilidad para una nueva reserva depende tanto de su estado operativo como de la ausencia de reservas pendientes o confirmadas.
 
@@ -31,7 +31,7 @@ Se contemplan cuatro tipos:
 - **Habitación individual (Single Room):** una cama sencilla y capacidad para una persona. Se cobra el equivalente a **una tarifa básica por persona**, ajustada por ubicación.
 - **Habitación doble (Double Room):** una cama doble y capacidad para dos personas. Su tarifa completa equivale a **dos tarifas básicas por persona**, ajustadas por ubicación. Con dos huéspedes se cobra el 100 % de ese valor; con uno, el **70 %**.
 - **Habitación familiar (Family Room):** exactamente dos camas dobles y entre dos y cuatro camas sencillas; su capacidad es de **seis a ocho personas**, según la configuración. Puede reservarse para menos de seis huéspedes, pero siempre se cobra una **base de seis personas al 80 % de la tarifa por persona ajustada por ubicación**; esto equivale a un descuento del 20 % sobre esa base. Por cada huésped que exceda seis se cobra **un 70 % adicional de la tarifa básica por persona ajustada por ubicación**, por noche.
-- **Suite:** una cama doble, capacidad máxima para dos personas, sala privada, canales premium y minibar. **Es el único tipo de habitación con minibar** y solo puede ubicarse en **uno de los dos pisos superiores**. Se cobra siempre el equivalente a **dos tarifas básicas por persona**, ajustadas por ubicación, con independencia de si la ocupan una o dos personas, más el costo diario del minibar establecido por el hotel.
+- **Suite:** una cama doble, capacidad máxima para dos personas, sala privada, canales premium y minibar. **Es el único tipo de habitación con minibar** y solo puede ubicarse en **uno de los dos pisos superiores**. Se cobra siempre el equivalente a **dos tarifas básicas por persona**, ajustadas por ubicación, con independencia de si la ocupan una o dos personas, más los costos diarios del minibar y de los canales premium establecidos por el hotel.
 
 ### 3. Recargos por ubicación
 
@@ -44,7 +44,7 @@ La **tarifa básica por persona para cada noche de alojamiento**, establecida en
 | Piso 7 en adelante | 20 % |
 | Vista de frente al mar | 15 % adicional |
 
-Los recargos por piso y vista de frente al mar **se suman**, sin aplicarse sucesivamente. Primero se obtiene la tarifa por persona ajustada por ubicación; después se aplica la regla de ocupación propia del tipo de habitación. En las suites, el costo del minibar se agrega **después** del ajuste por ubicación y del cálculo para dos personas.
+Los recargos por piso y vista de frente al mar **se suman**, sin aplicarse sucesivamente. Primero se obtiene la tarifa por persona ajustada por ubicación; después se aplica la regla de ocupación propia del tipo de habitación. Los costos de canales premium y, en las suites, del minibar se agregan al costo por noche **después** del ajuste por ubicación y de aplicar las reglas de ocupación. No reciben recargos por ubicación ni descuentos de alojamiento.
 
 Para precisar el cálculo, se utilizan las siguientes variables:
 
@@ -53,21 +53,22 @@ Para precisar el cálculo, se utilizan las siguientes variables:
 - **H:** número de huéspedes de la reserva.
 - **N:** número de noches.
 - **M:** costo del minibar por noche definido en el hotel.
+- **P:** cargo por canales premium por habitación y por noche: corresponde al costo definido en el hotel si la habitación los incluye; en caso contrario, es cero.
 
 El costo total de cada tipo de habitación se determina así:
 
 | Tipo | Costo total de la reserva |
 |---|---|
-| Individual | `A × N` |
-| Doble, un huésped | `(2 × A × 0.70) × N` |
-| Doble, dos huéspedes | `(2 × A) × N` |
-| Familiar, de uno a seis huéspedes | `(6 × A × 0.80) × N` |
-| Familiar, siete u ocho huéspedes, si la capacidad lo permite | `(6 × A × 0.80 + (H − 6) × 0.70 × A) × N` |
-| Suite, uno o dos huéspedes | `(2 × A + M) × N` |
+| Individual | `(A + P) × N` |
+| Doble, un huésped | `(2 × A × 0.70 + P) × N` |
+| Doble, dos huéspedes | `(2 × A + P) × N` |
+| Familiar, de uno a seis huéspedes | `(6 × A × 0.80 + P) × N` |
+| Familiar, siete u ocho huéspedes, si la capacidad lo permite | `(6 × A × 0.80 + (H − 6) × A × 0.70 + P) × N` |
+| Suite, uno o dos huéspedes | `(2 × A + M + P) × N` |
 
-**Ejemplo:** si el hotel establece una tarifa básica de **$100.000 por persona para cada noche**, una habitación del piso 5 con vista de frente al mar tiene una tarifa ajustada de **$125.000 por persona para cada noche** (10 % + 15 %). En ese caso, una habitación doble ocupada por una persona cuesta **$175.000 por noche** (`2 × $125.000 × 0.70`), mientras que la misma habitación ocupada por dos personas cuesta **$250.000 por noche**.
+**Ejemplo:** si el hotel establece una tarifa básica de **$100.000 por persona para cada noche**, una habitación del piso 5 con vista de frente al mar tiene una tarifa ajustada de **$125.000 por persona para cada noche** (10 % + 15 %). En ese caso, una habitación doble **sin canales premium**, ocupada por una persona cuesta **$175.000 por noche** (`2 × $125.000 × 0.70`), mientras que la misma habitación ocupada por dos personas cuesta **$250.000 por noche**.
 
-El descuento del 20 % de la habitación familiar se aplica únicamente a la base de seis personas. El cargo por cada huésped adicional es el 70 % de la **tarifa por persona ajustada por ubicación, sin el descuento familiar**, no del costo total de la habitación. Por ejemplo, con una tarifa ajustada de $100.000 por persona, la habitación familiar cuesta $480.000 por noche para uno a seis huéspedes, $550.000 para siete y $620.000 para ocho, siempre que su capacidad lo permita.
+El descuento del 20 % de la habitación familiar se aplica únicamente a la base de seis personas. Por cada huésped que exceda seis se cobra, por noche, el **70 % de la tarifa por persona ajustada por ubicación**. Por ejemplo, con una tarifa ajustada de $100.000 por persona, la habitación familiar sin canales premium cuesta $480.000 por noche para uno a seis huéspedes, $550.000 para siete y $620.000 para ocho, siempre que su capacidad lo permita. Si incluye canales premium y el hotel fija su costo en $20.000 por noche, los valores son $500.000, $570.000 y $640.000 por noche, respectivamente.
 
 ### 4. Huéspedes
 
@@ -142,7 +143,7 @@ Los diseños de los desarrolladores deberán ser diferentes y cumplir las mismas
 
 **Inicialización y pruebas.** Dentro del paquete `view`, implementar una clase **`Main`** que:
 
-1. Cree un único hotel con las características de su esquema, su tarifa básica por persona para cada noche y el costo diario del minibar.
+1. Cree un único hotel con las características de su esquema, su tarifa básica por persona para cada noche y los costos diarios del minibar y de los canales premium.
 2. Cree y registre las habitaciones diseñadas, con sus pisos, orientación, camas y características, utilizando la tarifa básica por persona establecida en el hotel.
 3. Registre huéspedes y realice reservas con distintas cantidades de personas y noches.
 4. Calcule y muestre tarifas que permitan verificar los recargos por ubicación y las reglas específicas de cada tipo de habitación.
