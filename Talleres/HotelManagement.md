@@ -30,7 +30,7 @@ Se contemplan cuatro tipos:
 
 - **Habitación individual (Single Room):** una cama sencilla y capacidad para una persona. Se cobra el equivalente a **una tarifa básica por persona**, ajustada por ubicación.
 - **Habitación doble (Double Room):** una cama doble y capacidad para dos personas. Su tarifa completa equivale a **dos tarifas básicas por persona**, ajustadas por ubicación. Con dos huéspedes se cobra el 100 % de ese valor; con uno, el **70 %**.
-- **Habitación familiar (Family Room):** exactamente dos camas dobles y entre dos y cuatro camas sencillas; su capacidad es de **seis a ocho personas**, según la configuración. Puede reservarse para menos de seis huéspedes, pero siempre se cobra una **base de seis personas al 80 % de la tarifa por persona ajustada por ubicación**; esto equivale a un descuento del 20 % sobre esa base. Por cada huésped que exceda seis se cobra **un 50 % adicional de la tarifa básica por persona ajustada por ubicación**, por noche.
+- **Habitación familiar (Family Room):** exactamente dos camas dobles y entre dos y cuatro camas sencillas; su capacidad es de **seis a ocho personas**, según la configuración. Puede reservarse para menos de seis huéspedes, pero siempre se cobra una **base de seis personas al 80 % de la tarifa por persona ajustada por ubicación**; esto equivale a un descuento del 20 % sobre esa base. Por cada huésped que exceda seis se cobra **un 70 % adicional de la tarifa básica por persona ajustada por ubicación**, por noche.
 - **Suite:** una cama doble, capacidad máxima para dos personas, sala privada, canales premium y minibar. **Es el único tipo de habitación con minibar** y solo puede ubicarse en **uno de los dos pisos superiores**. Se cobra siempre el equivalente a **dos tarifas básicas por persona**, ajustadas por ubicación, con independencia de si la ocupan una o dos personas, más el costo diario del minibar establecido por el hotel.
 
 ### 3. Recargos por ubicación
@@ -62,12 +62,12 @@ El costo total de cada tipo de habitación se determina así:
 | Doble, un huésped | `(2 × A × 0.70) × N` |
 | Doble, dos huéspedes | `(2 × A) × N` |
 | Familiar, de uno a seis huéspedes | `(6 × A × 0.80) × N` |
-| Familiar, siete u ocho huéspedes, si la capacidad lo permite | `(6 × A × 0.80 + (H − 6) × 0.50 × A) × N` |
+| Familiar, siete u ocho huéspedes, si la capacidad lo permite | `(6 × A × 0.80 + (H − 6) × 0.70 × A) × N` |
 | Suite, uno o dos huéspedes | `(2 × A + M) × N` |
 
 **Ejemplo:** si el hotel establece una tarifa básica de **$100.000 por persona para cada noche**, una habitación del piso 5 con vista de frente al mar tiene una tarifa ajustada de **$125.000 por persona para cada noche** (10 % + 15 %). En ese caso, una habitación doble ocupada por una persona cuesta **$175.000 por noche** (`2 × $125.000 × 0.70`), mientras que la misma habitación ocupada por dos personas cuesta **$250.000 por noche**.
 
-El descuento del 20 % de la habitación familiar se aplica únicamente a la base de seis personas. El cargo por cada huésped adicional es el 50 % de la **tarifa por persona ajustada por ubicación, sin el descuento familiar**, no del costo total de la habitación. Por ejemplo, con una tarifa ajustada de $100.000 por persona, la habitación familiar cuesta $480.000 por noche para uno a seis huéspedes, $530.000 para siete y $580.000 para ocho, siempre que su capacidad lo permita.
+El descuento del 20 % de la habitación familiar se aplica únicamente a la base de seis personas. El cargo por cada huésped adicional es el 70 % de la **tarifa por persona ajustada por ubicación, sin el descuento familiar**, no del costo total de la habitación. Por ejemplo, con una tarifa ajustada de $100.000 por persona, la habitación familiar cuesta $480.000 por noche para uno a seis huéspedes, $550.000 para siete y $620.000 para ocho, siempre que su capacidad lo permita.
 
 ### 4. Huéspedes
 
