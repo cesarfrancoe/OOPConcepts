@@ -18,7 +18,7 @@ El hotel establece una **única tarifa básica por persona para cada noche de al
 
 ### 2. Habitaciones
 
-Cada habitación posee un **número único dentro del hotel**, piso, configuración de camas y la indicación de si tiene vista al mar. Su piso debe estar entre 1 y la cantidad total de pisos del hotel.
+Cada habitación posee un **número único dentro del hotel**, piso, configuración de camas y la indicación de si tiene vista de frente al mar. Su piso debe estar entre 1 y la cantidad total de pisos del hotel.
 
 Cada cama sencilla permite alojar una persona y cada cama doble, dos. La capacidad máxima se obtiene de la configuración de camas; no es un valor independiente de ella.
 
@@ -35,16 +35,16 @@ Se contemplan cuatro tipos:
 
 ### 3. Recargos por ubicación
 
-La **tarifa básica por persona para cada noche de alojamiento**, establecida en el hotel, se ajusta según el piso y la vista al mar:
+La **tarifa básica por persona para cada noche de alojamiento**, establecida en el hotel, se ajusta según el piso y la vista de frente al mar:
 
 | Ubicación | Recargo sobre la tarifa básica por persona |
 |---|---:|
 | Pisos 1 a 3 | 0 % |
 | Pisos 4 a 6 | 10 % |
 | Piso 7 en adelante | 20 % |
-| Vista al mar | 15 % adicional |
+| Vista de frente al mar | 15 % adicional |
 
-Los recargos por piso y vista al mar **se suman**, sin aplicarse sucesivamente. Primero se obtiene la tarifa por persona ajustada por ubicación; después se aplica la regla de ocupación propia del tipo de habitación. En las suites, el costo del minibar se agrega **después** del ajuste por ubicación y del cálculo para dos personas.
+Los recargos por piso y vista de frente al mar **se suman**, sin aplicarse sucesivamente. Primero se obtiene la tarifa por persona ajustada por ubicación; después se aplica la regla de ocupación propia del tipo de habitación. En las suites, el costo del minibar se agrega **después** del ajuste por ubicación y del cálculo para dos personas.
 
 Para precisar el cálculo, se utilizan las siguientes variables:
 
@@ -65,7 +65,7 @@ El costo total de cada tipo de habitación se determina así:
 | Familiar, siete u ocho huéspedes, si la capacidad lo permite | `(6 × A + (H − 6) × 0.50 × A) × N` |
 | Suite, uno o dos huéspedes | `(2 × A + M) × N` |
 
-**Ejemplo:** si el hotel establece una tarifa básica de **$100.000 por persona para cada noche**, una habitación del piso 5 con vista al mar tiene una tarifa ajustada de **$125.000 por persona para cada noche** (10 % + 15 %). En ese caso, una habitación doble ocupada por una persona cuesta **$175.000 por noche** (`2 × $125.000 × 0.70`), mientras que la misma habitación ocupada por dos personas cuesta **$250.000 por noche**.
+**Ejemplo:** si el hotel establece una tarifa básica de **$100.000 por persona para cada noche**, una habitación del piso 5 con vista de frente al mar tiene una tarifa ajustada de **$125.000 por persona para cada noche** (10 % + 15 %). En ese caso, una habitación doble ocupada por una persona cuesta **$175.000 por noche** (`2 × $125.000 × 0.70`), mientras que la misma habitación ocupada por dos personas cuesta **$250.000 por noche**.
 
 El 50 % aplicable a cada huésped adicional de una habitación familiar se calcula sobre la **tarifa por persona ajustada**, no sobre el costo total de la habitación familiar.
 
@@ -135,7 +135,7 @@ Implementar el modelo de acuerdo con el diagrama UML aprobado. El código deber�
 
 - Nombre del hotel y cantidad total de pisos (mínimo ocho).
 - Distribución de habitaciones por piso, con número y tipo de habitación.
-- Orientación de cada habitación: **frente al mar (con vista al mar)** o **sin vista al mar**.
+- Orientación de cada habitación: **con vista de frente al mar** o **sin vista de frente al mar**.
 - Configuración de camas en las habitaciones familiares.
 
 Los diseños de los desarrolladores deberán ser diferentes y cumplir las mismas reglas del negocio. El esquema se presentará y justificará ante el jefe de proyectos y deberá corresponder a los objetos que posteriormente se creen en Java.
@@ -241,4 +241,4 @@ Vocabulario de apoyo para comprender y expresar los conceptos del taller en ingl
 | Habilitar | Enable | Ubicación | Location |
 | Habitación | Room | Único | Unique |
 | Habitación doble | Double room | Validar | Validate |
-| Habitación familiar | Family room | Vista al mar | Sea view |
+| Habitación familiar | Family room | Vista de frente al mar | Direct sea view |
