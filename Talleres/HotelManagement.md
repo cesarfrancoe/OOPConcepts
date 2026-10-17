@@ -68,7 +68,23 @@ El costo total de cada tipo de habitación se determina así:
 
 **Ejemplo:** si el hotel establece una tarifa básica de **$100.000 por persona para cada noche**, una habitación del piso 5 con vista de frente al mar tiene una tarifa ajustada de **$125.000 por persona para cada noche** (10 % + 15 %). En ese caso, una habitación doble **sin canales premium**, ocupada por una persona cuesta **$175.000 por noche** (`2 × $125.000 × 0.70`), mientras que la misma habitación ocupada por dos personas cuesta **$250.000 por noche**.
 
-El descuento del 20 % de la habitación familiar se aplica únicamente a la base de seis personas. Por cada huésped que exceda seis se cobra, por noche, el **70 % de la tarifa por persona ajustada por ubicación**. Por ejemplo, con una tarifa ajustada de $100.000 por persona, la habitación familiar sin canales premium cuesta $480.000 por noche para uno a seis huéspedes, $550.000 para siete y $620.000 para ocho, siempre que su capacidad lo permita. Si incluye canales premium y el hotel fija su costo en $20.000 por noche, los valores son $500.000, $570.000 y $640.000 por noche, respectivamente.
+El descuento del 20 % de la habitación familiar se aplica únicamente a la base de seis personas. Por cada huésped que exceda seis se cobra, por noche, el **70 % de la tarifa por persona ajustada por ubicación**. Por ejemplo, con una tarifa ajustada de $100.000 por persona, la habitación familiar sin canales premium cuesta $480.000 por noche para uno a seis huéspedes, $550.000 para siete y $620.000 para ocho, siempre que su capacidad lo permita. Si incluye canales premium y el hotel fija su costo en $3.500 por noche, los valores son $483.500, $553.500 y $623.500 por noche, respectivamente.
+
+#### Valores de ejemplo en pesos colombianos (COP)
+
+Para inicializar el hotel y realizar pruebas, se propone la siguiente configuración. Son **valores de simulación**, no una cotización de un establecimiento ni tarifas obligatorias para todos los diseños.
+
+| Tarifa definida en el hotel | Valor de ejemplo | Unidad de cobro |
+| --- | ---: | --- |
+| Tarifa básica de alojamiento (B) | $100.000 COP | Por persona para cada noche |
+| Costo del minibar (M) | $30.000 COP | Por suite y por noche |
+| Costo de canales premium | $3.500 COP | Por habitación con canales premium y por noche |
+
+Como referencias comerciales de contexto, [Hotel Regency](https://hotelregency.com.co/terminos-y-condiciones-de-acciones-comerciales/) publica promociones de alojamiento desde $150.000 COP por noche, sujetas a sus condiciones, y [Casa Laureles Filandia](https://www.casalaureles.co/preciosminibar) publica agua a $4.000 COP y cerveza a $6.500 COP en su minibar. Estas referencias tienen unidades y servicios distintos de los parámetros del taller; no equivalen directamente a B, M ni P.
+
+En particular, los $30.000 de minibar representan un cargo fijo nocturno simplificado, no consumo por producto. Los $3.500 de canales premium son un supuesto del ejercicio, no una tarifa hotelera pública verificada. En habitaciones sin canales premium, **P = 0**. No se agregan impuestos ni otros cargos, de acuerdo con el alcance del taller.
+
+**Ejemplo de suite:** con esta configuración, una suite en alguno de los dos pisos superiores de un hotel de ocho pisos, con vista de frente al mar, tiene `A = $100.000 × (1 + 0.20 + 0.15) = $135.000`. Su costo por noche es `2 × $135.000 + $30.000 + $3.500 = $303.500 COP`, y para dos noches es $607.000 COP, tanto para uno como para dos huéspedes.
 
 ### 4. Huéspedes
 
