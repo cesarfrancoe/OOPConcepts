@@ -2,7 +2,7 @@
 
 ## Objetivo
 
-Analizar, diseñar e implementar en Java un sistema para administrar **un único hotel**, aplicando abstracción, encapsulamiento, herencia, sobrescritura, polimorfismo y relaciones entre clases. El énfasis principal está en el **diseño orientado a objetos**, que deberá justificarse antes de iniciar la implementación.
+Analizar, diseñar e implementar en un lenguaje de programación un sistema para administrar **un único hotel**, aplicando abstracción, encapsulamiento, herencia, sobrescritura, polimorfismo y relaciones entre clases. El énfasis principal está en el **diseño orientado a objetos**, que deberá justificarse antes de iniciar la implementación.
 
 ## Contexto y reglas del negocio
 
