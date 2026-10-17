@@ -39,12 +39,18 @@ Todos los valores monetarios se expresan en pesos colombianos (COP). El costo de
 
 Las abreviaturas utilizadas en este modelo tarifario sirven únicamente para simplificar la visualización de las fórmulas. No deben utilizarse como identificadores en la implementación; en el código deben emplearse nombres descriptivos en inglés, de acuerdo con las convenciones de estilo del taller.
 
-#### Tarifas de alojamiento
+#### Tarifas base y servicios definidos por el hotel
 
 | Variable | Descripción | Cálculo | Valor de ejemplo |
 | --- | --- | --- | ---: |
 | TBH | Tarifa base de habitación por noche | Definida por el hotel | $50.000 |
 | TCS | Tarifa de cama sencilla por noche | Definida por el hotel | $40.000 |
+| TMI | Tarifa de minibar por suite y por noche | Definida por el hotel | $30.000 |
+
+#### Tarifas de camas derivadas
+
+| Variable | Descripción | Cálculo | Valor de ejemplo |
+| --- | --- | --- | ---: |
 | TCD1 | Tarifa de cama doble ocupada por una persona, por noche | `TCS × 1.45` | $58.000 |
 | TCD2 | Tarifa de cama doble ocupada por dos personas, por noche | `TCS × 1.90` | $76.000 |
 | TPA | Tarifa por persona adicional por noche | `TCS × 0.70` | $28.000 |
@@ -55,22 +61,21 @@ Las tarifas de cama doble equivalen a `TCD1 = TCS × (1 + 45 / 100)` y `TCD2 = T
 
 El recargo por vista de frente al mar se calcula sobre TBH. Después se calcula el recargo por piso sobre RVM, aplicando el porcentaje del piso. El recargo por televisión con canales premium es un valor fijo definido por el hotel. Estos importes se suman a TBH para obtener TBA; no se aplican sobre las tarifas de camas o minibar. Si la habitación no tiene vista de frente al mar, tanto RVM como RPI son cero.
 
-| Variable | Descripción | Cálculo | Valor de ejemplo con TBH de $50.000 |
-| --- | --- | --- | ---: |
-| RPI | Recargo por piso, por noche | `RVM × porcentaje del piso` | $0 / $1.500 / $3.000 con RVM de $15.000 |
-| PVM | Porcentaje de recargo por vista de frente al mar | Definido por el hotel, expresado como porcentaje | 30 (30 %) |
-| RVM | Recargo por vista de frente al mar, por noche | `TBH × (PVM / 100)` si tiene esa vista; cero en caso contrario | $15.000 / $0 |
-| RCP | Recargo por televisión con canales premium, por noche | Valor fijo definido por el hotel si la habitación incluye este servicio; cero en caso contrario | $3.500 / $0 |
-| TMI | Tarifa de minibar por suite y por noche | Definida por el hotel | $30.000 |
-| TBA | Tarifa base ajustada de habitación por noche | `TBH + RPI + RVM + RCP` | Variable |
-
-El recargo por televisión con canales premium se cobra por habitación y por noche, independientemente de la cantidad de huéspedes; por ejemplo, $3.500. Todas las suites incluyen este recargo. La tarifa de minibar es fija por suite y noche, independientemente de la cantidad de huéspedes.
-
 | Ubicación | Porcentaje de recargo por piso sobre RVM |
 | --- | ---: |
 | Pisos 1 a 3 | 0 % |
 | Pisos 4 a 6 | 10 % |
 | Piso 7 en adelante | 20 % |
+
+| Variable | Descripción | Cálculo | Valor de ejemplo con TBH de $50.000 |
+| --- | --- | --- | ---: |
+| PVM | Porcentaje de recargo por vista de frente al mar | Definido por el hotel, expresado como porcentaje | 30 (30 %) |
+| RCP | Recargo por televisión con canales premium, por noche | Valor fijo definido por el hotel si la habitación incluye este servicio; cero en caso contrario | $3.500 / $0 |
+| RVM | Recargo por vista de frente al mar, por noche | `TBH × (PVM / 100)` si tiene esa vista; cero en caso contrario | $15.000 / $0 |
+| RPI | Recargo por piso, por noche | `RVM × porcentaje del piso` | $0 / $1.500 / $3.000 con RVM de $15.000 |
+| TBA | Tarifa base ajustada de habitación por noche | `TBH + RPI + RVM + RCP` | Variable |
+
+El recargo por televisión con canales premium se cobra por habitación y por noche, independientemente de la cantidad de huéspedes; por ejemplo, $3.500. Todas las suites incluyen este recargo. La tarifa de minibar es fija por suite y noche, independientemente de la cantidad de huéspedes.
 
 #### Variables de ocupación y reserva
 
@@ -98,10 +103,10 @@ Se deben cumplir `1 ≤ NHP ≤ CMH` y `NNO ≥ 1`.
 
 La tarifa mínima de camas de la habitación familiar se cobra incluso con menos de seis huéspedes. La cama doble de la suite siempre se factura como ocupada por dos personas.
 
-El cálculo general se realiza en tres pasos:
+Para el cálculo general, `TMI_s` corresponde a TMI para las suites y a cero para los demás tipos. El cálculo se realiza en tres pasos:
 
 1. Tarifa base ajustada: `TBA = TBH + RPI + RVM + RCP`.
-2. Costo por noche: `CPN = TBA + TCA + TMI_s`, donde `TMI_s` corresponde a TMI para las suites y a cero para los demás tipos.
+2. Costo por noche: `CPN = TBA + TCA + TMI_s`.
 3. Costo total: `CTR = CPN × NNO`.
 
 #### Ejemplo consolidado en pesos colombianos (COP)
