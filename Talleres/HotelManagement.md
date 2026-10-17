@@ -30,7 +30,7 @@ Se contemplan cuatro tipos:
 
 - **Habitación individual (Single Room):** una cama sencilla y capacidad para una persona. Se cobra la tarifa base ajustada de habitación más la tarifa de una cama sencilla por noche.
 - **Habitación doble (Double Room):** una cama doble y capacidad para dos personas. Se cobra la tarifa base ajustada de habitación más la tarifa de cama doble correspondiente a uno o dos huéspedes.
-- **Habitación familiar (Family Room):** exactamente dos camas dobles y entre dos y cuatro camas sencillas; su capacidad es de seis a ocho personas, según la configuración. Para uno a seis huéspedes se cobra una tarifa mínima de camas equivalente a una cama doble ocupada por dos personas más cuatro camas sencillas, además de la tarifa base ajustada de habitación. Esta equivalencia es únicamente tarifaria y no modifica la configuración física. Por cada huésped que exceda seis se agrega el 70 % de la tarifa de cama sencilla, por noche, siempre que la capacidad lo permita.
+- **Habitación familiar (Family Room):** exactamente dos camas dobles y entre dos y cuatro camas sencillas; su capacidad es de seis a ocho personas, según la configuración. Para uno a seis huéspedes se cobra una tarifa mínima de camas correspondiente a dos camas dobles ocupadas por dos personas cada una más dos camas sencillas, además de la tarifa base ajustada de habitación. Por cada huésped que exceda seis se agrega el 70 % de la tarifa de cama sencilla, por noche, siempre que la capacidad lo permita.
 - **Suite:** una cama doble, capacidad máxima para dos personas, sala privada, televisión con canales premium y minibar. Es el único tipo de habitación con minibar y solo puede ubicarse en **uno de los dos pisos superiores**. Se cobra la tarifa base ajustada de habitación más la tarifa de cama doble ocupada por dos personas y la tarifa de minibar, independientemente de que se aloje una o dos personas.
 
 ### 3. Modelo tarifario
@@ -97,8 +97,8 @@ Se deben cumplir `1 ≤ NHP ≤ CMH` y `NNO ≥ 1`.
 | Individual, un huésped | `TCS` | `(TBA + TCS) × NNO` |
 | Doble, un huésped | `TCD1` | `(TBA + TCD1) × NNO` |
 | Doble, dos huéspedes | `TCD2` | `(TBA + TCD2) × NNO` |
-| Familiar, de uno a seis huéspedes | `TCD2 + 4 × TCS` | `(TBA + TCD2 + 4 × TCS) × NNO` |
-| Familiar, siete u ocho huéspedes, si la capacidad lo permite | `TCD2 + 4 × TCS + (NHP − 6) × TPA` | `(TBA + TCD2 + 4 × TCS + (NHP − 6) × TPA) × NNO` |
+| Familiar, de uno a seis huéspedes | `2 × TCD2 + 2 × TCS` | `(TBA + 2 × TCD2 + 2 × TCS) × NNO` |
+| Familiar, siete u ocho huéspedes, si la capacidad lo permite | `2 × TCD2 + 2 × TCS + (NHP − 6) × TPA` | `(TBA + 2 × TCD2 + 2 × TCS + (NHP − 6) × TPA) × NNO` |
 | Suite, uno o dos huéspedes | `TCD2` | `(TBA + TCD2 + TMI) × NNO` |
 
 La tarifa mínima de camas de la habitación familiar se cobra incluso con menos de seis huéspedes. La cama doble de la suite siempre se factura como ocupada por dos personas.
@@ -125,9 +125,9 @@ Para habitaciones del piso 8, con vista de frente al mar y televisión con canal
 | Individual | 1 | $111.500 | $334.500 |
 | Doble | 1 | $129.500 | $388.500 |
 | Doble | 2 | $147.500 | $442.500 |
-| Familiar | 1 a 6 | $307.500 | $922.500 |
-| Familiar | 7 | $335.500 | $1.006.500 |
-| Familiar | 8 | $363.500 | $1.090.500 |
+| Familiar | 1 a 6 | $303.500 | $910.500 |
+| Familiar | 7 | $331.500 | $994.500 |
+| Familiar | 8 | $359.500 | $1.078.500 |
 | Suite | 1 o 2 | $177.500 | $532.500 |
 
 Los ejemplos familiares de siete y ocho huéspedes suponen habitaciones con capacidad suficiente. La suite del ejemplo debe pertenecer a un hotel en el que el piso 8 sea uno de los dos superiores.
