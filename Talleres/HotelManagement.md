@@ -61,7 +61,7 @@ Las tarifas de cama doble equivalen a `TCD1 = TCS × (1 + 45 / 100)` y `TCD2 = T
 
 El recargo por vista de frente al mar se calcula sobre TBH. Después se calcula el recargo por piso sobre RVM, aplicando el porcentaje del piso. El recargo por televisión con canales premium es un valor fijo definido por el hotel. Estos importes se suman a TBH para obtener TBA; no se aplican sobre las tarifas de camas o minibar. Si la habitación no tiene vista de frente al mar, tanto RVM como RPI son cero.
 
-| Ubicación | Porcentaje de recargo por piso sobre RVM |
+| Ubicación | Porcentaje de recargo por piso |
 | --- | ---: |
 | Pisos 1 a 3 | 0 % |
 | Pisos 4 a 6 | 10 % |
