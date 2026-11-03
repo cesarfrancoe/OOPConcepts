@@ -25,14 +25,8 @@ Diseñar e implementar una aplicación orientada a objetos en Java que modele un
    domain/   → clases del modelo (entidades, lógica de negocio)
    data/     → clases para persistencia e intercambio de datos
    ```
-6. Si la interfaz de usuario es por consola, debe incluir una clase auxiliar llamada `Console` con almenos los métodos:
+6. La interacción con el usuario debe organizarse mediante una o varias clases de la capa `ui`, responsables de recibir los datos ingresados y presentar información, resultados y mensajes. Estas clases deben gestionar la entrada y salida de datos de acuerdo con la interfaz elegida (consola o Swing), manteniendo separada la interacción con el usuario de la lógica de negocio y la persistencia. Los nombres de las clases y sus métodos serán definidos por cada equipo según su diseño.
 
-   ```java
-   public static void writeLine(Object message)
-   public static String readLine(String prompt)
-   ```
-
-   Si la interfaz se desarrolla con Swing, esta clase no es necesaria.
 7. Persistencia de datos (obligatoria):
    El sistema debe guardar y cargar la información utilizando archivos serializados mediante `ObjectOutputStream` y `ObjectInputStream`.
    Este mecanismo corresponde a la persistencia principal del sistema y debe permitir conservar el estado completo de la aplicación entre ejecuciones.
@@ -48,13 +42,13 @@ Diseñar e implementar una aplicación orientada a objetos en Java que modele un
    * Los registros históricos, como ventas, pagos o alquileres, no deben modificarse ni eliminarse libremente. Las correcciones deben seguir las reglas del negocio y conservar la trazabilidad.
    * Cada equipo debe documentar en el `README.md` las entidades que permiten CRUD, las restricciones aplicadas y las alternativas utilizadas cuando una operación no corresponda.
 
-10. Importación y exportación de datos (opcional):
-    El sistema podrá incluir funcionalidades para:
+10. Exportación de datos a CSV (obligatoria) e importación (opcional):
 
-    * importar datos desde archivos `.csv`,
-    * exportar datos del sistema a archivos `.csv`.
+    * El sistema debe permitir exportar datos del sistema o reportes a archivos `.csv` desde la interfaz de usuario. El archivo debe incluir encabezados de columnas y los datos correspondientes, utilizando una estructura tabular coherente.
+    * La importación de datos desde archivos `.csv` es opcional y puede utilizarse para la carga inicial de información.
 
-    Estas funcionalidades son independientes del mecanismo de persistencia y se utilizarán para carga inicial de datos o generación de reportes.
+    La exportación y la importación son independientes de la persistencia principal mediante archivos serializados y no la reemplazan. Deben implementarse sin librerías externas.
+
 11. La interfaz de usuario puede implementarse de una de las siguientes maneras:
     a) mediante un menú de texto en consola (requisito mínimo obligatorio), o
     b) mediante una interfaz gráfica desarrollada con Java Swing, la cual puede reemplazar completamente la interfaz en consola, siempre que:
