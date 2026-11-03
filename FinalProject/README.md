@@ -5,62 +5,102 @@
 Diseñar e implementar una aplicación orientada a objetos en Java que modele un sistema de gestión del mundo real desde la perspectiva de una aplicación de uso interno, orientada al trabajo de un empleado, operador o administrador, aplicando correctamente los principios de abstracción, encapsulamiento, herencia y polimorfismo, junto con el manejo de colecciones y persistencia de objetos mediante archivos serializados.
 
 ---
-## Requisitos generales
+## Requisitos del proyecto
+
+### Requisitos técnicos
 
 1. El proyecto debe desarrollarse utilizando Java 25 LTS (OpenJDK 25).
 
-2. El proyecto puede desarrollarse de forma individual o, de manera opcional, en un grupo de hasta 2 estudiantes.
+2. El código debe compilar y ejecutarse correctamente desde Visual Studio Code (VS Code) o desde la consola.
 
-3. El código fuente debe escribirse completamente en inglés, incluyendo nombres de variables, métodos, clases y comentarios.
+3. No se permite el uso de bases de datos, frameworks ni librerías externas.
 
-4. Se deben aplicar las convenciones oficiales de estilo de Java:
-   * UpperCamelCase para nombres de clases (por ejemplo, `StudentRecord`, `ParkingSystem`).
-   * camelCase para nombres de variables y métodos (por ejemplo, `studentName`, `calculateTotal`).
-   * UPPER_SNAKE_CASE para constantes (por ejemplo, `MAX_SIZE`, `DEFAULT_PATH`).
+4. El proyecto debe manejar los objetos en memoria usando únicamente una de las siguientes colecciones:
 
-5. La estructura mínima de paquetes será:
+   * `ArrayList<T>`
+   * `LinkedList<T>`
+
+### Requisitos de arquitectura y diseño orientado a objetos
+
+1. La estructura mínima de paquetes será:
 
    ```
    ui/       → interfaz de usuario (consola o Swing)
    domain/   → clases del modelo (entidades, lógica de negocio)
    data/     → clases para persistencia e intercambio de datos
    ```
-6. La interacción con el usuario debe organizarse mediante una o varias clases de la capa `ui`, responsables de recibir los datos ingresados y presentar información, resultados y mensajes. Estas clases deben gestionar la entrada y salida de datos de acuerdo con la interfaz elegida (consola o Swing), manteniendo separada la interacción con el usuario de la lógica de negocio y la persistencia. Los nombres de las clases y sus métodos serán definidos por cada equipo según su diseño.
 
-7. Persistencia de datos (obligatoria):
-   El sistema debe guardar y cargar la información utilizando archivos serializados mediante `ObjectOutputStream` y `ObjectInputStream`.
-   Este mecanismo corresponde a la persistencia principal del sistema y debe permitir conservar el estado completo de la aplicación entre ejecuciones.
+2. Cada proyecto debe incluir como mínimo 9 clases pertenecientes a la capa `domain`, relacionadas con el modelo y la lógica de negocio del sistema. Estas clases deben participar activamente en el funcionamiento de la aplicación y mantener relaciones coherentes entre sí.
 
-8. El proyecto debe manejar los objetos en memoria usando únicamente una de las siguientes colecciones:
+   No se tendrán en cuenta clases utilitarias, clases de interfaz (`ui`), clases de persistencia (`data`) ni excepciones personalizadas para cumplir este requisito mínimo.
 
-   * `ArrayList<T>`
-   * `LinkedList<T>`
-9. Se deben implementar funciones de registro, búsqueda, listado, modificación y eliminación (CRUD) para las entidades administrables del sistema, de acuerdo con las reglas del negocio. No se exige permitir todas estas operaciones sobre cada clase del dominio.
+3. El proyecto debe implementar al menos una jerarquía de herencia entre clases de la capa `domain`, justificada por una relación de especialización (“es un”) y por los comportamientos del sistema. Debe demostrar polimorfismo mediante la invocación de métodos sobrescritos a través de referencias del tipo base; no basta con declarar `extends`. No se exige una jerarquía específica ni el uso de clases o métodos abstractos: estos deben utilizarse únicamente cuando el diseño lo justifique.
+
+4. Las clases del dominio deben incluir constructores, métodos accesores, métodos mutadores y métodos adicionales de negocio, de acuerdo con sus responsabilidades:
+
+   * Los constructores deben inicializar los objetos en un estado válido y recibir los datos necesarios para su creación.
+   * Los accesores (`get...` y `is...`, según corresponda) deben permitir consultar la información que sea necesario exponer, preservando el encapsulamiento.
+   * Los mutadores (`set...` u operaciones específicas de modificación) deben validar los cambios y mantener las reglas del negocio. No se deben crear mutadores para atributos que no deban modificarse ni permitir cambios que produzcan estados inválidos.
+   * Los métodos adicionales deben implementar comportamientos propios del dominio, como cálculos, validaciones, cambios de estado o gestión de relaciones. El modelo no debe limitarse a almacenar atributos con getters y setters.
+
+   No se exige un accesor y un mutador para cada atributo ni todas las categorías de métodos en cada clase; su inclusión debe responder al diseño y a las responsabilidades de cada clase.
+
+### Requisitos funcionales y reglas del negocio
+
+1. Enfoque del sistema:
+    El proyecto debe desarrollarse como una aplicación de uso interno, orientada al personal del sistema (empleado, operador o administrador).
+    No debe plantearse como una aplicación para el cliente final ni como un sistema de autoservicio.
+
+2. Se deben implementar funciones de registro, búsqueda, listado, modificación y eliminación (CRUD) para las entidades administrables del sistema, de acuerdo con las reglas del negocio. No se exige permitir todas estas operaciones sobre cada clase del dominio.
 
    * Las modificaciones y eliminaciones deben preservar la consistencia de los datos y sus relaciones; no se deben dejar referencias a objetos eliminados ni permitir estados inválidos.
    * Cuando un objeto esté asociado a operaciones o registros históricos, se debe restringir su eliminación o utilizar desactivación, cancelación o anulación, según corresponda, conservando la información necesaria.
    * Los registros históricos, como ventas, pagos o alquileres, no deben modificarse ni eliminarse libremente. Las correcciones deben seguir las reglas del negocio y conservar la trazabilidad.
    * Cada equipo debe documentar en el `README.md` las entidades que permiten CRUD, las restricciones aplicadas y las alternativas utilizadas cuando una operación no corresponda.
 
-10. Exportación de datos a CSV (obligatoria) e importación (opcional):
+3. El sistema debe incluir un componente básico de apoyo a decisiones que realice una tarea de recomendación, clasificación o predicción mediante reglas o algoritmos implementados sin librerías externas. Debe utilizar los datos del sistema y estar disponible desde la interfaz de usuario.
 
-    * El sistema debe permitir exportar datos del sistema o reportes a archivos `.csv` desde la interfaz de usuario. El archivo debe incluir encabezados de columnas y los datos correspondientes, utilizando una estructura tabular coherente.
-    * La importación de datos desde archivos `.csv` es opcional y puede utilizarse para la carga inicial de información.
+### Requisitos de interfaz de usuario
 
-    La exportación y la importación son independientes de la persistencia principal mediante archivos serializados y no la reemplazan. Deben implementarse sin librerías externas.
+1. La interacción con el usuario debe organizarse mediante una o varias clases de la capa `ui`, responsables de recibir los datos ingresados y presentar información, resultados y mensajes. Estas clases deben gestionar la entrada y salida de datos de acuerdo con la interfaz elegida (consola o Swing), manteniendo separada la interacción con el usuario de la lógica de negocio y la persistencia. Los nombres de las clases y sus métodos serán definidos por cada equipo según su diseño.
 
-11. La interfaz de usuario puede implementarse de una de las siguientes maneras:
+2. La interfaz de usuario puede implementarse de una de las siguientes maneras:
     a) mediante un menú de texto en consola (requisito mínimo obligatorio), o
     b) mediante una interfaz gráfica desarrollada con Java Swing, la cual puede reemplazar completamente la interfaz en consola, siempre que:
 
     * mantenga la arquitectura por capas (`ui`, `domain`, `data`),
     * implemente todas las funcionalidades requeridas, y
     * permita guardar y cargar datos correctamente.
-12. Enfoque del sistema:
-    El proyecto debe desarrollarse como una aplicación de uso interno, orientada al personal del sistema (empleado, operador o administrador).
-    No debe plantearse como una aplicación para el cliente final ni como un sistema de autoservicio.
 
-13. El proyecto debe subirse a un repositorio en GitHub cumpliendo las siguientes condiciones:
+### Requisitos de persistencia e intercambio de datos
+
+1. Persistencia de datos (obligatoria):
+   El sistema debe guardar y cargar la información utilizando archivos serializados mediante `ObjectOutputStream` y `ObjectInputStream`.
+   Este mecanismo corresponde a la persistencia principal del sistema y debe permitir conservar el estado completo de la aplicación entre ejecuciones.
+
+2. Exportación de datos a CSV (obligatoria) e importación (opcional):
+
+    * El sistema debe permitir exportar datos del sistema o reportes a archivos `.csv` desde la interfaz de usuario. El archivo debe incluir encabezados de columnas y los datos correspondientes, utilizando una estructura tabular coherente.
+    * La importación de datos desde archivos `.csv` es opcional y puede utilizarse para la carga inicial de información.
+
+    La exportación y la importación son independientes de la persistencia principal mediante archivos serializados y no la reemplazan. Deben implementarse sin librerías externas.
+
+### Requisitos de estilo y documentación del código
+
+1. El código fuente debe escribirse completamente en inglés, incluyendo nombres de variables, métodos, clases y comentarios.
+
+2. Se deben aplicar las convenciones oficiales de estilo de Java:
+   * UpperCamelCase para nombres de clases (por ejemplo, `StudentRecord`, `ParkingSystem`).
+   * camelCase para nombres de variables y métodos (por ejemplo, `studentName`, `calculateTotal`).
+   * UPPER_SNAKE_CASE para constantes (por ejemplo, `MAX_SIZE`, `DEFAULT_PATH`).
+
+3. Todo el código debe incluir comentarios en inglés que expliquen el propósito de las clases y métodos.
+
+### Condiciones de trabajo, repositorio y documentación de entrega
+
+1. El proyecto puede desarrollarse de forma individual o, de manera opcional, en un grupo de hasta 2 estudiantes.
+
+2. El proyecto debe subirse a un repositorio en GitHub cumpliendo las siguientes condiciones:
 
     * El repositorio debe ser público.
     * Nombre del repositorio:
@@ -80,24 +120,6 @@ Diseñar e implementar una aplicación orientada a objetos en Java que modele un
         * Diagrama de clases incluido directamente en el `README.md` mediante un bloque de código `mermaid` de tipo `classDiagram`. Debe representar las clases del dominio, sus atributos y métodos relevantes, las relaciones de herencia, asociación y composición que correspondan, y las multiplicidades aplicables. El diagrama debe ser coherente con el código implementado.
       * Al menos 5 commits significativos. En trabajos de dos estudiantes, deben existir commits significativos de ambos desarrolladores en el historial del repositorio, identificados con sus respectivas cuentas de GitHub. No se aceptará que todos los commits correspondan a un solo integrante. En trabajos individuales, los commits corresponden al único autor.
 
-14. El código debe compilar y ejecutarse correctamente desde Visual Studio Code (VS Code) o desde la consola.
-15. No se permite el uso de bases de datos, frameworks ni librerías externas.
-
-16. Todo el código debe incluir comentarios en inglés que expliquen el propósito de las clases y métodos.
-
-17. El sistema debe incluir un componente básico de apoyo a decisiones que realice una tarea de recomendación, clasificación o predicción mediante reglas o algoritmos implementados sin librerías externas. Debe utilizar los datos del sistema y estar disponible desde la interfaz de usuario.
-
-18. El proyecto debe implementar al menos una jerarquía de herencia entre clases de la capa `domain`, justificada por una relación de especialización (“es un”) y por los comportamientos del sistema. Debe demostrar polimorfismo mediante la invocación de métodos sobrescritos a través de referencias del tipo base; no basta con declarar `extends`. No se exige una jerarquía específica ni el uso de clases o métodos abstractos: estos deben utilizarse únicamente cuando el diseño lo justifique.
-
-19. Las clases del dominio deben incluir constructores, métodos accesores, métodos mutadores y métodos adicionales de negocio, de acuerdo con sus responsabilidades:
-
-   * Los constructores deben inicializar los objetos en un estado válido y recibir los datos necesarios para su creación.
-   * Los accesores (`get...` y `is...`, según corresponda) deben permitir consultar la información que sea necesario exponer, preservando el encapsulamiento.
-   * Los mutadores (`set...` u operaciones específicas de modificación) deben validar los cambios y mantener las reglas del negocio. No se deben crear mutadores para atributos que no deban modificarse ni permitir cambios que produzcan estados inválidos.
-   * Los métodos adicionales deben implementar comportamientos propios del dominio, como cálculos, validaciones, cambios de estado o gestión de relaciones. El modelo no debe limitarse a almacenar atributos con getters y setters.
-
-   No se exige un accesor y un mutador para cada atributo ni todas las categorías de métodos en cada clase; su inclusión debe responder al diseño y a las responsabilidades de cada clase.
-
 ---
 ## Criterios de evaluación
 
@@ -113,11 +135,6 @@ La rúbrica detallada de cada componente se definirá posteriormente.
 ## Propuestas de proyectos
 
 Cada estudiante o grupo de dos estudiantes deberá seleccionar una de las siguientes opciones (previa aprobación del docente).
-
-Todos los proyectos deben enfocarse en procesos administrativos u operativos internos y no en aplicaciones orientadas al cliente final.
-Además, cada proyecto debe incluir como mínimo 9 clases pertenecientes a la capa `domain`, relacionadas con el modelo y la lógica de negocio del sistema. Estas clases deben participar activamente en el funcionamiento de la aplicación y mantener relaciones coherentes entre sí.
-
-No se tendrán en cuenta clases utilitarias, clases de interfaz (`ui`), clases de persistencia (`data`) ni excepciones personalizadas para cumplir este requisito mínimo.
 
 La clase central del dominio sugerida en cada propuesta es un punto de partida para el análisis; no corresponde necesariamente a la clase que contiene el método `main` ni prescribe el diseño completo. Cada equipo debe identificar las demás clases, distribuir sus responsabilidades y definir sus relaciones, evitando concentrar toda la lógica del sistema en una sola clase.
 
