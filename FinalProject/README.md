@@ -99,14 +99,11 @@ Diseñar e implementar una aplicación orientada a objetos en Java que modele un
    No se exige un accesor y un mutador para cada atributo ni todas las categorías de métodos en cada clase; su inclusión debe responder al diseño y a las responsabilidades de cada clase.
 
 ---
-## Criterios de evaluación (100%)
+## Criterios de evaluación
 
-| Componente | Peso |
-| --- | --- |
-| Proyecto entregado | 40% |
-| Sustentación compartida | 30% |
-| Sustentación individual | 30% |
-| **Total** | **100%** |
+- **Proyecto entregado: 40%.**
+- **Sustentación compartida: 30%.**
+- **Sustentación individual: 30%.**
 
 En trabajos en pareja, las notas del proyecto entregado y de la sustentación compartida serán comunes a ambos integrantes; la sustentación individual se calificará por separado para cada estudiante. En trabajos individuales, el único autor realizará ambos componentes de la sustentación y conservará los mismos porcentajes.
 
