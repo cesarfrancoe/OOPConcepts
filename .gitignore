@@ -1,0 +1,33 @@
+# Java compilation and generated build files
+*.class
+bin/
+out/
+target/
+build/
+.gradle/
+
+# Local IDE metadata
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+
+# Operating system files
+.DS_Store
+._*
+Thumbs.db
+Desktop.ini
+
+# Logs and temporary editor files
+*.log
+*.tmp
+*.swp
+*.swo
+*~
+
+# Local environment files
+.env
+.env.*
+!.env.example
+!.env.sample
