@@ -115,7 +115,7 @@ La rúbrica detallada de cada componente se definirá posteriormente.
 Cada estudiante o grupo de dos estudiantes deberá seleccionar una de las siguientes opciones (previa aprobación del docente).
 
 Todos los proyectos deben enfocarse en procesos administrativos u operativos internos y no en aplicaciones orientadas al cliente final.
-Además, cada proyecto debe incluir como mínimo 6 clases pertenecientes a la capa `domain`, relacionadas con el modelo y la lógica de negocio del sistema. Estas clases deben participar activamente en el funcionamiento de la aplicación y mantener relaciones coherentes entre sí.
+Además, cada proyecto debe incluir como mínimo 9 clases pertenecientes a la capa `domain`, relacionadas con el modelo y la lógica de negocio del sistema. Estas clases deben participar activamente en el funcionamiento de la aplicación y mantener relaciones coherentes entre sí.
 
 No se tendrán en cuenta clases utilitarias, clases de interfaz (`ui`), clases de persistencia (`data`) ni excepciones personalizadas para cumplir este requisito mínimo.
 
