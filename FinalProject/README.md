@@ -7,7 +7,7 @@ Diseñar e implementar una aplicación orientada a objetos en Java que modele un
 ---
 ## Requisitos generales
 
-1. El proyecto debe desarrollarse utilizando Java 25 LTS (JDK 25).
+1. El proyecto debe desarrollarse utilizando Java 25 LTS (OpenJDK 25).
 
 2. El proyecto puede desarrollarse de forma individual o, de manera opcional, en un grupo de hasta 2 estudiantes.
 
