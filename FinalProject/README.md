@@ -105,10 +105,11 @@ Diseñar e implementar una aplicación orientada a objetos en Java que modele un
 | Componente | Peso |
 | --- | --- |
 | Proyecto entregado | 40% |
-| Sustentación individual | 60% |
+| Sustentación compartida | 30% |
+| Sustentación individual | 30% |
 | **Total** | **100%** |
 
-La nota del proyecto entregado será individual cuando se trabaje solo y compartida por ambos integrantes cuando se trabaje en pareja. La sustentación se calificará individualmente en todos los casos.
+En trabajos en pareja, las notas del proyecto entregado y de la sustentación compartida serán comunes a ambos integrantes; la sustentación individual se calificará por separado para cada estudiante. En trabajos individuales, el único autor realizará ambos componentes de la sustentación y conservará los mismos porcentajes.
 
 La rúbrica detallada de cada componente se definirá posteriormente.
 
