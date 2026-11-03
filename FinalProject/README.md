@@ -7,9 +7,9 @@ Diseñar e implementar una aplicación orientada a objetos en Java que modele un
 ---
 ## Requisitos generales
 
-1. El proyecto debe desarrollarse en Java 17 o Java 21 (solo versiones LTS).
+1. El proyecto debe desarrollarse utilizando Java 25 LTS (JDK 25).
 
-2. Trabajo en parejas (máximo 2 estudiantes).
+2. El proyecto puede desarrollarse de forma individual o, de manera opcional, en un grupo de hasta 2 estudiantes.
 
 3. El código fuente debe escribirse completamente en inglés, incluyendo nombres de variables, métodos, clases y comentarios.
 
@@ -41,7 +41,12 @@ Diseñar e implementar una aplicación orientada a objetos en Java que modele un
 
    * `ArrayList<T>`
    * `LinkedList<T>`
-9. Se deben implementar funciones de registro, búsqueda, listado, modificación y eliminación de objetos.
+9. Se deben implementar funciones de registro, búsqueda, listado, modificación y eliminación (CRUD) para las entidades administrables del sistema, de acuerdo con las reglas del negocio. No se exige permitir todas estas operaciones sobre cada clase del dominio.
+
+   * Las modificaciones y eliminaciones deben preservar la consistencia de los datos y sus relaciones; no se deben dejar referencias a objetos eliminados ni permitir estados inválidos.
+   * Cuando un objeto esté asociado a operaciones o registros históricos, se debe restringir su eliminación o utilizar desactivación, cancelación o anulación, según corresponda, conservando la información necesaria.
+   * Los registros históricos, como ventas, pagos o alquileres, no deben modificarse ni eliminarse libremente. Las correcciones deben seguir las reglas del negocio y conservar la trazabilidad.
+   * Cada equipo debe documentar en el `README.md` las entidades que permiten CRUD, las restricciones aplicadas y las alternativas utilizadas cuando una operación no corresponda.
 
 10. Importación y exportación de datos (opcional):
     El sistema podrá incluir funcionalidades para:
@@ -68,6 +73,7 @@ Diseñar e implementar una aplicación orientada a objetos en Java que modele un
       ```
       POO_FinalProject_Lastname1_Lastname2
       ```
+      Para entregas individuales, utilizar `POO_FinalProject_Lastname1`.
     * Debe contener:
 
       * Carpeta `src/` con todo el código fuente.
@@ -79,46 +85,57 @@ Diseñar e implementar una aplicación orientada a objetos en Java que modele un
         * Ejemplo de entrada/salida.
         * Enlace al diagrama de clases (`ModelDiagram.gif`).
       * Archivo `ModelDiagram.gif` en la raíz del repositorio.
-      * Al menos 5 commits significativos distribuidos entre los dos miembros.
+      * Al menos 5 commits significativos. En trabajos de dos estudiantes, deben existir commits significativos de ambos desarrolladores en el historial del repositorio, identificados con sus respectivas cuentas de GitHub. No se aceptará que todos los commits correspondan a un solo integrante. En trabajos individuales, los commits corresponden al único autor.
 
 14. El código debe compilar y ejecutarse correctamente desde Visual Studio Code (VS Code) o desde la consola.
 15. No se permite el uso de bases de datos, frameworks ni librerías externas.
 
 16. Todo el código debe incluir comentarios en inglés que expliquen el propósito de las clases y métodos.
 
-17. El sistema debe incluir un componente básico orientado a una de las siguientes tareas: recomendación, clasificación o predicción, implementado sin librerías externas. Este componente debe integrarse con los datos del sistema y exponerse desde la interfaz de usuario.
+17. El sistema debe incluir un componente básico de apoyo a decisiones que realice una tarea de recomendación, clasificación o predicción mediante reglas o algoritmos implementados sin librerías externas. Debe utilizar los datos del sistema y estar disponible desde la interfaz de usuario.
+
+18. El proyecto debe implementar al menos una jerarquía de herencia entre clases de la capa `domain`, justificada por una relación de especialización (“es un”) y por los comportamientos del sistema. Debe demostrar polimorfismo mediante la invocación de métodos sobrescritos a través de referencias del tipo base; no basta con declarar `extends`. No se exige una jerarquía específica ni el uso de clases o métodos abstractos: estos deben utilizarse únicamente cuando el diseño lo justifique.
+
+19. Las clases del dominio deben incluir constructores, métodos accesores, métodos mutadores y métodos adicionales de negocio, de acuerdo con sus responsabilidades:
+
+   * Los constructores deben inicializar los objetos en un estado válido y recibir los datos necesarios para su creación.
+   * Los accesores (`get...` y `is...`, según corresponda) deben permitir consultar la información que sea necesario exponer, preservando el encapsulamiento.
+   * Los mutadores (`set...` u operaciones específicas de modificación) deben validar los cambios y mantener las reglas del negocio. No se deben crear mutadores para atributos que no deban modificarse ni permitir cambios que produzcan estados inválidos.
+   * Los métodos adicionales deben implementar comportamientos propios del dominio, como cálculos, validaciones, cambios de estado o gestión de relaciones. El modelo no debe limitarse a almacenar atributos con getters y setters.
+
+   No se exige un accesor y un mutador para cada atributo ni todas las categorías de métodos en cada clase; su inclusión debe responder al diseño y a las responsabilidades de cada clase.
 
 ---
 ## Criterios de evaluación (100%)
-| Criterio | Peso |
-| --- | --- |
-| Diseño orientado a objetos (herencia, composición, polimorfismo) | 20% |
-| Organización del código y estructura por paquetes | 10% |
-| Convenciones de escritura y documentación en inglés | 10% |
-| Uso correcto de ArrayList o LinkedList | 10% |
-| Persistencia mediante archivos serializados | 15% |
-| Interfaz de usuario (consola o Swing): usabilidad, flujo, validaciones, manejo de errores | 10% |
-| Uso de GitHub (commits, README, diagrama de clases) | 10% |
-| Extensiones opcionales (por ejemplo: importación/exportación `.csv`, componente básico de IA, búsquedas o filtrados avanzados, reportes, `Comparable`/`Comparator`, excepciones personalizadas) | 15% |
 
-Nota: la interfaz de usuario se evalúa únicamente en el criterio correspondiente. La implementación con Swing no otorga puntaje adicional por sí misma.
+| Componente | Peso |
+| --- | --- |
+| Proyecto entregado | 40% |
+| Sustentación individual | 60% |
+| **Total** | **100%** |
+
+La nota del proyecto entregado será individual cuando se trabaje solo y compartida por ambos integrantes cuando se trabaje en pareja. La sustentación se calificará individualmente en todos los casos.
+
+La rúbrica detallada de cada componente se definirá posteriormente.
 
 ---
 ## Propuestas de proyectos
 
-Cada pareja deberá seleccionar una de las siguientes opciones (previa aprobación del docente).
+Cada estudiante o grupo de dos estudiantes deberá seleccionar una de las siguientes opciones (previa aprobación del docente).
 
 Todos los proyectos deben enfocarse en procesos administrativos u operativos internos y no en aplicaciones orientadas al cliente final.
 Además, cada proyecto debe incluir como mínimo 6 clases pertenecientes a la capa `domain`, relacionadas con el modelo y la lógica de negocio del sistema. Estas clases deben participar activamente en el funcionamiento de la aplicación y mantener relaciones coherentes entre sí.
 
 No se tendrán en cuenta clases utilitarias, clases de interfaz (`ui`), clases de persistencia (`data`) ni excepciones personalizadas para cumplir este requisito mínimo.
 
+La clase central del dominio sugerida en cada propuesta es un punto de partida para el análisis; no corresponde necesariamente a la clase que contiene el método `main` ni prescribe el diseño completo. Cada equipo debe identificar las demás clases, distribuir sus responsabilidades y definir sus relaciones, evitando concentrar toda la lógica del sistema en una sola clase.
+
 ---
 ### 1. Smart Parking System
 
 Sistema utilizado por el personal de un parqueadero para registrar la entrada y salida de vehículos, controlar la ocupación y calcular el valor a pagar.
 
-Clase principal sugerida: `ParkingLot`.
+Clase central del dominio sugerida: `ParkingLot`.
 
 Funciones clave:
 
@@ -133,7 +150,7 @@ Funciones clave:
 
 Sistema utilizado por el personal de recepción o administración para gestionar habitaciones, huéspedes y reservas.
 
-Clase principal sugerida: `Hotel`.
+Clase central del dominio sugerida: `Hotel`.
 
 Funciones clave:
 
@@ -149,7 +166,7 @@ Funciones clave:
 
 Sistema utilizado por empleados de una tienda para gestionar el inventario de videojuegos y registrar ventas.
 
-Clase principal sugerida: `Store`.
+Clase central del dominio sugerida: `Store`.
 
 Funciones clave:
 
@@ -165,7 +182,7 @@ Funciones clave:
 
 Sistema utilizado por el personal de una clínica veterinaria para gestionar mascotas, dueños y citas.
 
-Clase principal sugerida: `VeterinaryClinic`.
+Clase central del dominio sugerida: `VeterinaryClinic`.
 
 Funciones clave:
 
@@ -181,7 +198,7 @@ Funciones clave:
 
 Sistema utilizado por empleados para gestionar el alquiler y devolución de películas.
 
-Clase principal sugerida: `Store`.
+Clase central del dominio sugerida: `Store`.
 
 Funciones clave:
 
@@ -197,7 +214,7 @@ Funciones clave:
 
 Sistema utilizado por el personal organizador para gestionar eventos y la venta de entradas.
 
-Clase principal sugerida: `TicketOffice`.
+Clase central del dominio sugerida: `TicketOffice`.
 
 Funciones clave:
 
@@ -213,7 +230,7 @@ Funciones clave:
 
 Sistema utilizado por el personal de un restaurante para registrar pedidos, calcular cuentas y gestionar mesas.
 
-Clase principal sugerida: `Restaurant`.
+Clase central del dominio sugerida: `Restaurant`.
 
 Funciones clave:
 
@@ -229,7 +246,7 @@ Funciones clave:
 
 Sistema utilizado por el personal de un servicio de domicilios para registrar pedidos y asignar repartidores.
 
-Clase principal sugerida: `DeliveryService`.
+Clase central del dominio sugerida: `DeliveryService`.
 
 Funciones clave:
 
@@ -245,7 +262,7 @@ Funciones clave:
 
 Sistema utilizado por el personal de un gimnasio para gestionar miembros, planes, pagos y control de acceso.
 
-Clase principal sugerida: `Gym`.
+Clase central del dominio sugerida: `Gym`.
 
 Funciones clave:
 
@@ -261,7 +278,7 @@ Funciones clave:
 
 Sistema utilizado por el personal de una farmacia para gestionar medicamentos, proveedores y ventas.
 
-Clase principal sugerida: `Pharmacy`.
+Clase central del dominio sugerida: `Pharmacy`.
 
 Funciones clave:
 
@@ -277,7 +294,7 @@ Funciones clave:
 
 Sistema utilizado por el personal de una tienda de ropa para administrar artículos de vestir, controlar el inventario y registrar ventas, considerando características como tallas, colores, categorías y precios.
 
-Clase principal sugerida: `ClothingStore`.
+Clase central del dominio sugerida: `ClothingStore`.
 
 Funciones clave:
 
