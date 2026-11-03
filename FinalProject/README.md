@@ -77,8 +77,7 @@ Diseñar e implementar una aplicación orientada a objetos en Java que modele un
         * Descripción general del sistema.
         * Instrucciones para ejecutar.
         * Ejemplo de entrada/salida.
-        * Enlace al diagrama de clases (`ModelDiagram.gif`).
-      * Archivo `ModelDiagram.gif` en la raíz del repositorio.
+        * Diagrama de clases incluido directamente en el `README.md` mediante un bloque de código `mermaid` de tipo `classDiagram`. Debe representar las clases del dominio, sus atributos y métodos relevantes, las relaciones de herencia, asociación y composición que correspondan, y las multiplicidades aplicables. El diagrama debe ser coherente con el código implementado.
       * Al menos 5 commits significativos. En trabajos de dos estudiantes, deben existir commits significativos de ambos desarrolladores en el historial del repositorio, identificados con sus respectivas cuentas de GitHub. No se aceptará que todos los commits correspondan a un solo integrante. En trabajos individuales, los commits corresponden al único autor.
 
 14. El código debe compilar y ejecutarse correctamente desde Visual Studio Code (VS Code) o desde la consola.
@@ -305,4 +304,4 @@ Funciones clave:
 ## Entrega final
 
 * Subir al repositorio GitHub el proyecto completo y funcional.
-* Incluir en el `README.md` la explicación del proyecto y el enlace al archivo `ModelDiagram.gif`.
+* Incluir en el `README.md` la explicación del proyecto y el diagrama de clases en Mermaid (`classDiagram`), actualizado y coherente con la implementación.
