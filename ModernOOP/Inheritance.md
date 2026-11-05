@@ -146,11 +146,6 @@ public class Test {
         System.out.println(farmer.farm());
         System.out.println(fisherman.fish());
         System.out.println(hunter.hunt());
-
-        Villager specializedVillager = farmer;
-        if (!specializedVillager.describe().equals("Aldeano: Ana (agricultura)")) {
-            throw new AssertionError("Unexpected description");
-        }
     }
 }
 ```
@@ -172,11 +167,9 @@ Sara caza
 - **Construcción:** `super(name)` invoca el constructor de la superclase y establece el nombre. Los constructores no se heredan.
 - **Encapsulamiento:** el campo `name` (nombre) es privado; las subclases lo consultan mediante `getName()` (obtener nombre), sin acceder directamente al campo.
 - **Extensión:** cada oficio agrega una operación sin repetir el almacenamiento ni la validación del nombre.
-- **Sobrescritura y polimorfismo:** la variable `specializedVillager` (aldeano especializado) tiene tipo declarado `Villager` (Aldeano), pero referencia el mismo objeto agricultor. Al llamar a `describe()` (describir), se ejecuta la versión de `Farmer` (Agricultor). `@Override` permite al compilador comprobar que se está sobrescribiendo un método existente; `super.describe()` reutiliza la descripción base.
+- **Sobrescritura y polimorfismo:** el recorrido trata todos los objetos como `Villager` (Aldeano). Al llamar a `describe()` (describir), el agricultor utiliza la versión de `Farmer` (Agricultor), mientras que los demás conservan la descripción heredada.
 
-El tipo declarado determina qué operaciones puede solicitar el código cliente. Por eso `specializedVillager.farm()` no compila: `Villager` (Aldeano) no declara `farm()` (cultivar), aunque el objeto concreto sea agricultor. No hay conversión ni copia del objeto al asignarlo a una referencia de la superclase.
-
-Las otras dos especializaciones conservan la descripción heredada. Sobrescribir es una decisión de comportamiento, no una obligación para todas las subclases. La clase `Test` (Prueba) muestra los resultados y comprueba explícitamente el despacho polimórfico sin bibliotecas externas.
+La clase `Test` (Prueba) presenta las descripciones y ejecuta la actividad propia de cada oficio. Así muestra qué resuelve la jerarquía antes de introducir el nuevo requisito.
 
 ## Evolución del requisito: un aldeano con dos oficios
 
