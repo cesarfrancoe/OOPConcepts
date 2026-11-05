@@ -105,6 +105,28 @@ Esta variante representa aldeanos que siempre cultivan y pescan. No pretende mod
 
 Copiar `farm()` en varias clases no deja de ser duplicación por usar interfaces. La siguiente etapa separa esas implementaciones en colaboradores reutilizables.
 
+## Nombres de interfaces: capacidades y roles
+
+Cuando una interfaz representa una capacidad, su nombre debe ayudar a responder: **¿qué puede hacer este objeto?** En inglés son habituales los adjetivos terminados en `-able` o `-ible`:
+
+| Nombre | Capacidad que expresa |
+| --- | --- |
+| `Runnable` (Ejecutable) | Puede ejecutarse. |
+| `Comparable` (Comparable) | Puede compararse con otro objeto para establecer un orden. |
+| `Serializable` (Serializable) | Puede representarse mediante serialización. |
+
+No todas las interfaces representan capacidades de esta forma. Cuando expresan un **rol**, suele resultar más natural un sustantivo que responda: **¿qué papel cumple este objeto?**
+
+| Nombre | Rol que expresa |
+| --- | --- |
+| `Comparator` (Comparador) | Compara dos objetos según un criterio. |
+| `Iterator` (Iterador) | Permite recorrer una secuencia de elementos. |
+| `Repository` (Repositorio) | Ofrece acceso a objetos del dominio. |
+
+La diferencia entre `Comparable` (Comparable) y `Comparator` (Comparador) resulta ilustrativa: el primero describe un objeto que puede compararse con otro; el segundo describe al colaborador encargado de compararlos. La terminación es una convención de nombres, no una regla del lenguaje ni una garantía de buen diseño.
+
+También hay que revisar el sentido del adjetivo: «puede realizar una acción» y «puede recibir esa acción» no significan lo mismo. En este ejemplo, `Farmable` (Capaz de cultivar), `Fishable` (Capaz de pescar) y `Huntable` (Capaz de cazar) nombran las capacidades del aldeano por convención del modelo. Sin ese contexto, los términos ingleses pueden sugerir algo cultivable, pescable o cazable. El sufijo por sí solo no elimina la ambigüedad; el nombre y el contrato deben comunicar quién realiza la actividad.
+
 ## Contratos pequeños y explícitos
 
 Un contrato incluye significado, entradas válidas, resultados y errores, además de la firma. El compilador verifica parte de su estructura; no garantiza que una implementación respete todas sus promesas semánticas.
