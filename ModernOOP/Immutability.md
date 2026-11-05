@@ -16,9 +16,11 @@ Reemplazar una referencia no es modificar el objeto al que apuntaba. Una figura 
 
 La inmutabilidad no depende de `record`. Una clase convencional puede diseñarse como mutable o inmutable. El `record` es una herramienta de Java para expresar valores mediante componentes; sus garantías deben analizarse según los datos que contiene.
 
-## Primera versión: un punto mutable dentro de una figura
+Las tres versiones usan los nombres `Point` (Punto) y `Shape` (Figura). Son etapas alternativas: los archivos de cada versión se mantienen separados.
 
-`Point` (Punto) permite modificar sus coordenadas. `Shape` (Figura) guarda un punto como centro y lo devuelve mediante un getter. Para modificar ambas coordenadas usamos `setPosition()` (establecer posición), en lugar de un setter de una sola coordenada.
+## Primera versión: clases mutables
+
+`Point` (Punto) permite cambiar sus coordenadas. `Shape` (Figura) guarda ese punto y devuelve la misma referencia mediante su getter.
 
 **Archivo: `Point.java`**
 
@@ -79,130 +81,28 @@ public class Shape {
 }
 ```
 
-El siguiente recorrido es válido y desplaza el centro hasta la posición `(99, 99)`:
+### Uso: el problema de compartir el punto
 
-```java
-Shape shape = new Shape();
-for (int step = 0; step < 100; step += 1) {
-    shape.getCenter().setPosition(step, step);
-}
-```
-
-El desplazamiento funciona. El problema aparece si el punto se comparte y sus cambios no deberían afectar a otros objetos.
-
-## El problema aparece al compartir el punto
-
-El campo privado no basta para proteger el centro: `getCenter()` (obtener centro) devuelve la misma referencia mutable. El cliente puede modificar la figura sin llamar a una operación de la propia figura.
-
-Además, dos figuras pueden recibir el mismo punto. Desplazar una modifica también el centro de la otra. Una referencia guardada como «posición anterior» tampoco conserva una instantánea: sigue apuntando al objeto que cambia.
-
-Esto es un problema si las figuras deben moverse independientemente o si necesitamos conservar posiciones anteriores. Si compartir deliberadamente una posición móvil fuera el requisito, ese mismo comportamiento podría ser correcto.
-
-## Segunda versión: una clase convencional inmutable
-
-`ImmutablePoint` (Punto inmutable) representa las mismas coordenadas sin permitir modificaciones posteriores.
-
-**Archivo: `ImmutablePoint.java`**
-
-```java
-public final class ImmutablePoint {
-    private final int x;
-    private final int y;
-
-    public ImmutablePoint(int x, int y) {
-        this.x = x;
-        this.y = y;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-}
-```
-
-La inmutabilidad se obtiene mediante decisiones que actúan juntas:
-
-- Los campos privados impiden que el cliente los modifique directamente.
-- Los campos finales no pueden reasignarse después de su inicialización.
-- No hay setters ni otras operaciones que modifiquen el punto.
-- La clase final impide introducir subclases que alteren estas garantías.
-- Sus componentes son enteros; no hay referencias internas a objetos mutables que puedan escapar.
-
-### Una figura mutable con un centro inmutable
-
-`ShapeWithValue` (Figura con valor) conserva un punto inmutable. Para desplazarla reemplaza su referencia al centro por otro punto.
-
-**Archivo: `ShapeWithValue.java`**
-
-```java
-public class ShapeWithValue {
-    private ImmutablePoint center;
-
-    public ShapeWithValue() {
-        this(new ImmutablePoint(0, 0));
-    }
-
-    public ShapeWithValue(ImmutablePoint center) {
-        this.center = center;
-    }
-
-    public ImmutablePoint getCenter() {
-        return center;
-    }
-
-    public void moveTo(int x, int y) {
-        center = new ImmutablePoint(x, y);
-    }
-}
-```
-
-La figura sigue siendo mutable: su centro actual cambia. El punto permanece inmutable. Podemos devolverlo sin permitir que el cliente altere sus coordenadas; para cambiar la posición de la figura hay que utilizar su operación `moveTo()` (mover a).
-
-```java
-ShapeWithValue shape = new ShapeWithValue();
-for (int step = 0; step < 100; step += 1) {
-    shape.moveTo(step, step);
-}
-```
-
-Cada iteración crea otro valor. Los puntos anteriores permanecen intactos si alguien conserva sus referencias.
-
-## Demostración: dos figuras y una posición anterior
+Dos figuras reciben el mismo punto. Cambiarlo desde una afecta también a la otra y a la referencia guardada como posición anterior.
 
 **Archivo: `Test.java`**
 
 ```java
 public class Test {
     public static void main(String[] args) {
-        Point sharedPoint = new Point(0, 0);
-        Shape first = new Shape(sharedPoint);
-        Shape second = new Shape(sharedPoint);
+        Point shared = new Point(0, 0);
+        Shape first = new Shape(shared);
+        Shape second = new Shape(shared);
         Point previous = first.getCenter();
 
         first.getCenter().setPosition(10, 20);
 
-        System.out.println("Mutable second: "
-                + second.getCenter().getX() + ", " + second.getCenter().getY());
-        System.out.println("Mutable previous: "
-                + previous.getX() + ", " + previous.getY());
-
-        ImmutablePoint sharedValue = new ImmutablePoint(0, 0);
-        ShapeWithValue firstValue = new ShapeWithValue(sharedValue);
-        ShapeWithValue secondValue = new ShapeWithValue(sharedValue);
-        ImmutablePoint previousValue = firstValue.getCenter();
-
-        firstValue.moveTo(10, 20);
-
-        System.out.println("Value first: " + firstValue.getCenter().getX()
-                + ", " + firstValue.getCenter().getY());
-        System.out.println("Value second: " + secondValue.getCenter().getX()
-                + ", " + secondValue.getCenter().getY());
-        System.out.println("Value previous: " + previousValue.getX()
-                + ", " + previousValue.getY());
+        System.out.println("First: " + first.getCenter().getX()
+                + ", " + first.getCenter().getY());
+        System.out.println("Second: " + second.getCenter().getX()
+                + ", " + second.getCenter().getY());
+        System.out.println("Previous: " + previous.getX()
+                + ", " + previous.getY());
     }
 }
 ```
@@ -210,14 +110,12 @@ public class Test {
 Salida esperada:
 
 ```text
-Mutable second: 10, 20
-Mutable previous: 10, 20
-Value first: 10, 20
-Value second: 0, 0
-Value previous: 0, 0
+First: 10, 20
+Second: 10, 20
+Previous: 10, 20
 ```
 
-En la primera versión, se modificó un objeto compartido: cambió la otra figura y se perdió la supuesta posición anterior. En la segunda, solo se reemplazó la referencia de la primera figura. La otra figura y el punto anterior conservaron sus valores.
+El desplazamiento funciona, pero sus efectos alcanzan a todas las referencias al mismo punto. Esto es un problema si las figuras deben moverse independientemente.
 
 ### Diagrama de clases
 
@@ -232,70 +130,212 @@ classDiagram
     }
     class Shape {
         +getCenter() Point
-        +setCenter(Point center) void
         +moveTo(int x, int y) void
     }
-    class ImmutablePoint {
+    Shape --> "1" Point : center
+```
+
+## Segunda versión: clase Point inmutable
+
+Conservamos los nombres. Cambia la implementación: el punto no tiene mutadores y la figura reemplaza su centro al desplazarse.
+
+**Archivo: `Point.java`**
+
+```java
+public final class Point {
+    private final int x;
+    private final int y;
+
+    public Point(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+}
+```
+
+Los campos privados y finales, la ausencia de mutadores y la clase final protegen el punto. Sus coordenadas son enteros, por lo que no hay objetos internos mutables que puedan escapar.
+
+**Archivo: `Shape.java`**
+
+```java
+public class Shape {
+    private Point center;
+
+    public Shape() {
+        this(new Point(0, 0));
+    }
+
+    public Shape(Point center) {
+        this.center = center;
+    }
+
+    public Point getCenter() {
+        return center;
+    }
+
+    public void moveTo(int x, int y) {
+        center = new Point(x, y);
+    }
+}
+```
+
+### Uso: conservar la posición anterior
+
+**Archivo: `Test.java`**
+
+```java
+public class Test {
+    public static void main(String[] args) {
+        Point shared = new Point(0, 0);
+        Shape first = new Shape(shared);
+        Shape second = new Shape(shared);
+        Point previous = first.getCenter();
+
+        first.moveTo(10, 20);
+
+        System.out.println("First: " + first.getCenter().getX()
+                + ", " + first.getCenter().getY());
+        System.out.println("Second: " + second.getCenter().getX()
+                + ", " + second.getCenter().getY());
+        System.out.println("Previous: " + previous.getX()
+                + ", " + previous.getY());
+    }
+}
+```
+
+Salida esperada:
+
+```text
+First: 10, 20
+Second: 0, 0
+Previous: 0, 0
+```
+
+Solo cambia el centro de la primera figura. La segunda y la posición anterior conservan sus valores. La figura sigue siendo mutable; el punto es inmutable.
+
+### Diagrama de clases
+
+```mermaid
+classDiagram
+    class Point {
         -int x
         -int y
         +getX() int
         +getY() int
     }
-    class ShapeWithValue {
-        +getCenter() ImmutablePoint
+    class Shape {
+        +getCenter() Point
         +moveTo(int x, int y) void
     }
     Shape --> "1" Point : center
-    ShapeWithValue --> "1" ImmutablePoint : center
 ```
 
 ## Encapsulamiento y mutadores
 
-Encapsular significa controlar cómo se consulta y modifica el estado, no solo declarar campos privados. En la primera versión, el getter deja escapar una referencia mutable y permite evitar la API de movimiento de la figura. Cualquier validación o actualización adicional situada en esa API podría omitirse.
+Un campo privado no basta si un getter devuelve una referencia interna mutable. En la primera versión, el cliente modifica el centro sin pasar por la operación de movimiento de la figura.
 
-También puede protegerse una figura **sin usar un `record`**: copiar el punto recibido, devolver copias defensivas y ofrecer operaciones controladas para moverla. Hay que proteger tanto las referencias de entrada como las de salida. La segunda versión muestra precisamente la alternativa de una clase convencional inmutable.
+En la segunda, devolver el punto es seguro porque sus coordenadas no pueden cambiar. La figura controla el desplazamiento mediante `moveTo()` (mover a), que reemplaza su referencia al centro.
 
-Un mutador es cualquier método que cambia un objeto existente, no únicamente un setter. En estos ejemplos, `setPosition()` (establecer posición), `setCenter()` (establecer centro) y ambos métodos `moveTo()` (mover a) son mutadores de sus respectivos objetos. Reemplazar un centro inmutable no vuelve inmutable a la figura.
+Un mutador cambia el estado de un objeto existente. Tanto `setPosition()` (establecer posición) como `moveTo()` (mover a) son mutadores de sus respectivos objetos. No necesitamos eliminar la mutabilidad de la figura para proteger los valores que utiliza.
 
-La segunda versión elimina los mutadores del **valor punto**, no los de la entidad figura. Esa combinación permite que una entidad evolucione mientras los valores compartidos o conservados como historial permanecen estables.
+También se puede proteger una figura con puntos mutables mediante copias defensivas al recibirlos y devolverlos. La clase inmutable evita tener que copiar el punto para compartirlo de forma segura.
 
-## Tercera versión: record como alternativa más breve
+## Tercera versión: Point como record
 
-La clase convencional ya resolvió el problema de los valores compartidos. Ahora podemos evaluar un `record` para reducir el código necesario al representar el mismo valor.
+La clase convencional ya resolvió la inmutabilidad. Ahora un `record` permite expresar el mismo punto con menos código.
 
-**Archivo: `PointRecord.java`**
+**Archivo: `Point.java`**
 
 ```java
-public record PointRecord(int x, int y) {
+public record Point(int x, int y) {
 }
 ```
 
-El `record` genera el constructor, los campos privados y finales y los accesores `x()` (coordenada x) e `y()` (coordenada y). Para este punto, reemplaza la clase anterior por una declaración de dos líneas.
+El `record` genera el constructor, los campos privados y finales y los accesores `x()` (coordenada x) e `y()` (coordenada y). La figura conserva la misma estrategia de movimiento.
 
-Ambas versiones mantienen estables las coordenadas. El beneficio del `record` es necesitar menos código para expresar ese valor.
+**Archivo: `Shape.java`**
 
-La figura podría guardar `PointRecord` (Registro de punto) y construir uno nuevo en cada movimiento. La estrategia sería la misma: reemplazar el centro sin modificar el punto anterior.
+```java
+public class Shape {
+    private Point center;
 
-### Diagrama de las dos alternativas inmutables
+    public Shape() {
+        this(new Point(0, 0));
+    }
+
+    public Shape(Point center) {
+        this.center = center;
+    }
+
+    public Point getCenter() {
+        return center;
+    }
+
+    public void moveTo(int x, int y) {
+        center = new Point(x, y);
+    }
+}
+```
+
+### Uso con record
+
+La única diferencia en las consultas son los nombres de los accesores.
+
+**Archivo: `Test.java`**
+
+```java
+public class Test {
+    public static void main(String[] args) {
+        Point shared = new Point(0, 0);
+        Shape first = new Shape(shared);
+        Shape second = new Shape(shared);
+        Point previous = first.getCenter();
+
+        first.moveTo(10, 20);
+
+        System.out.println("First: " + first.getCenter().x()
+                + ", " + first.getCenter().y());
+        System.out.println("Second: " + second.getCenter().x()
+                + ", " + second.getCenter().y());
+        System.out.println("Previous: " + previous.x()
+                + ", " + previous.y());
+    }
+}
+```
+
+Salida esperada:
+
+```text
+First: 10, 20
+Second: 0, 0
+Previous: 0, 0
+```
+
+### Diagrama de clases
 
 ```mermaid
 classDiagram
-    class ImmutablePoint {
-        -int x
-        -int y
-        +getX() int
-        +getY() int
-    }
-    class PointRecord {
+    class Point {
         <<record>>
         -int x
         -int y
         +x() int
         +y() int
     }
+    class Shape {
+        +getCenter() Point
+        +moveTo(int x, int y) void
+    }
+    Shape --> "1" Point : center
 ```
-
-Son alternativas independientes, sin relación de herencia entre ellas.
 
 ### Comparación de las tres versiones
 
