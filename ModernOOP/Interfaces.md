@@ -182,6 +182,14 @@ Las interfaces implementadas son una propiedad del tipo. Este ejemplo no permite
 
 ### ¿Cuándo implementar todas las capacidades en la clase base?
 
+Fragmento de la declaración de esta variante; se omiten los métodos requeridos por los contratos:
+
+```java
+public class Villager implements Farmable, Fishable, Huntable {
+    // Implement farm(), fish(), and hunt().
+}
+```
+
 Declarar `Villager` (Aldeano) con los tres contratos significaría que todos sus objetos y subtipos ofrecen cultivo, pesca y caza. Es una variante válida si el dominio exige esa garantía para todos los aldeanos. No representa una etapa más avanzada ni el requisito actual, donde las combinaciones de oficios son diferentes.
 
 ## Qué cambia y qué sigue pendiente
