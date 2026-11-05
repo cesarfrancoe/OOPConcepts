@@ -6,6 +6,22 @@ La Programación Orientada a Objetos (POO) es un paradigma que modela el softwar
 * **Comportamiento:** definido por sus métodos.
 * **Identidad:** cada objeto es único en la memoria.
 
+## Ruta de diseño orientado a objetos
+
+[ModernOOP: de las jerarquías a la composición](ModernOOP/README.md) desarrolla una ruta de transición desde la herencia hacia contratos, colaboración entre objetos y control del estado, con ejemplos en Java 17+.
+
+Las expresiones POO clásica y moderna se utilizan como énfasis pedagógicos. La ruta conserva la herencia cuando corresponde y presenta criterios para combinarla con otras herramientas de diseño.
+
+| Orden | Documento | Enfoque |
+| --- | --- | --- |
+| 1 | [Herencia](ModernOOP/Inheritance.md) | Especialización, sustitución y límites de las jerarquías |
+| 2 | [Interfaces](ModernOOP/Interfaces.md) | Contratos, capacidades y polimorfismo |
+| 3 | [Composición](ModernOOP/Composition.md) | Reutilización mediante colaboradores |
+| 4 | [Delegación](ModernOOP/Delegation.md) | Distribución de la ejecución y diseño de la API |
+| 5 | [Inmutabilidad](ModernOOP/Immutability.md) | Protección del estado, copias defensivas y `record` |
+
+La secuencia parte del conocimiento de clases, constructores, encapsulamiento y herencia simple. Cada documento incluye un ejemplo independiente y preguntas de revisión; el documento principal reúne los objetivos, el alcance y las convenciones comunes.
+
 ## Conceptos Clave
 
 ### Clase
