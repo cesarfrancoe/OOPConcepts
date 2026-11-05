@@ -93,6 +93,24 @@ La copia es superficial. Aquí es suficiente porque sus elementos son `String`, 
 
 `withName()` construye un nuevo perfil y aplica de nuevo las validaciones. Los accesores del `record` se llaman `name()` y `occupations()`. La igualdad generada utiliza los valores de sus componentes; no se utiliza `==` para comparar perfiles por contenido.
 
+### Diagrama del perfil inmutable
+
+`VillagerProfile` (Perfil de aldeano) representa datos, no capacidades de trabajo. Se muestran sus componentes y accesores; `withName()` (con nombre) devuelve otro perfil sin modificar el original.
+
+```mermaid
+classDiagram
+    class VillagerProfile {
+        <<record>>
+        -String name
+        -List~String~ occupations
+        +name() String
+        +occupations() List~String~
+        +withName(String newName) VillagerProfile
+    }
+```
+
+La inmutabilidad depende también de cómo se protegen los datos: en este ejemplo, los nombres son cadenas inmutables y la lista de oficios se copia mediante `List.copyOf()` (copia de lista). El diagrama por sí solo no garantiza esa propiedad.
+
 ## Alternativa con una clase convencional
 
 Un `record` resulta apropiado para datos cuyo significado se expresa mediante sus componentes. Una clase convencional permite controlar de otra manera la representación y la API.

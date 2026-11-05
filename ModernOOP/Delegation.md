@@ -132,6 +132,51 @@ La secuencia de `ana.farm()` es: el cliente solicita cultivar a `FarmerFisher` (
 
 La especialización conserva la responsabilidad de asociar la actividad con el nombre del aldeano. Los colaboradores recibidos deben ser no nulos. El colaborador define la técnica de trabajo. La delegación puede incorporar coordinación o validación: no tiene que limitarse a reenviar una llamada sin cambios.
 
+### Diagrama de clases
+
+`FarmerFisher` (AgricultorPescador) conserva la herencia de `Villager` (Aldeano), cumple los contratos y mantiene referencias a los colaboradores. Las implementaciones de cultivo son alternativas para la misma dependencia.
+
+```mermaid
+classDiagram
+    direction TB
+    class Villager {
+        -String name
+        +getName() String
+        +describe() String
+    }
+    class FarmerFisher {
+        +farm() String
+        +fish() String
+    }
+    class Farmable {
+        <<interface>>
+        +farm() String
+    }
+    class Fishable {
+        <<interface>>
+        +fish() String
+    }
+    class Farming {
+        +farm() String
+    }
+    class IrrigatedFarming {
+        +farm() String
+    }
+    class Fishing {
+        +fish() String
+    }
+    Villager <|-- FarmerFisher
+    Farmable <|.. FarmerFisher
+    Fishable <|.. FarmerFisher
+    FarmerFisher --> "1" Farmable : farming
+    FarmerFisher --> "1" Fishable : fishing
+    Farmable <|.. Farming
+    Farmable <|.. IrrigatedFarming
+    Fishable <|.. Fishing
+```
+
+El diagrama muestra la estructura; la delegación ocurre cuando `farm()` (cultivar) y `fish()` (pescar) llaman a sus respectivos colaboradores.
+
 ## Configuración y sustitución
 
 Ana y Luis utilizan distintas implementaciones de cultivo sin crear nuevas subclases de aldeano. La elección se realiza al construirlos. Las referencias `final` impiden cambiarlas posteriormente; variar entre instancias no equivale a sustituir comportamientos durante la ejecución.

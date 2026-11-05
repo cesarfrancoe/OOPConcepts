@@ -143,6 +143,48 @@ caza siguiendo rastros
 
 La construcción concreta ocurre en `Main`. `WorkAssignment` recibe la dependencia mediante su constructor y conoce `Farmable`, de modo que puede utilizar otra implementación que respete ese contrato. Esto no exige un framework de inyección de dependencias.
 
+### Diagrama de clases
+
+`WorkAssignment` (Asignación de trabajo) relaciona un `Villager` (Aldeano) con un colaborador que cumple `Farmable` (Capaz de cultivar). Las asociaciones representan referencias a colaboradores; no exigen propiedad exclusiva ni un ciclo de vida compartido.
+
+```mermaid
+classDiagram
+    direction TB
+    class Villager {
+        -String name
+        +getName() String
+    }
+    class WorkAssignment {
+        +perform() String
+    }
+    class Farmable {
+        <<interface>>
+        +farm() String
+    }
+    class Fishable {
+        <<interface>>
+        +fish() String
+    }
+    class Huntable {
+        <<interface>>
+        +hunt() String
+    }
+    class Farming {
+        +farm() String
+    }
+    class Fishing {
+        +fish() String
+    }
+    class Hunting {
+        +hunt() String
+    }
+    WorkAssignment --> "1" Villager : villager
+    WorkAssignment --> "1" Farmable : farming
+    Farmable <|.. Farming
+    Fishable <|.. Fishing
+    Huntable <|.. Hunting
+```
+
 ## Composición y delegación aparecen juntas
 
 Almacenar las referencias describe la estructura de colaboración. En `perform()`, la llamada `farming.farm()` encarga parte de la ejecución al colaborador: esa llamada ya es delegación. Los conceptos se presentan por separado para distinguir sus preguntas, aunque puedan aparecer en el mismo código.

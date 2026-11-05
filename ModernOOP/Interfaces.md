@@ -192,6 +192,55 @@ public class Villager implements Farmable, Fishable, Huntable {
 
 Declarar `Villager` (Aldeano) con los tres contratos significaría que todos sus objetos y subtipos ofrecen cultivo, pesca y caza. Es una variante válida si el dominio exige esa garantía para todos los aldeanos. No representa una etapa más avanzada ni el requisito actual, donde las combinaciones de oficios son diferentes.
 
+### Diagrama de clases de la solución con interfaces
+
+El diagrama reúne las especializaciones de `Villager` (Aldeano) y sus contratos. `FarmerFisher` (AgricultorPescador) combina capacidades sin heredar de las dos clases de oficio. La variante donde todos los aldeanos tienen las tres capacidades es una alternativa y no forma parte de este diagrama.
+
+```mermaid
+classDiagram
+    direction TB
+    class Villager {
+        -String name
+        +getName() String
+        +describe() String
+    }
+    class Farmable {
+        <<interface>>
+        +farm() String
+    }
+    class Fishable {
+        <<interface>>
+        +fish() String
+    }
+    class Huntable {
+        <<interface>>
+        +hunt() String
+    }
+    class Farmer {
+        +farm() String
+        +describe() String
+    }
+    class Fisherman {
+        +fish() String
+    }
+    class Hunter {
+        +hunt() String
+    }
+    class FarmerFisher {
+        +farm() String
+        +fish() String
+    }
+    Villager <|-- Farmer
+    Villager <|-- Fisherman
+    Villager <|-- Hunter
+    Villager <|-- FarmerFisher
+    Farmable <|.. Farmer
+    Fishable <|.. Fisherman
+    Huntable <|.. Hunter
+    Farmable <|.. FarmerFisher
+    Fishable <|.. FarmerFisher
+```
+
 ## Qué cambia y qué sigue pendiente
 
 | Aspecto | Resultado |
