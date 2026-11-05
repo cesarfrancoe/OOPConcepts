@@ -8,7 +8,53 @@ Examinar la herencia como relación de especialización y reconocer cuándo una 
 
 ## Punto de partida: un oficio por aldeano
 
+### Descripción del problema
+
+Se necesita representar los habitantes de una aldea y las actividades que realizan. Todos los aldeanos tienen un nombre y pueden proporcionar una descripción de sí mismos. En el planteamiento inicial, cada aldeano tiene un único oficio: agricultura, pesca o caza, con una operación específica para realizar su actividad.
+
+Como los tres oficios comparten los datos y el comportamiento general de un aldeano, se propone una clase base `Villager` y una subclase por oficio. Esta jerarquía reúne lo común en la superclase y sitúa las operaciones particulares en cada especialización. El supuesto de un único oficio permite comenzar con una solución sencilla; más adelante se examina qué ocurre cuando una misma persona necesita desempeñar varios.
+
 Un `Farmer` es un `Villager` especializado. Hereda el nombre y proporciona una operación propia. Lo mismo ocurre con `Fisherman` y `Hunter`.
+
+### Diagrama de clases
+
+```mermaid
+classDiagram
+    direction TB
+
+    class Villager {
+        -String name
+        +Villager(String name)
+        +getName() String
+        +describe() String
+    }
+
+    class Farmer {
+        +Farmer(String name)
+        +farm() String
+        +describe() String
+    }
+
+    class Fisherman {
+        +Fisherman(String name)
+        +fish() String
+    }
+
+    class Hunter {
+        +Hunter(String name)
+        +hunt() String
+    }
+
+    Villager <|-- Farmer
+    Villager <|-- Fisherman
+    Villager <|-- Hunter
+```
+
+El triángulo vacío apunta a la superclase `Villager`. El signo `-` indica acceso privado y `+` acceso público. Las subclases heredan los métodos públicos; el campo `name` permanece encapsulado en `Villager`. `Farmer` sobrescribe `describe()`, por lo que el método aparece también en esa clase.
+
+En el código, `name` es `final` y las tres subclases son `final`: el nombre no se reasigna después de la construcción y esas subclases no admiten nuevas extensiones. Se omite `Main` porque solo ejecuta el ejemplo y no forma parte de la jerarquía.
+
+### Implementación en Java
 
 El siguiente ejemplo es completo. Guardar cada bloque en el archivo indicado, dentro de una carpeta independiente para esta etapa.
 
