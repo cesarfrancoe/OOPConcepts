@@ -10,7 +10,9 @@ Aquí se utiliza «composición» en el sentido amplio de diseño por colaboraci
 
 ## Separar la implementación del aldeano
 
-El requisito es reutilizar la lógica de los oficios en distintos contextos. `Farming`, `Fishing` y `Hunting` implementan las capacidades; un cliente puede recibir estas implementaciones por sus interfaces.
+En la etapa anterior, las clases de oficio y `FarmerFisher` (AgricultorPescador) repetían las implementaciones de las actividades. El siguiente requisito es extraer esa lógica para reutilizarla mediante colaboradores: `Farming` (Cultivo), `Fishing` (Pesca) y `Hunting` (Caza).
+
+Aquí exploramos una asignación de trabajo que reúne un aldeano y un colaborador de cultivo. La clase base no recibe todos los contratos: la capacidad corresponde al colaborador elegido. En el capítulo siguiente conservaremos la especialización con dos oficios y le haremos delegar sus actividades.
 
 Este ejemplo completo reutiliza los contratos de la etapa anterior. Se incluyen de nuevo para permitir ejecutarlo en una carpeta independiente.
 
@@ -18,7 +20,7 @@ Este ejemplo completo reutiliza los contratos de la etapa anterior. Se incluyen 
 
 ```java
 public interface Farmable {
-    String farm();
+    public abstract String farm();
 }
 ```
 
@@ -26,7 +28,7 @@ public interface Farmable {
 
 ```java
 public interface Fishable {
-    String fish();
+    public abstract String fish();
 }
 ```
 
@@ -34,7 +36,7 @@ public interface Fishable {
 
 ```java
 public interface Huntable {
-    String hunt();
+    public abstract String hunt();
 }
 ```
 

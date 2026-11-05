@@ -37,7 +37,7 @@ La herencia sigue siendo apropiada cuando existe una especialización coherente 
 ## Secuencia de aprendizaje
 
 1. **Examinar la herencia.** Partir de una jerarquía sencilla e introducir un requisito de múltiples oficios. Identificar si aparecen combinaciones de subclases, duplicación o responsabilidades mal ubicadas antes de cambiar el diseño.
-2. **Separar capacidades con interfaces.** Describir qué puede hacer un objeto sin imponer una única ascendencia de clases. Distinguir el contrato de la implementación y reconocer que una interfaz, por sí sola, no elimina la duplicación de comportamiento.
+2. **Separar capacidades con interfaces.** Conservar la base común del aldeano, agregar contratos a las especializaciones y combinarlos en un aldeano con dos oficios. Describir qué puede hacer un objeto sin imponer una única ascendencia de clases. Distinguir el contrato de la implementación y reconocer que una interfaz, por sí sola, no elimina la duplicación de comportamiento.
 3. **Introducir composición.** Explorar cómo un objeto puede recibir y utilizar colaboradores que aportan comportamiento. Comparar sus dependencias y posibilidades de cambio con las de la jerarquía inicial.
 4. **Hacer explícita la delegación.** Identificar qué objeto recibe una solicitud, a cuál encarga su ejecución y qué responsabilidad conserva. Tener un colaborador no implica delegarle automáticamente todas las operaciones.
 5. **Revisar el estado con inmutabilidad.** Evaluar qué datos pueden permanecer estables y cómo protegerlos. Esta etapa aborda la administración del estado, una dimensión transversal que complementa la organización del comportamiento.

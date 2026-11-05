@@ -241,6 +241,6 @@ La herencia no es el problema en sí misma: el problema aparece cuando se usa un
 - ¿Por qué un aldeano que pesca y cultiva no necesita representar una nueva especie de aldeano?
 - ¿Qué parte del diseño corresponde a un contrato y qué parte solo reutiliza implementación?
 
-La siguiente etapa introduce [interfaces](Interfaces.md) para expresar capacidades como contratos independientes: `Farmable` (Capaz de cultivar), `Fishable` (Capaz de pescar) y `Huntable` (Capaz de cazar). Una clase puede implementar varios contratos y seguir extendiendo una sola clase.
+La siguiente etapa introduce [interfaces](Interfaces.md) para expresar capacidades como contratos independientes: `Farmable` (Capaz de cultivar), `Fishable` (Capaz de pescar) y `Huntable` (Capaz de cazar). La siguiente solución conservará la base común del aldeano, agregará los contratos a cada especialización y permitirá que `FarmerFisher` (AgricultorPescador) extienda esa base e implemente dos capacidades.
 
 Esto permitirá separar «qué puede hacer» un objeto de «de qué clase hereda». Las interfaces no comparten automáticamente la implementación de los oficios ni hacen que las capacidades cambien por instancia durante la ejecución. La reutilización mediante colaboradores se estudia después, en [composición](Composition.md).

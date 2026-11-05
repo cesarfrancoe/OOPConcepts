@@ -6,17 +6,19 @@
 
 Separar lo que un objeto puede hacer de su posición en una jerarquía. Una interfaz define un tipo y un contrato; una clase puede implementar varias interfaces aunque solo pueda extender una clase.
 
-## Del oficio a la capacidad
+## De la herencia a los contratos de capacidad
 
-`Farmable` expresa la capacidad de cultivar y `Fishable` la de pescar. El contrato del ejemplo consiste en devolver una descripción no nula de la actividad. No se simulan recursos, inventarios ni efectos sobre un mundo externo.
+Conservamos `Villager` (Aldeano) como base de la identidad común. `Farmer` (Agricultor), `Fisherman` (Pescador) y `Hunter` (Cazador) siguen siendo especializaciones, pero ahora declaran los contratos de las actividades que pueden realizar. Se mantiene el nombre `Fisherman` (Pescador) del capítulo anterior.
 
-Ejemplo completo e independiente de la etapa anterior. Cada bloque corresponde a un archivo.
+`Farmable` (Capaz de cultivar), `Fishable` (Capaz de pescar) y `Huntable` (Capaz de cazar) permiten que los clientes soliciten una capacidad sin exigir una clase de oficio concreta. Sus operaciones devuelven descripciones no nulas de las actividades; no simulan inventarios ni recursos.
+
+Los siguientes archivos forman el ejemplo de esta etapa.
 
 **Archivo: `Farmable.java`**
 
 ```java
 public interface Farmable {
-    // Devuelve una descripción no nula de la actividad de cultivo.
+    // Returns a non-null description of the farming activity.
     public abstract String farm();
 }
 ```
@@ -25,8 +27,8 @@ public interface Farmable {
 
 ```java
 public interface Fishable {
-    // Devuelve una descripción no nula de la actividad de pesca.
-    String fish();
+    // Returns a non-null description of the fishing activity.
+    public abstract String fish();
 }
 ```
 
@@ -34,51 +36,131 @@ public interface Fishable {
 
 ```java
 public interface Huntable {
-    // Devuelve una descripción no nula de la actividad de caza.
-    String hunt();
+    // Returns a non-null description of the hunting activity.
+    public abstract String hunt();
 }
 ```
 
 **Archivo: `Villager.java`**
 
 ```java
-import java.util.Objects;
-
-public final class Villager implements Farmable, Fishable {
+public class Villager {
     private final String name;
 
     public Villager(String name) {
-        this.name = Objects.requireNonNull(name, "name");
-        if (name.isBlank()) {
-            throw new IllegalArgumentException("El nombre no puede estar vacío");
-        }
+        this.name = name;
     }
 
-    @Override
-    public String farm() {
-        return name + " cultiva";
+    public String getName() {
+        return name;
     }
 
-    @Override
-    public String fish() {
-        return name + " pesca";
+    public String describe() {
+        return "Aldeano: " + name;
     }
 }
 ```
 
-**Archivo: `Main.java`**
+**Archivo: `Farmer.java`**
 
 ```java
-public class Main {
+public class Farmer extends Villager implements Farmable {
+    public Farmer(String name) {
+        super(name);
+    }
+
+    @Override
+    public String farm() {
+        return getName() + " cultiva";
+    }
+
+    @Override
+    public String describe() {
+        return super.describe() + " (agricultura)";
+    }
+}
+```
+
+**Archivo: `Fisherman.java`**
+
+```java
+public class Fisherman extends Villager implements Fishable {
+    public Fisherman(String name) {
+        super(name);
+    }
+
+    @Override
+    public String fish() {
+        return getName() + " pesca";
+    }
+}
+```
+
+**Archivo: `Hunter.java`**
+
+```java
+public class Hunter extends Villager implements Huntable {
+    public Hunter(String name) {
+        super(name);
+    }
+
+    @Override
+    public String hunt() {
+        return getName() + " caza";
+    }
+}
+```
+
+La herencia conserva el estado y comportamiento común del aldeano; las interfaces expresan sus capacidades. Implementar un contrato no obliga a abandonar la superclase. En particular, un cliente de `Fishable` (Capaz de pescar) puede recibir cualquier implementación válida, aunque no herede de `Fisherman` (Pescador).
+
+## Un aldeano que cultiva y pesca
+
+`FarmerFisher` (AgricultorPescador) extiende únicamente `Villager` (Aldeano) e implementa los dos contratos. Ya no necesitamos elegir un oficio como superclase para que los clientes reconozcan ambas capacidades.
+
+**Archivo: `FarmerFisher.java`**
+
+```java
+public class FarmerFisher extends Villager implements Farmable, Fishable {
+    public FarmerFisher(String name) {
+        super(name);
+    }
+
+    @Override
+    public String farm() {
+        return getName() + " cultiva";
+    }
+
+    @Override
+    public String fish() {
+        return getName() + " pesca";
+    }
+}
+```
+
+**Archivo: `Test.java`**
+
+```java
+public class Test {
     private static void performFarming(Farmable worker) {
         System.out.println(worker.farm());
     }
 
+    private static void performFishing(Fishable worker) {
+        System.out.println(worker.fish());
+    }
+
     public static void main(String[] args) {
-        Villager villager = new Villager("Ana");
-        performFarming(villager);
-        Fishable fisher = villager;
-        System.out.println(fisher.fish());
+        Farmer farmer = new Farmer("Luis");
+        Fisherman fisherman = new Fisherman("Elena");
+        Hunter hunter = new Hunter("Sara");
+        FarmerFisher farmerFisher = new FarmerFisher("Ana");
+
+        performFarming(farmer);
+        performFishing(fisherman);
+        System.out.println(hunter.hunt());
+        System.out.println(farmerFisher.describe());
+        performFarming(farmerFisher);
+        performFishing(farmerFisher);
     }
 }
 ```
@@ -86,13 +168,21 @@ public class Main {
 Salida esperada:
 
 ```text
+Luis cultiva
+Elena pesca
+Sara caza
+Aldeano: Ana
 Ana cultiva
 Ana pesca
 ```
 
-El cliente `performFarming` depende de `Farmable`: no necesita conocer la clase del objeto ni sus demás capacidades. `Villager` cumple dos contratos y no implementa `Huntable`; declarar una interfaz no obliga a todas las clases a implementarla.
+El mismo objeto `farmerFisher` (agricultor pescador) puede utilizarse como `Villager` (Aldeano), `Farmable` (Capaz de cultivar) o `Fishable` (Capaz de pescar). No es un subtipo de las clases de oficio: sus capacidades se reconocen por los contratos que implementa.
 
-Esta variante representa aldeanos que siempre cultivan y pescan. No pretende modelar todavía una combinación distinta para cada instancia: las interfaces implementadas son una propiedad del tipo, no una lista modificable durante la ejecución.
+Las interfaces implementadas son una propiedad del tipo. Este ejemplo no permite agregar o retirar oficios de una instancia durante la ejecución.
+
+### ¿Cuándo implementar todas las capacidades en la clase base?
+
+Declarar `Villager` (Aldeano) con los tres contratos significaría que todos sus objetos y subtipos ofrecen cultivo, pesca y caza. Es una variante válida si el dominio exige esa garantía para todos los aldeanos. No representa una etapa más avanzada ni el requisito actual, donde las combinaciones de oficios son diferentes.
 
 ## Qué cambia y qué sigue pendiente
 
@@ -103,7 +193,7 @@ Esta variante representa aldeanos que siempre cultivan y pescan. No pretende mod
 | Reutilización del algoritmo | Sigue pendiente: cada clase debe aportar su implementación |
 | Variación entre instancias | Requiere otra decisión de diseño si las capacidades cambian por objeto |
 
-Copiar `farm()` en varias clases no deja de ser duplicación por usar interfaces. La siguiente etapa separa esas implementaciones en colaboradores reutilizables.
+En este ejemplo, `farm()` (cultivar) está duplicado entre `Farmer` (Agricultor) y `FarmerFisher` (AgricultorPescador), y `fish()` (pescar), entre `Fisherman` (Pescador) y la clase combinada. Las interfaces resuelven los contratos, pero no esa duplicación. La siguiente etapa separa esas implementaciones en colaboradores reutilizables.
 
 ## Nombres de interfaces: capacidades y roles
 

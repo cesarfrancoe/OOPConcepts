@@ -8,7 +8,7 @@ Distinguir el objeto que recibe una solicitud del colaborador que realiza parte 
 
 ## Una API explícita para dos capacidades
 
-En esta variante, cada `Villager` puede cultivar y pescar. El aldeano recibe los colaboradores por constructor, delega las actividades y añade su nombre al resultado. No necesita conocer la técnica concreta utilizada.
+Retomamos `FarmerFisher` (AgricultorPescador), que extiende `Villager` (Aldeano) e implementa dos capacidades. Ahora recibe los colaboradores de cultivo y pesca por constructor y delega en ellos las actividades, en lugar de repetir sus algoritmos. Así combinamos herencia para la identidad común, interfaces para los contratos y composición para reutilizar las implementaciones.
 
 Ejemplo completo, independiente de las variantes anteriores.
 
@@ -16,7 +16,7 @@ Ejemplo completo, independiente de las variantes anteriores.
 
 ```java
 public interface Farmable {
-    String farm();
+    public abstract String farm();
 }
 ```
 
@@ -24,7 +24,7 @@ public interface Farmable {
 
 ```java
 public interface Fishable {
-    String fish();
+    public abstract String fish();
 }
 ```
 
@@ -64,30 +64,44 @@ public final class Fishing implements Fishable {
 **Archivo: `Villager.java`**
 
 ```java
-import java.util.Objects;
-
-public final class Villager implements Farmable, Fishable {
+public class Villager {
     private final String name;
+
+    public Villager(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String describe() {
+        return "Aldeano: " + name;
+    }
+}
+```
+
+**Archivo: `FarmerFisher.java`**
+
+```java
+public class FarmerFisher extends Villager implements Farmable, Fishable {
     private final Farmable farming;
     private final Fishable fishing;
 
-    public Villager(String name, Farmable farming, Fishable fishing) {
-        this.name = Objects.requireNonNull(name, "name");
-        if (name.isBlank()) {
-            throw new IllegalArgumentException("El nombre no puede estar vacío");
-        }
-        this.farming = Objects.requireNonNull(farming, "farming");
-        this.fishing = Objects.requireNonNull(fishing, "fishing");
+    public FarmerFisher(String name, Farmable farming, Fishable fishing) {
+        super(name);
+        this.farming = farming;
+        this.fishing = fishing;
     }
 
     @Override
     public String farm() {
-        return name + " " + farming.farm();
+        return getName() + " " + farming.farm();
     }
 
     @Override
     public String fish() {
-        return name + " " + fishing.fish();
+        return getName() + " " + fishing.fish();
     }
 }
 ```
@@ -97,8 +111,8 @@ public final class Villager implements Farmable, Fishable {
 ```java
 public class Main {
     public static void main(String[] args) {
-        Villager ana = new Villager("Ana", new Farming(), new Fishing());
-        Farmable luis = new Villager("Luis", new IrrigatedFarming(), new Fishing());
+        FarmerFisher ana = new FarmerFisher("Ana", new Farming(), new Fishing());
+        Farmable luis = new FarmerFisher("Luis", new IrrigatedFarming(), new Fishing());
         System.out.println(ana.farm());
         System.out.println(ana.fish());
         System.out.println(luis.farm());
@@ -114,9 +128,9 @@ Ana pesca con una red
 Luis cultiva con un sistema de riego
 ```
 
-La secuencia de `ana.farm()` es: el cliente solicita cultivar a `Villager`; el aldeano llama a `farming.farm()`; el colaborador devuelve la descripción de la técnica; el aldeano añade su nombre y devuelve el resultado. En este ejemplo las actividades solo producen texto.
+La secuencia de `ana.farm()` es: el cliente solicita cultivar a `FarmerFisher` (AgricultorPescador); el aldeano llama a `farming.farm()`; el colaborador devuelve la descripción de la técnica; el aldeano añade su nombre y devuelve el resultado. En este ejemplo las actividades solo producen texto.
 
-El aldeano conserva la responsabilidad de validar su construcción y presentar el resultado. El colaborador define la técnica de trabajo. La delegación puede incorporar coordinación o validación: no tiene que limitarse a reenviar una llamada sin cambios.
+La especialización conserva la responsabilidad de asociar la actividad con el nombre del aldeano. Los colaboradores recibidos deben ser no nulos. El colaborador define la técnica de trabajo. La delegación puede incorporar coordinación o validación: no tiene que limitarse a reenviar una llamada sin cambios.
 
 ## Configuración y sustitución
 
@@ -132,11 +146,11 @@ Si un requisito futuro exige cambiar de técnica en un objeto ya existente, habr
 | Un servicio, como `WorkAssignment`, coordina la actividad | Mantiene pequeño el modelo del aldeano | El cliente utiliza un objeto adicional |
 | Un registro permite recuperar capacidades por tipo | Admite conjuntos variables de capacidades | Requiere definir ausencia, duplicados y recuperación segura |
 
-El ejemplo utiliza la primera alternativa y garantiza ambas capacidades mediante dependencias obligatorias. No representa aldeanos con conjuntos arbitrarios de oficios. Introducir una colección genérica o búsquedas con `instanceof` sería otra decisión, con costos propios.
+El ejemplo utiliza la primera alternativa y garantiza ambas capacidades mediante dependencias obligatorias. La garantía corresponde a `FarmerFisher` (AgricultorPescador), no a todos los objetos de `Villager` (Aldeano). No representa aldeanos con conjuntos arbitrarios de oficios. Introducir una colección genérica o búsquedas con `instanceof` sería otra decisión, con costos propios.
 
 ## Comprobación conceptual
 
-- ¿Qué responsabilidad conserva `Villager` después de delegar?
+- ¿Qué responsabilidad conserva `FarmerFisher` (AgricultorPescador) después de delegar?
 - ¿Qué cambia para agregar otra técnica de cultivo? ¿Y para agregar una nueva capacidad pública?
 - ¿Por qué el código no garantiza inmutabilidad profunda aunque todos los campos sean `final`?
 
