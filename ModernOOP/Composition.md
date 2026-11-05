@@ -128,13 +128,6 @@ public class Main {
 }
 ```
 
-Compilación y ejecución:
-
-```sh
-javac --release 17 *.java
-java Main
-```
-
 Salida esperada:
 
 ```text
