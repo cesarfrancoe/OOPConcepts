@@ -4,46 +4,24 @@
 
 ## Propósito
 
-Comprender las ventajas de conservar estable el estado de un objeto y comparar dos implementaciones: una clase convencional y un `record`. La inmutabilidad es una decisión de diseño independiente del mecanismo utilizado para implementarla.
+Comparar una figura cuyo centro es un punto mutable con otra que utiliza un valor inmutable. El objetivo es observar qué ocurre al compartir referencias, cómo se protege el estado y qué aporta un `record` frente a una clase convencional.
 
-Un objeto inmutable conserva su estado observable durante toda su vida. Puede ofrecer operaciones, pero una operación que representa un cambio devuelve otro valor sin modificar el original.
+Hay dos decisiones distintas: **mutabilidad frente a inmutabilidad** y **clase convencional frente a `record`**. Una clase convencional también puede ser inmutable. El `record` facilita expresar ciertos valores con menos código; no convierte automáticamente cualquier modelo en un mejor diseño.
 
-## Un ejemplo sencillo: un punto
+## Primera versión: un punto mutable dentro de una figura
 
-Un punto representa dos coordenadas enteras. Si varias partes del programa comparten un punto mutable, cualquiera que pueda modificarlo puede cambiar las coordenadas que observan las demás. Para conocer su valor habría que seguir también el historial de modificaciones.
-
-Con un punto inmutable, las coordenadas permanecen estables. Para representar otra posición se crea otro punto. Esto permite compartir el original o conservarlo como una versión anterior sin que una modificación posterior lo altere.
-
-## Encapsulamiento y mutadores
-
-El encapsulamiento protege la representación y las reglas del objeto mediante una API controlada. Los campos privados impiden el acceso directo, pero no convierten al objeto en inmutable.
-
-Este fragmento representa una alternativa **mutable**:
-
-```java
-public void setX(int x) {
-    this.x = x;
-}
-```
-
-`setX()` (establecer coordenada x) modifica un objeto existente. Es un mutador, igual que cualquier otra operación que cambie su estado, aunque no tenga el prefijo `set`. Los mutadores son adecuados cuando el dominio requiere que una entidad cambie conservando su identidad; deben mantener sus invariantes.
-
-En las versiones inmutables usaremos `withX()` (con coordenada x): devuelve otro punto y conserva el original. No es un mutador del objeto receptor. El cliente decide si conserva ambos valores o reemplaza una referencia por el nuevo.
-
-**Un objeto mutable bien encapsulado controla sus cambios; uno inmutable impide cambios posteriores de su estado.** Ambas decisiones pueden ser correctas según el requisito.
-
-## Primera implementación: una clase inmutable
-
-La clase `Point` (Punto) tiene campos privados y finales, no expone mutadores y no admite subclases. Como las coordenadas son valores primitivos, no hay objetos internos mutables que proteger.
-
-Se define igualdad por contenido: dos puntos de esta clase son iguales cuando sus coordenadas coinciden. La igualdad y el código hash deben ser coherentes; la inmutabilidad por sí sola no genera esos métodos.
+`Point` (Punto) permite modificar sus coordenadas. `Shape` (Figura) guarda un punto como centro y lo devuelve mediante un getter. Para modificar ambas coordenadas usamos `setPosition()` (establecer posición), en lugar de un setter de una sola coordenada.
 
 **Archivo: `Point.java`**
 
 ```java
-public final class Point {
-    private final int x;
-    private final int y;
+public class Point {
+    private int x;
+    private int y;
+
+    public Point() {
+        this(0, 0);
+    }
 
     public Point(int x, int y) {
         this.x = x;
@@ -58,73 +36,137 @@ public final class Point {
         return y;
     }
 
-    public Point withX(int x) {
-        return new Point(x, y);
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        if (this == other) {
-            return true;
-        }
-        if (!(other instanceof Point point)) {
-            return false;
-        }
-        return x == point.x && y == point.y;
-    }
-
-    @Override
-    public int hashCode() {
-        return 31 * Integer.hashCode(x) + Integer.hashCode(y);
-    }
-
-    @Override
-    public String toString() {
-        return "Point[x=" + x + ", y=" + y + "]";
+    public void setPosition(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 }
 ```
 
-El constructor establece el estado y los accesores solo consultan sus valores. `withX()` (con coordenada x) construye otro punto. La clase permite controlar explícitamente la representación, los nombres de los métodos y la semántica de igualdad, a cambio de escribir y mantener más código.
+**Archivo: `Shape.java`**
 
-## Segunda implementación: un record
+```java
+public class Shape {
+    private Point center;
 
-`PointRecord` (Registro de punto) representa los mismos datos. Se usa otro nombre para permitir comparar ambas implementaciones en el mismo ejemplo.
+    public Shape() {
+        this(new Point());
+    }
+
+    public Shape(Point center) {
+        this.center = center;
+    }
+
+    public Point getCenter() {
+        return center;
+    }
+
+    public void setCenter(Point center) {
+        this.center = center;
+    }
+
+    public void moveTo(int x, int y) {
+        center.setPosition(x, y);
+    }
+}
+```
+
+El siguiente recorrido es válido y desplaza el centro hasta la posición `(99, 99)`:
+
+```java
+Shape shape = new Shape();
+for (int step = 0; step < 100; step += 1) {
+    shape.getCenter().setPosition(step, step);
+}
+```
+
+**No necesitamos un `record` para que este desplazamiento funcione.** Si nadie más comparte el punto y se acepta que el cliente lo modifique directamente, esta solución puede ser suficiente.
+
+## El problema aparece al compartir el punto
+
+El campo privado no basta para proteger el centro: `getCenter()` (obtener centro) devuelve la misma referencia mutable. El cliente puede modificar la figura sin llamar a una operación de la propia figura.
+
+Además, dos figuras pueden recibir el mismo punto. Desplazar una modifica también el centro de la otra. Una referencia guardada como «posición anterior» tampoco conserva una instantánea: sigue apuntando al objeto que cambia.
+
+Esto es un problema si las figuras deben moverse independientemente o si necesitamos conservar posiciones anteriores. Si compartir deliberadamente una posición móvil fuera el requisito, ese mismo comportamiento podría ser correcto.
+
+## Segunda versión: la figura conserva un valor inmutable
+
+`PointRecord` (Registro de punto) representa una posición estable. Sus coordenadas son enteros, por lo que no hay componentes mutables internos. Para desplazar una figura, `ShapeWithValue` (Figura con valor) reemplaza su referencia al centro por otro punto.
 
 **Archivo: `PointRecord.java`**
 
 ```java
 public record PointRecord(int x, int y) {
-    public PointRecord withX(int x) {
-        return new PointRecord(x, y);
+}
+```
+
+**Archivo: `ShapeWithValue.java`**
+
+```java
+public class ShapeWithValue {
+    private PointRecord center;
+
+    public ShapeWithValue() {
+        this(new PointRecord(0, 0));
+    }
+
+    public ShapeWithValue(PointRecord center) {
+        this.center = center;
+    }
+
+    public PointRecord getCenter() {
+        return center;
+    }
+
+    public void moveTo(int x, int y) {
+        center = new PointRecord(x, y);
     }
 }
 ```
 
-El `record` genera el constructor canónico, los accesores `x()` (coordenada x) y `y()` (coordenada y), y los métodos de igualdad, código hash y representación textual basados en sus componentes. Los campos de los componentes son privados y finales, y el tipo no admite subclases.
+La figura **sigue siendo mutable**: su centro actual cambia. El punto, en cambio, permanece inmutable. Podemos devolverlo sin permitir que el cliente altere sus coordenadas; para cambiar la posición de la figura hay que utilizar su operación `moveTo()` (mover a).
 
-La operación `withX()` (con coordenada x) sigue siendo una decisión del diseño: el `record` no genera operaciones para crear versiones modificadas.
+El recorrido equivalente queda así:
 
-## Comparación de uso
+```java
+ShapeWithValue shape = new ShapeWithValue();
+for (int step = 0; step < 100; step += 1) {
+    shape.moveTo(step, step);
+}
+```
+
+Cada iteración crea otro valor. Los puntos anteriores permanecen intactos si alguien conserva sus referencias.
+
+## Demostración: dos figuras y una posición anterior
 
 **Archivo: `Test.java`**
 
 ```java
 public class Test {
     public static void main(String[] args) {
-        Point original = new Point(2, 3);
-        Point updated = original.withX(5);
+        Point sharedPoint = new Point(0, 0);
+        Shape first = new Shape(sharedPoint);
+        Shape second = new Shape(sharedPoint);
+        Point previous = first.getCenter();
 
-        System.out.println(original);
-        System.out.println(updated);
-        System.out.println(original.equals(new Point(2, 3)));
+        first.getCenter().setPosition(10, 20);
 
-        PointRecord originalRecord = new PointRecord(2, 3);
-        PointRecord updatedRecord = originalRecord.withX(5);
+        System.out.println("Mutable second: "
+                + second.getCenter().getX() + ", " + second.getCenter().getY());
+        System.out.println("Mutable previous: "
+                + previous.getX() + ", " + previous.getY());
 
-        System.out.println(originalRecord);
-        System.out.println(updatedRecord);
-        System.out.println(originalRecord.equals(new PointRecord(2, 3)));
+        PointRecord sharedValue = new PointRecord(0, 0);
+        ShapeWithValue firstValue = new ShapeWithValue(sharedValue);
+        ShapeWithValue secondValue = new ShapeWithValue(sharedValue);
+        PointRecord previousValue = firstValue.getCenter();
+
+        firstValue.moveTo(10, 20);
+
+        System.out.println("Value first: " + firstValue.getCenter());
+        System.out.println("Value second: " + secondValue.getCenter());
+        System.out.println("Value previous: " + previousValue);
     }
 }
 ```
@@ -132,15 +174,14 @@ public class Test {
 Salida esperada:
 
 ```text
-Point[x=2, y=3]
-Point[x=5, y=3]
-true
-PointRecord[x=2, y=3]
-PointRecord[x=5, y=3]
-true
+Mutable second: 10, 20
+Mutable previous: 10, 20
+Value first: PointRecord[x=10, y=20]
+Value second: PointRecord[x=0, y=0]
+Value previous: PointRecord[x=0, y=0]
 ```
 
-Ambas implementaciones conservan el original y generan otro valor con la nueva coordenada. La comparación por contenido se realiza entre objetos del mismo tipo: un `Point` (Punto) y un `PointRecord` (Registro de punto) no son iguales entre sí por tener las mismas coordenadas. Tampoco se utiliza `==` para comparar su contenido, porque comprueba identidad de referencias.
+En la primera versión, se modificó un objeto compartido: cambió la otra figura y se perdió la supuesta posición anterior. En la segunda, solo se reemplazó la referencia de la primera figura. La otra figura y el punto anterior conservaron sus valores.
 
 ### Diagrama de clases
 
@@ -149,73 +190,75 @@ classDiagram
     class Point {
         -int x
         -int y
-        +Point(int x, int y)
         +getX() int
         +getY() int
-        +withX(int x) Point
-        +equals(Object other) boolean
-        +hashCode() int
-        +toString() String
+        +setPosition(int x, int y) void
+    }
+    class Shape {
+        +getCenter() Point
+        +setCenter(Point center) void
+        +moveTo(int x, int y) void
     }
     class PointRecord {
         <<record>>
         -int x
         -int y
-        +PointRecord(int x, int y)
         +x() int
         +y() int
-        +withX(int x) PointRecord
-        +equals(Object other) boolean
-        +hashCode() int
-        +toString() String
     }
+    class ShapeWithValue {
+        +getCenter() PointRecord
+        +moveTo(int x, int y) void
+    }
+    Shape --> "1" Point : center
+    ShapeWithValue --> "1" PointRecord : center
 ```
 
-Son alternativas independientes, sin relación de herencia entre ellas. En el `record` se muestran también los métodos generados para comparar las APIs resultantes.
+## Encapsulamiento y mutadores
 
-## Diferencias, ventajas y límites
+Encapsular significa controlar cómo se consulta y modifica el estado, no solo declarar campos privados. En la primera versión, el getter deja escapar una referencia mutable y permite evitar la API de movimiento de la figura. Cualquier validación o actualización adicional situada en esa API podría omitirse.
 
-| Aspecto | Clase convencional | Record |
+También puede protegerse una figura **sin usar un `record`**: copiar el punto recibido, devolver copias defensivas y ofrecer operaciones controladas para moverla. Hay que proteger tanto las referencias de entrada como las de salida. Otra opción es implementar el punto como una clase convencional inmutable.
+
+Un mutador es cualquier método que cambia un objeto existente, no únicamente un setter. En estos ejemplos, `setPosition()` (establecer posición), `setCenter()` (establecer centro) y ambos métodos `moveTo()` (mover a) son mutadores de sus respectivos objetos. Reemplazar un centro inmutable no vuelve inmutable a la figura.
+
+La segunda versión elimina los mutadores del **valor punto**, no los de la entidad figura. Esa combinación permite que una entidad evolucione mientras los valores compartidos o conservados como historial permanecen estables.
+
+## Entonces, ¿qué aporta específicamente el record?
+
+La independencia entre figuras y la conservación de posiciones anteriores provienen de **usar valores inmutables**, no de la palabra `record`. Una clase convencional inmutable podría ofrecer exactamente esas garantías.
+
+El aporte del `record` es expresar de forma breve un valor definido por sus componentes. En este caso genera:
+
+- El constructor que recibe las dos coordenadas.
+- Los campos privados y finales y los accesores `x()` (coordenada x) e `y()` (coordenada y).
+- La igualdad y el código hash basados en las coordenadas.
+- Una representación textual útil, como la mostrada en el ejemplo.
+
+Con una clase convencional hay que escribir esos elementos si se desean las mismas características. No basta con quitar los setters: deben protegerse el estado y la extensión, y definir la igualdad por contenido cuando el dominio la requiera.
+
+| Alternativa | Ventaja | Costo o límite |
 | --- | --- | --- |
-| Código necesario | Hay que escribir campos, constructor y métodos. | Genera la estructura habitual de un valor a partir de sus componentes. |
-| Igualdad por contenido | Debe implementarse si se necesita. | Se genera a partir de los componentes; puede redefinirse respetando su contrato. |
-| Representación y API | Permite separar los datos internos de la API pública. | Los componentes determinan el constructor canónico y los accesores públicos. |
-| Estado de instancia | Puede definir los campos que necesite el diseño. | No permite campos de instancia adicionales a los de sus componentes. |
-| Herencia | Puede extender otra clase y decidir si admite subclases. | No puede extender una clase elegida por el programador ni admitir subclases. |
-| Interfaces y operaciones | Puede implementar interfaces y definir comportamiento. | También puede implementar interfaces y definir comportamiento. |
-| Inmutabilidad | Debe diseñarse y protegerse explícitamente. | Sus componentes finales no garantizan inmutabilidad profunda. |
+| Punto mutable | Se puede actualizar el mismo objeto sin construir un punto por desplazamiento. | Las referencias compartidas observan los cambios; exige controlar quién puede modificarlo. |
+| Clase convencional inmutable | Valores estables con control de representación y API. | Requiere escribir y mantener constructor, accesores y, si corresponde, igualdad y código hash. |
+| Record con coordenadas enteras | Valores estables y semántica de valor con muy poco código. | Cada nueva posición requiere otro valor; los componentes determinan su API pública. |
 
-El `record` reduce código repetitivo y es una buena opción cuando el valor se describe mediante sus componentes. La clase convencional ofrece más control sobre representación, API y extensión. En el punto, ambas alternativas son inmutables; la diferencia principal está en cómo expresan y mantienen ese diseño.
+Una clase convencional permite más libertad para ocultar su representación, añadir campos de instancia y utilizar herencia. Un `record` no admite campos de instancia adicionales a sus componentes, no puede extender una clase elegida por el programador ni admitir subclases. Sí puede implementar interfaces y definir operaciones.
 
-## Lo que un record no resuelve automáticamente
+## Ventajas y límites de los valores inmutables
 
-El punto utiliza únicamente enteros. Si un objeto contiene listas u otros objetos mutables, declarar sus referencias finales impide reasignarlas, pero no impide modificar los objetos referenciados. Esto afecta tanto a clases convencionales como a `record`.
+Las ventajas visibles en el ejemplo son compartir posiciones sin interferencia, conservar valores anteriores y concentrar los cambios de la figura en su propia API. Además, los valores estables facilitan razonar sobre operaciones, conservar invariantes y usar claves cuyo estado no cambie después de almacenarlas en una colección.
 
-Para proteger ese estado hay que revisar las referencias que entran por el constructor y las que salen por los accesores. Según el caso, se necesitan copias defensivas y elementos inmutables. Una vista no modificable puede seguir reflejando cambios de la colección original; una copia superficial puede seguir compartiendo elementos mutables.
+La contrapartida es crear nuevos valores y, cuando hay estructuras mayores, realizar posibles copias. En un recorrido de muchas actualizaciones ese costo merece evaluarse según el uso real. La mutabilidad controlada puede ser adecuada para estructuras que cambian con mucha frecuencia.
 
-Por tanto, **ni campos privados, ni ausencia de setters, ni referencias finales bastan por separado**. La inmutabilidad depende de que no existan vías para alterar el estado observable del objeto.
+Un `record` no garantiza inmutabilidad profunda: si un componente contiene una lista mutable, el cliente puede modificarla si no se protege. Los componentes finales solo impiden reasignar sus campos. El punto del ejemplo evita ese problema al contener únicamente enteros.
 
-## ¿Qué ventajas aporta la inmutabilidad?
-
-- **Razonamiento más sencillo:** un punto conserva sus coordenadas durante una operación, aunque otros clientes lo compartan.
-- **Conservación de valores anteriores:** una nueva posición no destruye la anterior; ambas pueden coexistir.
-- **Invariantes estables:** las reglas establecidas en la construcción no pueden romperse mediante cambios posteriores del estado.
-- **Pruebas predecibles:** se comprueba el resultado de una operación y que el valor original permanece igual.
-- **Claves estables:** con igualdad y código hash por contenido, el estado utilizado al almacenar una clave no cambia después.
-- **Menos interferencia entre tareas concurrentes:** compartir estos valores no permite carreras que modifiquen sus coordenadas. Aún hay que coordinar otras operaciones compartidas y el reemplazo de referencias cuando corresponda.
-
-## Cuándo conviene y qué cuesta
-
-La inmutabilidad resulta útil para coordenadas, configuraciones, resultados y otros valores que deben permanecer estables o compartirse sin modificaciones. Crear nuevas versiones puede requerir más objetos y copias; el costo depende del tamaño de los datos y de la frecuencia de los cambios.
-
-No exige eliminar los mutadores de todo el sistema. Una entidad con identidad y ciclo de vida puede ser mutable y mantener valores internos inmutables. Por ejemplo, un objeto que representa un personaje puede cambiar su referencia a la posición actual sin modificar los puntos que otras partes del programa conservan.
-
-La decisión se toma en dos pasos: primero determinar si el estado debe cambiar o conservarse; después elegir una clase convencional o un `record` según la semántica del objeto y las necesidades de su API.
+Compartir puntos inmutables evita modificaciones concurrentes de sus coordenadas, pero la figura mutable todavía necesita coordinación si varias tareas actualizan su centro. La inmutabilidad de los valores no resuelve todos los problemas del objeto que los contiene.
 
 ## Comprobación conceptual
 
-- ¿Por qué un punto con campos privados y un mutador seguiría siendo mutable?
-- ¿Qué cambia al reemplazar una referencia por otro punto y qué permanece intacto?
-- ¿Qué código elimina el `record` y qué decisiones siguen siendo responsabilidad del diseño?
-- ¿Por qué un `record` con una lista mutable no tiene las mismas garantías que el punto del ejemplo?
-- ¿Cuándo convendría una clase convencional aunque el objeto fuera inmutable?
+- ¿Por qué cambia el centro de la segunda figura en la primera versión?
+- ¿Por qué una referencia al punto mutable no conserva una posición anterior?
+- ¿Cómo protegerías la figura manteniendo una clase de punto mutable?
+- ¿Por qué la figura que utiliza un `record` sigue siendo mutable?
+- ¿Qué ventajas provienen de la inmutabilidad y cuáles del código generado por el `record`?
