@@ -199,6 +199,23 @@ Java permite una sola superclase directa por clase. Por tanto, `FarmerFisherman`
 
 Herencia simple tampoco significa un único nivel: se pueden construir cadenas con varias generaciones, pero cada clase sigue teniendo una sola superclase directa.
 
+### ¿FarmerFisher o FisherFarmer?
+
+Surge entonces una duda: **¿conviene crear `FarmerFisher` (AgricultorPescador), como un agricultor que también pesca, o `FisherFarmer` (PescadorAgricultor), como un pescador que también cultiva?** Son dos posibles formas de nombrar y organizar la combinación antes llamada `FarmerFisherman` (AgricultorPescador).
+
+La diferencia relevante no está en el orden de las palabras, sino en la superclase elegida:
+
+| Alternativa | Qué hereda | Qué debe agregar | Límite de tipado |
+| --- | --- | --- | --- |
+| `FarmerFisher` (AgricultorPescador) extiende `Farmer` (Agricultor) | La actividad de cultivo | `fish()` (pescar) | Es un subtipo de agricultor, pero no de `Fisherman` (Pescador). |
+| `FisherFarmer` (PescadorAgricultor) extiende `Fisherman` (Pescador) | La actividad de pesca | `farm()` (cultivar) | Es un subtipo de pescador, pero no de `Farmer` (Agricultor). |
+
+Ambas alternativas pueden implementarse, pero ninguna hereda las dos implementaciones. Si la actividad agregada se copia de la otra clase, habrá duplicación; invertir la superclase solo cambia qué actividad se duplica y qué tipo pueden aceptar los clientes. El nombre de una clase no establece relaciones de herencia: llamarla agricultor y pescador no basta para que el compilador la reconozca como ambos tipos.
+
+¿El dominio distingue realmente entre un agricultor que pesca y un pescador que cultiva? Si existe un oficio principal con reglas propias, esa diferencia podría justificar modelos distintos. En el requisito actual solo se necesitan dos capacidades, sin prioridad entre ellas. Crear ambas clases introduciría una distinción que el problema no pide; elegir una únicamente para reutilizar su código haría depender el modelo de una conveniencia de implementación.
+
+La pregunta que prepara el siguiente paso es: **¿cómo expresar que un mismo aldeano puede cultivar y pescar sin tener que elegir uno de esos oficios como su única ascendencia de clases?**
+
 ### Alternativas dentro de la jerarquía y sus costos
 
 | Intento | Consecuencia |
