@@ -4,118 +4,127 @@
 
 ## Propósito
 
-Comprender cuándo conviene mantener estable el estado de un objeto, qué ventajas aporta y cómo protegerlo mediante encapsulamiento. Herencia, interfaces, composición y delegación organizan tipos y comportamiento; la inmutabilidad aborda otra dimensión: **qué puede cambiar después de construir un objeto**.
+Comprender las ventajas de conservar estable el estado de un objeto y comparar dos implementaciones: una clase convencional y un `record`. La inmutabilidad es una decisión de diseño independiente del mecanismo utilizado para implementarla.
 
-Un objeto inmutable conserva su estado observable durante toda su vida. Puede ofrecer operaciones y calcular resultados; si una operación representa un cambio de valor, devuelve otro objeto sin modificar el anterior. Este principio no depende de los `record` ni de un lenguaje específico.
+Un objeto inmutable conserva su estado observable durante toda su vida. Puede ofrecer operaciones, pero una operación que representa un cambio devuelve otro valor sin modificar el original.
 
-## El problema: compartir un objeto que puede cambiar
+## Un ejemplo sencillo: un punto
 
-La aldea necesita conservar el perfil de un habitante al registrar una asignación de trabajo. El perfil contiene su nombre y los nombres de sus oficios; no contiene los colaboradores que ejecutan las actividades.
+Un punto representa dos coordenadas enteras. Si varias partes del programa comparten un punto mutable, cualquiera que pueda modificarlo puede cambiar las coordenadas que observan las demás. Para conocer su valor habría que seguir también el historial de modificaciones.
 
-Si varias asignaciones guardan una referencia al mismo perfil mutable, un cambio posterior puede afectar a todas. Una asignación que debía conservar la información original podría terminar mostrando oficios adquiridos después. Para entender su resultado ya no basta con conocer el perfil inicial: también hay que seguir quién lo modificó y cuándo.
+Con un punto inmutable, las coordenadas permanecen estables. Para representar otra posición se crea otro punto. Esto permite compartir el original o conservarlo como una versión anterior sin que una modificación posterior lo altere.
 
-Un perfil inmutable permite conservar una versión estable y compartirla entre asignaciones. Cuando cambian los datos, se construye una nueva versión para los usos que deban reflejar el cambio. La entidad que representa al habitante puede seguir siendo mutable: **la persona y el valor que describe su perfil tienen responsabilidades distintas**.
+## Encapsulamiento y mutadores
 
-## Ventajas de uso
+El encapsulamiento protege la representación y las reglas del objeto mediante una API controlada. Los campos privados impiden el acceso directo, pero no convierten al objeto en inmutable.
 
-| Ventaja | Consecuencia en el caso de la aldea |
-| --- | --- |
-| Razonamiento local | Una vez recibido un perfil, otra parte del programa no puede cambiar sus datos mientras lo consultamos. |
-| Conservación de versiones | Una asignación conserva el perfil original aunque se cree otro con nuevos oficios. |
-| Compartición segura del valor | Varias asignaciones pueden consultar el mismo perfil sin interferir mediante modificaciones. |
-| Invariantes estables | Las reglas comprobadas al construirlo se conservan porque no hay cambios posteriores de su estado. |
-| Pruebas más sencillas | Una operación puede verificarse por su entrada y resultado sin reconstruir un historial de mutaciones del perfil. |
-
-Los valores inmutables también son útiles como claves de colecciones cuando tienen igualdad por contenido: su estado no cambia después de calcular la igualdad o el código hash. En concurrencia, evitan carreras sobre su propio estado, pero no resuelven por sí solos la coordinación de operaciones ni el acceso a referencias compartidas que se reemplazan.
-
-## Encapsulamiento: controlar el acceso y el cambio
-
-Encapsular significa proteger la representación y las reglas del objeto mediante una API controlada. Declarar campos privados es parte de esa protección, pero no basta si los métodos permiten modificar el estado de cualquier manera.
-
-**Encapsulamiento e inmutabilidad se complementan:** un objeto mutable bien encapsulado controla sus transiciones válidas; uno inmutable protege el estado establecido durante su construcción y evita modificaciones posteriores.
-
-Un método de acceso también puede romper el encapsulamiento. Si devuelve la lista mutable interna de oficios, el cliente puede modificarla aunque el campo sea privado y no exista un setter. Lo mismo ocurre si el constructor almacena directamente una lista que el cliente conserva y puede modificar.
-
-Por eso hay que proteger las dos fronteras:
-
-- **Entrada:** evitar que cambios posteriores en los objetos recibidos alteren el estado interno.
-- **Salida:** evitar que los objetos devueltos permitan modificar ese estado desde fuera.
-
-## ¿Qué ocurre con los mutadores?
-
-Un mutador es cualquier operación que modifica el estado de un objeto existente. Puede llamarse `setName()` (establecer nombre), `addOccupation()` (agregar oficio) o tener un nombre propio del dominio. **Eliminar los setters no garantiza inmutabilidad** si permanecen otras operaciones mutadoras o referencias internas expuestas.
-
-Los mutadores son apropiados cuando el dominio requiere que una entidad con la misma identidad cambie durante su vida. Deben expresar transiciones válidas y conservar sus invariantes; no es necesario proporcionar un setter por cada campo.
-
-Para un valor inmutable, una operación como `withOccupation()` (con oficio) produce otro valor. El cliente decide si conserva el anterior, utiliza el nuevo o reemplaza una referencia que mantiene una entidad. Reasignar una variable a otro objeto no modifica el objeto anterior.
-
-## Implementación con una clase convencional
-
-`VillagerProfile` (Perfil de aldeano) muestra el principio sin depender de un `record`. El nombre debe ser no nulo y no estar en blanco; los oficios deben ser no nulos y no estar en blanco. Se permite un perfil sin oficios, y agregar uno ya presente conserva el mismo contenido.
-
-**Archivo: `VillagerProfile.java`**
+Este fragmento representa una alternativa **mutable**:
 
 ```java
-import java.util.ArrayList;
-import java.util.List;
+public void setX(int x) {
+    this.x = x;
+}
+```
 
-public final class VillagerProfile {
-    private final String name;
-    private final List<String> occupations;
+`setX()` (establecer coordenada x) modifica un objeto existente. Es un mutador, igual que cualquier otra operación que cambie su estado, aunque no tenga el prefijo `set`. Los mutadores son adecuados cuando el dominio requiere que una entidad cambie conservando su identidad; deben mantener sus invariantes.
 
-    public VillagerProfile(String name, List<String> occupations) {
-        if (name == null || name.isBlank()) {
-            throw new IllegalArgumentException("Invalid name");
-        }
-        this.name = name;
-        this.occupations = List.copyOf(occupations);
-        for (String occupation : this.occupations) {
-            if (occupation.isBlank()) {
-                throw new IllegalArgumentException("Invalid occupation");
-            }
-        }
+En las versiones inmutables usaremos `withX()` (con coordenada x): devuelve otro punto y conserva el original. No es un mutador del objeto receptor. El cliente decide si conserva ambos valores o reemplaza una referencia por el nuevo.
+
+**Un objeto mutable bien encapsulado controla sus cambios; uno inmutable impide cambios posteriores de su estado.** Ambas decisiones pueden ser correctas según el requisito.
+
+## Primera implementación: una clase inmutable
+
+La clase `Point` (Punto) tiene campos privados y finales, no expone mutadores y no admite subclases. Como las coordenadas son valores primitivos, no hay objetos internos mutables que proteger.
+
+Se define igualdad por contenido: dos puntos de esta clase son iguales cuando sus coordenadas coinciden. La igualdad y el código hash deben ser coherentes; la inmutabilidad por sí sola no genera esos métodos.
+
+**Archivo: `Point.java`**
+
+```java
+public final class Point {
+    private final int x;
+    private final int y;
+
+    public Point(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 
-    public String getName() {
-        return name;
+    public int getX() {
+        return x;
     }
 
-    public List<String> getOccupations() {
-        return occupations;
+    public int getY() {
+        return y;
     }
 
-    public VillagerProfile withOccupation(String occupation) {
-        List<String> updatedOccupations = new ArrayList<>(occupations);
-        if (!updatedOccupations.contains(occupation)) {
-            updatedOccupations.add(occupation);
+    public Point withX(int x) {
+        return new Point(x, y);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
         }
-        return new VillagerProfile(name, updatedOccupations);
+        if (!(other instanceof Point point)) {
+            return false;
+        }
+        return x == point.x && y == point.y;
+    }
+
+    @Override
+    public int hashCode() {
+        return 31 * Integer.hashCode(x) + Integer.hashCode(y);
+    }
+
+    @Override
+    public String toString() {
+        return "Point[x=" + x + ", y=" + y + "]";
     }
 }
 ```
 
-La copia mediante `List.copyOf()` (copia de lista) no refleja cambios posteriores en la lista recibida y no permite modificaciones desde el acceso público. También rechaza una lista nula o elementos nulos. No es necesario copiar al devolverla porque es una lista no modificable cuyos elementos son cadenas inmutables.
+El constructor establece el estado y los accesores solo consultan sus valores. `withX()` (con coordenada x) construye otro punto. La clase permite controlar explícitamente la representación, los nombres de los métodos y la semántica de igualdad, a cambio de escribir y mantener más código.
 
-La copia es superficial: si los elementos fueran objetos mutables, habría que proteger también su estado o utilizar elementos inmutables. Una colección no modificable no convierte automáticamente sus elementos en inmutables.
+## Segunda implementación: un record
 
-### Uso: conservar el original y crear una nueva versión
+`PointRecord` (Registro de punto) representa los mismos datos. Se usa otro nombre para permitir comparar ambas implementaciones en el mismo ejemplo.
+
+**Archivo: `PointRecord.java`**
+
+```java
+public record PointRecord(int x, int y) {
+    public PointRecord withX(int x) {
+        return new PointRecord(x, y);
+    }
+}
+```
+
+El `record` genera el constructor canónico, los accesores `x()` (coordenada x) y `y()` (coordenada y), y los métodos de igualdad, código hash y representación textual basados en sus componentes. Los campos de los componentes son privados y finales, y el tipo no admite subclases.
+
+La operación `withX()` (con coordenada x) sigue siendo una decisión del diseño: el `record` no genera operaciones para crear versiones modificadas.
+
+## Comparación de uso
 
 **Archivo: `Test.java`**
 
 ```java
-import java.util.ArrayList;
-import java.util.List;
-
 public class Test {
     public static void main(String[] args) {
-        List<String> occupations = new ArrayList<>(List.of("agricultura"));
-        VillagerProfile original = new VillagerProfile("Ana", occupations);
+        Point original = new Point(2, 3);
+        Point updated = original.withX(5);
 
-        occupations.add("caza");
-        VillagerProfile updated = original.withOccupation("pesca");
+        System.out.println(original);
+        System.out.println(updated);
+        System.out.println(original.equals(new Point(2, 3)));
 
-        System.out.println(original.getName() + ": " + original.getOccupations());
-        System.out.println(updated.getName() + ": " + updated.getOccupations());
+        PointRecord originalRecord = new PointRecord(2, 3);
+        PointRecord updatedRecord = originalRecord.withX(5);
+
+        System.out.println(originalRecord);
+        System.out.println(updatedRecord);
+        System.out.println(originalRecord.equals(new PointRecord(2, 3)));
     }
 }
 ```
@@ -123,71 +132,90 @@ public class Test {
 Salida esperada:
 
 ```text
-Ana: [agricultura]
-Ana: [agricultura, pesca]
+Point[x=2, y=3]
+Point[x=5, y=3]
+true
+PointRecord[x=2, y=3]
+PointRecord[x=5, y=3]
+true
 ```
 
-Agregar caza a la lista externa no altera el perfil. Agregar pesca mediante `withOccupation()` (con oficio) crea otro perfil: el original conserva sus datos. La lógica del dominio devuelve valores; la impresión corresponde únicamente al programa de ejemplo.
+Ambas implementaciones conservan el original y generan otro valor con la nueva coordenada. La comparación por contenido se realiza entre objetos del mismo tipo: un `Point` (Punto) y un `PointRecord` (Registro de punto) no son iguales entre sí por tener las mismas coordenadas. Tampoco se utiliza `==` para comparar su contenido, porque comprueba identidad de referencias.
 
 ### Diagrama de clases
 
 ```mermaid
 classDiagram
-    class VillagerProfile {
-        -String name
-        -List~String~ occupations
-        +VillagerProfile(String name, List~String~ occupations)
-        +getName() String
-        +getOccupations() List~String~
-        +withOccupation(String occupation) VillagerProfile
+    class Point {
+        -int x
+        -int y
+        +Point(int x, int y)
+        +getX() int
+        +getY() int
+        +withX(int x) Point
+        +equals(Object other) boolean
+        +hashCode() int
+        +toString() String
+    }
+    class PointRecord {
+        <<record>>
+        -int x
+        -int y
+        +PointRecord(int x, int y)
+        +x() int
+        +y() int
+        +withX(int x) PointRecord
+        +equals(Object other) boolean
+        +hashCode() int
+        +toString() String
     }
 ```
 
-El diagrama muestra la API del perfil; su inmutabilidad depende de la implementación y de la protección de las referencias, no solo de la visibilidad de los campos.
+Son alternativas independientes, sin relación de herencia entre ellas. En el `record` se muestran también los métodos generados para comparar las APIs resultantes.
 
-## Qué garantiza cada mecanismo
+## Diferencias, ventajas y límites
 
-| Mecanismo | Garantía | Lo que aún debe revisarse |
+| Aspecto | Clase convencional | Record |
 | --- | --- | --- |
-| Campo privado | El cliente no accede directamente al campo | Los métodos pueden exponer referencias mutables o permitir cambios inválidos. |
-| Campo `final` | El campo no se reasigna tras inicializarse | El objeto referenciado puede seguir cambiando. |
-| Clase `final` | No admite subclases que alteren el comportamiento | Sus propios métodos y datos pueden ser mutables. |
-| Ausencia de mutadores | La API no ofrece cambios directos de estado | Las referencias recibidas o devueltas pueden abrir otras vías de cambio. |
-| Vista no modificable | Impide modificar una colección a través de esa vista | Puede reflejar cambios en la colección original. |
-| Copia defensiva | Aísla el estado respecto de las referencias copiadas | Una copia superficial comparte los elementos. |
+| Código necesario | Hay que escribir campos, constructor y métodos. | Genera la estructura habitual de un valor a partir de sus componentes. |
+| Igualdad por contenido | Debe implementarse si se necesita. | Se genera a partir de los componentes; puede redefinirse respetando su contrato. |
+| Representación y API | Permite separar los datos internos de la API pública. | Los componentes determinan el constructor canónico y los accesores públicos. |
+| Estado de instancia | Puede definir los campos que necesite el diseño. | No permite campos de instancia adicionales a los de sus componentes. |
+| Herencia | Puede extender otra clase y decidir si admite subclases. | No puede extender una clase elegida por el programador ni admitir subclases. |
+| Interfaces y operaciones | Puede implementar interfaces y definir comportamiento. | También puede implementar interfaces y definir comportamiento. |
+| Inmutabilidad | Debe diseñarse y protegerse explícitamente. | Sus componentes finales no garantizan inmutabilidad profunda. |
 
-En el perfil, estas decisiones actúan juntas: campos privados, referencias finales, clase cerrada a extensión, ausencia de mutadores y una lista protegida de cadenas inmutables.
+El `record` reduce código repetitivo y es una buena opción cuando el valor se describe mediante sus componentes. La clase convencional ofrece más control sobre representación, API y extensión. En el punto, ambas alternativas son inmutables; la diferencia principal está en cómo expresan y mantienen ese diseño.
 
-## El papel de los record en Java
+## Lo que un record no resuelve automáticamente
 
-Un `record` es una alternativa para representar valores mediante componentes. Genera accesores, igualdad por contenido, código hash y representación textual, y sus campos de componentes son finales. **No garantiza inmutabilidad profunda:** un componente puede referenciar una lista mutable.
+El punto utiliza únicamente enteros. Si un objeto contiene listas u otros objetos mutables, declarar sus referencias finales impide reasignarlas, pero no impide modificar los objetos referenciados. Esto afecta tanto a clases convencionales como a `record`.
 
-La declaración siguiente es un fragmento de una alternativa, no un archivo adicional del ejemplo:
+Para proteger ese estado hay que revisar las referencias que entran por el constructor y las que salen por los accesores. Según el caso, se necesitan copias defensivas y elementos inmutables. Una vista no modificable puede seguir reflejando cambios de la colección original; una copia superficial puede seguir compartiendo elementos mutables.
 
-```java
-public record VillagerProfile(String name, List<String> occupations) {
-    // Validation and defensive copying are still required.
-}
-```
+Por tanto, **ni campos privados, ni ausencia de setters, ni referencias finales bastan por separado**. La inmutabilidad depende de que no existan vías para alterar el estado observable del objeto.
 
-Esta declaración por sí sola no protege la lista ni aplica las reglas del perfil. Para preservar las mismas garantías habría que validar y copiar los datos en el constructor, y definir las operaciones que devuelven nuevas versiones. Los accesores serían `name()` (nombre) y `occupations()` (oficios).
+## ¿Qué ventajas aporta la inmutabilidad?
 
-La clase convencional del ejemplo no redefine igualdad por contenido: dos perfiles con los mismos datos siguen siendo objetos distintos para su método de igualdad heredado. Si el dominio requiere esa semántica de valor, se deben implementar coherentemente la igualdad y el código hash, o evaluar un `record`. Esa decisión es diferente de garantizar inmutabilidad.
+- **Razonamiento más sencillo:** un punto conserva sus coordenadas durante una operación, aunque otros clientes lo compartan.
+- **Conservación de valores anteriores:** una nueva posición no destruye la anterior; ambas pueden coexistir.
+- **Invariantes estables:** las reglas establecidas en la construcción no pueden romperse mediante cambios posteriores del estado.
+- **Pruebas predecibles:** se comprueba el resultado de una operación y que el valor original permanece igual.
+- **Claves estables:** con igualdad y código hash por contenido, el estado utilizado al almacenar una clave no cambia después.
+- **Menos interferencia entre tareas concurrentes:** compartir estos valores no permite carreras que modifiquen sus coordenadas. Aún hay que coordinar otras operaciones compartidas y el reemplazo de referencias cuando corresponda.
 
 ## Cuándo conviene y qué cuesta
 
-La inmutabilidad es especialmente útil para perfiles conservados como versiones, configuraciones, resultados y otros valores que se comparten o deben permanecer estables. Crear cada nueva versión puede requerir asignaciones y copias; el costo depende del tamaño de los datos y de la frecuencia de los cambios.
+La inmutabilidad resulta útil para coordenadas, configuraciones, resultados y otros valores que deben permanecer estables o compartirse sin modificaciones. Crear nuevas versiones puede requerir más objetos y copias; el costo depende del tamaño de los datos y de la frecuencia de los cambios.
 
-Una entidad como `Villager` (Aldeano) puede necesitar mutadores para evolucionar conservando su identidad. Puede mantener un perfil inmutable y reemplazarlo mediante una operación controlada cuando cambien sus oficios. Así se combina **mutabilidad de la entidad e inmutabilidad de sus valores** sin imponer una única política a todo el sistema.
+No exige eliminar los mutadores de todo el sistema. Una entidad con identidad y ciclo de vida puede ser mutable y mantener valores internos inmutables. Por ejemplo, un objeto que representa un personaje puede cambiar su referencia a la posición actual sin modificar los puntos que otras partes del programa conservan.
 
-Tampoco debe declararse inmutable al aldeano de la etapa de delegación únicamente porque conserva referencias finales: sus colaboradores pueden mantener estado mutable o producir efectos externos. La estabilidad de un perfil no implica que todas las actividades del aldeano carezcan de efectos.
+La decisión se toma en dos pasos: primero determinar si el estado debe cambiar o conservarse; después elegir una clase convencional o un `record` según la semántica del objeto y las necesidades de su API.
 
 ## Comprobación conceptual
 
-- ¿Qué problema aparece si una asignación histórica comparte un perfil mutable que después cambia?
-- ¿Por qué campos privados y ausencia de setters no bastan para garantizar inmutabilidad?
-- ¿Qué diferencia hay entre modificar un perfil existente y reemplazar una referencia por una nueva versión?
-- ¿Cuándo sería correcto ofrecer un mutador en una entidad de la aldea?
-- ¿Qué protección adicional haría falta si los oficios fueran objetos mutables?
-
-La elección depende del requisito: proteger transiciones cuando el estado debe cambiar y conservar valores estables cuando el cambio no debe afectar a quienes ya los utilizan.
+- ¿Por qué un punto con campos privados y un mutador seguiría siendo mutable?
+- ¿Qué cambia al reemplazar una referencia por otro punto y qué permanece intacto?
+- ¿Qué código elimina el `record` y qué decisiones siguen siendo responsabilidad del diseño?
+- ¿Por qué un `record` con una lista mutable no tiene las mismas garantías que el punto del ejemplo?
+- ¿Cuándo convendría una clase convencional aunque el objeto fuera inmutable?
