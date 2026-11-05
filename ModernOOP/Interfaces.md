@@ -17,7 +17,7 @@ Ejemplo completo e independiente de la etapa anterior. Cada bloque corresponde a
 ```java
 public interface Farmable {
     // Devuelve una descripción no nula de la actividad de cultivo.
-    String farm();
+    public abstract String farm();
 }
 ```
 

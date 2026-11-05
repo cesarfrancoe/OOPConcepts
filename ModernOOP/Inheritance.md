@@ -139,8 +139,8 @@ public class Test {
         Hunter hunter = new Hunter("Sara");
 
         Villager[] villagers = {villager, farmer, fisherman, hunter};
-        for (Villager current : villagers) {
-            System.out.println(current.describe());
+        for (Villager anVillager : villagers) {
+            System.out.println(anVillager.describe());
         }
 
         System.out.println(farmer.farm());
