@@ -141,178 +141,101 @@ La clase central del dominio sugerida en cada propuesta es un punto de partida p
 ---
 ### 1. Smart Parking System
 
-Sistema utilizado por el personal de un parqueadero para registrar la entrada y salida de vehículos, controlar la ocupación y calcular el valor a pagar.
+Aplicación para el personal de un parqueadero que necesita conocer la ocupación durante la jornada y cobrar al finalizar cada estancia. El sistema vincula cada ingreso con su salida para que el operador pueda consultar los cupos disponibles y revisar la actividad del parqueadero.
 
 Clase central del dominio sugerida: `ParkingLot`.
 
-Funciones clave:
-
-* Registro de ingreso y salida de vehículos.
-* Cálculo automático de tarifas.
-* Consulta de cupos disponibles.
-* Control de ocupación del parqueadero.
-* Generación de reportes básicos.
+[Tareas del sistema](Proposals/01-smart-parking-system.md)
 
 ---
 ### 2. ~~Hotel Management System~~
 
-Sistema utilizado por el personal de recepción o administración para gestionar habitaciones, huéspedes y reservas.
+Aplicación para el personal de recepción y administración de un hotel. Reúne la información de huéspedes, habitaciones, reservas y pagos para que recepción pueda planificar las llegadas y salidas, confirmar la disponibilidad por fechas y dar seguimiento a la ocupación.
 
 Clase central del dominio sugerida: `Hotel`.
 
-Funciones clave:
-
-* Registro de huéspedes y habitaciones.
-* Gestión de reservas.
-* Registro de pagos.
-* Consulta de disponibilidad.
-* Control de ocupación.
-* Generación de reportes básicos.
+[Tareas del sistema](Proposals/02-hotel-management-system.md)
 
 ---
 ### 3. Video Game Store
 
-Sistema utilizado por empleados de una tienda para gestionar el inventario de videojuegos y registrar ventas.
+Aplicación para los empleados de una tienda de videojuegos que relaciona el catálogo, el inventario y las ventas. Permite al personal responder consultas sobre títulos disponibles y revisar qué productos se venden y qué ingresos generan.
 
 Clase central del dominio sugerida: `Store`.
 
-Funciones clave:
-
-* Registro de videojuegos.
-* Clasificación por categorías.
-* Registro de ventas.
-* Consulta de inventario.
-* Cálculo de ingresos.
-* Generación de reportes básicos.
+[Tareas del sistema](Proposals/03-video-game-store.md)
 
 ---
 ### 4. Veterinary Clinic System
 
-Sistema utilizado por el personal de una clínica veterinaria para gestionar mascotas, dueños y citas.
+Aplicación para el personal de una clínica veterinaria que organiza la atención desde la programación de citas hasta la consulta del historial de cada mascota. Reúne la información de propietarios, veterinarios y tratamientos registrados para facilitar la coordinación entre recepción y el personal clínico.
 
 Clase central del dominio sugerida: `VeterinaryClinic`.
 
-Funciones clave:
-
-* Registro de mascotas y propietarios.
-* Agendamiento de citas.
-* Registro de tratamientos.
-* Consulta de historial médico.
-* Gestión de veterinarios.
-* Generación de reportes básicos.
+[Tareas del sistema](Proposals/04-veterinary-clinic-system.md)
 
 ---
 ### 5. Movie Rental System
 
-Sistema utilizado por empleados para gestionar el alquiler y devolución de películas.
+Aplicación para los empleados de un negocio de alquiler de películas que permite distinguir el catálogo de los ejemplares físicamente disponibles. El personal puede seguir cada préstamo desde su entrega hasta la devolución y consultar la fecha prevista de regreso y el valor del alquiler.
 
 Clase central del dominio sugerida: `Store`.
 
-Funciones clave:
-
-* Registro de películas.
-* Gestión de alquileres y devoluciones.
-* Consulta de disponibilidad.
-* Clasificación por categorías.
-* Cálculo de tarifas.
-* Generación de reportes básicos.
+[Tareas del sistema](Proposals/05-movie-rental-system.md)
 
 ---
 ### 6. Event Ticketing System
 
-Sistema utilizado por el personal organizador para gestionar eventos y la venta de entradas.
+Aplicación para el personal que organiza eventos y atiende la venta de entradas. Relaciona los eventos con sus sedes y registra las ventas para que la taquilla pueda informar cuántas entradas quedan y operar dentro del aforo previsto.
 
 Clase central del dominio sugerida: `TicketOffice`.
 
-Funciones clave:
-
-* Registro de eventos.
-* Venta de entradas.
-* Control de aforo.
-* Gestión de escenarios o sedes.
-* Consulta de disponibilidad.
-* Generación de reportes básicos.
+[Tareas del sistema](Proposals/06-event-ticketing-system.md)
 
 ---
 ### 7. Restaurant Order Management
 
-Sistema utilizado por el personal de un restaurante para registrar pedidos, calcular cuentas y gestionar mesas.
+Aplicación para el personal de un restaurante que organiza la atención por mesas. Relaciona los pedidos con el menú y permite seguir su avance hasta el cierre de la cuenta, de modo que el personal pueda consultar qué mesas están ocupadas y qué pedidos siguen abiertos.
 
 Clase central del dominio sugerida: `Restaurant`.
 
-Funciones clave:
-
-* Registro de pedidos.
-* Gestión de mesas.
-* Cálculo de cuentas.
-* Consulta de órdenes activas.
-* Administración del menú.
-* Generación de reportes básicos.
+[Tareas del sistema](Proposals/07-restaurant-order-management.md)
 
 ---
 ### 8. Delivery Service System
 
-Sistema utilizado por el personal de un servicio de domicilios para registrar pedidos y asignar repartidores.
+Aplicación para el personal que coordina un servicio de domicilios. Reúne los pedidos y la disponibilidad de los repartidores para facilitar la asignación de entregas, consultar su avance y calcular el costo del servicio.
 
 Clase central del dominio sugerida: `DeliveryService`.
 
-Funciones clave:
-
-* Registro de pedidos.
-* Gestión de repartidores.
-* Asignación de entregas.
-* Seguimiento de estados.
-* Cálculo de costos.
-* Generación de reportes básicos.
+[Tareas del sistema](Proposals/08-delivery-service-system.md)
 
 ---
 ### 9. Gym Membership Management System
 
-Sistema utilizado por el personal de un gimnasio para gestionar miembros, planes, pagos y control de acceso.
+Aplicación para el personal de un gimnasio que administra la relación entre los miembros y los planes contratados. Facilita el seguimiento de renovaciones y pagos, la comprobación de la vigencia al momento del ingreso y la consulta de entrenadores asignados.
 
 Clase central del dominio sugerida: `Gym`.
 
-Funciones clave:
-
-* Registro de miembros.
-* Gestión de planes de membresía.
-* Registro de pagos.
-* Control de acceso al gimnasio.
-* Asignación de entrenadores.
-* Generación de reportes básicos.
+[Tareas del sistema](Proposals/09-gym-membership-management-system.md)
 
 ---
 ### 10. Pharmacy Inventory System
 
-Sistema utilizado por el personal de una farmacia para gestionar medicamentos, proveedores y ventas.
+Aplicación para el personal de una farmacia que reúne los datos de medicamentos, proveedores y movimientos de inventario. Permite consultar existencias al atender una venta y revisar las entradas y salidas de productos para orientar la reposición.
 
 Clase central del dominio sugerida: `Pharmacy`.
 
-Funciones clave:
-
-* Registro de medicamentos.
-* Control de inventario.
-* Gestión de proveedores.
-* Registro de ventas.
-* Consulta de disponibilidad.
-* Generación de reportes básicos.
+[Tareas del sistema](Proposals/10-pharmacy-inventory-system.md)
 
 ---
 ### 11. Clothing Store Management System
 
-Sistema utilizado por el personal de una tienda de ropa para administrar artículos de vestir, controlar el inventario y registrar ventas, considerando características como tallas, colores, categorías y precios.
+Aplicación para el personal de una tienda de ropa que distingue cada artículo de sus variantes por talla y color. Relaciona el catálogo, las existencias y las ventas para que el personal pueda confirmar la disponibilidad de una variante concreta y revisar su movimiento.
 
 Clase central del dominio sugerida: `ClothingStore`.
 
-Funciones clave:
-
-* Registro de artículos de vestir.
-* Clasificación de artículos por categorías.
-* Gestión de tallas y colores disponibles.
-* Control de inventario por talla y color.
-* Registro de ventas y actualización de existencias.
-* Consulta de disponibilidad de artículos.
-* Generación de reportes básicos.
+[Tareas del sistema](Proposals/11-clothing-store-management-system.md)
 
 ---
 ## Entrega final
