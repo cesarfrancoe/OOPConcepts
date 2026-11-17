@@ -136,6 +136,8 @@ La rúbrica detallada de cada componente se definirá posteriormente.
 
 Cada estudiante o grupo de dos estudiantes deberá seleccionar una de las siguientes opciones (previa aprobación del docente).
 
+Cada ficha describe las funcionalidades generales requeridas para su propuesta. El equipo de desarrollo deberá identificar y definir las funcionalidades específicas adicionales que se deriven del diseño que plantee.
+
 La clase central del dominio sugerida en cada propuesta es un punto de partida para el análisis; no corresponde necesariamente a la clase que contiene el método `main` ni prescribe el diseño completo. Cada equipo debe identificar las demás clases, distribuir sus responsabilidades y definir sus relaciones, evitando concentrar toda la lógica del sistema en una sola clase.
 
 ---
