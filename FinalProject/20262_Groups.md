@@ -7,17 +7,20 @@
 | 01 | Velásquez | Rodríguez | Luis Álvaro | 11 — Clothing Store Management System |  |
 | 02 | Acevedo | Durán | Yurany | 3 — Video Game Store |  |
 | 02 | Martínez | Gutiérrez | Juan Andrés | 3 — Video Game Store |  |
-| 03 | Arias | Castrillon | David Fernando | 7 — Restaurant Order Management |  |
+| 03 | Arias | Castrillón | David Fernando | 7 — Restaurant Order Management |  |
+| 03 | Gonzalez | García | Esteban | 7 — Restaurant Order Management |  |
 | 04 | Ocampo | Escobar | Alejandro | 1 — Smart Parking System |  |
+| 04 | Franco | Ortegon | Joshua | 1 — Smart Parking System |  |
 | 05 | Gomez | Ortiz | Alan | 1 — Smart Parking System |  |
 | 05 | Claro | Vargas | Valeria Alexandra | 1 — Smart Parking System |  |
 | 06 | Cardona | Cardenas | Juan Felipe | 5 — Movie Rental System |  |
 | 07 | Perea | Martinez | Jose Luis | 3 — Video Game Store |  |
+| 07 | Henao | Caicedo | Sergio Alejandro | 3 — Video Game Store |  |
 | 08 | Rivera | Higidio | Leonardo Antonio | 5 — Movie Rental System |  |
 | 09 | León | Uribe | Kevin Samuel | 10 — Pharmacy Inventory System |  |
 | 10 |  |  |  | Por confirmar |  |
-| Por confirmar | Salinas | Ramírez | Juan Sebastián | 6 — Event Ticketing System |  |
-| Por confirmar | Losada | Cogua | Daniel Santiago | 6 — Event Ticketing System |  |
+| 11 | Salinas | Ramírez | Juan Sebastián | 6 — Event Ticketing System |  |
+| 11 | Losada | Cogua | Daniel Santiago | 6 — Event Ticketing System |  |
 
 ## Grupo 03
 
