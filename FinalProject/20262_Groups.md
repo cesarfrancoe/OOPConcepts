@@ -22,4 +22,4 @@
 |  |  | 03 | 08 | Sofia Buitrago Cardona / Santiago Loaiza Giraldo | 3 | Video Game Store |
 |  |  | 03 | 09 | Sarah Maria Erazo Sanchez | 3 | Video Game Store |
 |  |  | 03 | 10 | Andres Mauricio Lopez Mutis | 5 | Movie Rental |
-|  |  | 03 | 11 | Samuel Bartolo Ospina | 5 | Movie Rental |
+|  |  | 03 | 11 | Samuel Bartolo Ospina | 6 | Event Ticketing |
