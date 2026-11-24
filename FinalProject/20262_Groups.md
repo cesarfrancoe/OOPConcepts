@@ -18,9 +18,8 @@
 | 07 | Henao | Caicedo | Sergio Alejandro | 3 | Video Game Store | Nov 30 | 2:30 p.m. |
 | 08 | Rivera | Higidio | Leonardo Antonio | 5 | Movie Rental System |  |  |
 | 09 | León | Uribe | Kevin Samuel | 10 | Pharmacy Inventory System |  |  |
-| 10 |  |  |  | Por confirmar | Por confirmar |  |  |
-| 11 | Salinas | Ramírez | Juan Sebastián | 6 | Event Ticketing System | Dic 01 | 8:30 a.m. |
-| 11 | Losada | Cogua | Daniel Santiago | 6 | Event Ticketing System | Dic 01 | 8:30 a.m. |
+| 10 | Salinas | Ramírez | Juan Sebastián | 6 | Event Ticketing System | Dic 01 | 8:30 a.m. |
+| 10 | Losada | Cogua | Daniel Santiago | 6 | Event Ticketing System | Dic 01 | 8:30 a.m. |
 
 ## Grupo 03
 
