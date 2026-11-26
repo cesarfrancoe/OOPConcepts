@@ -29,7 +29,7 @@
 | Dic 03 | 11:00 a.m. | 03 | Mateo Piedrahita Ortiz / Sergio López Loaiza | 1 | Smart Parking |
 | Dic 03 | 11:30 a.m. | 09 | Sarah Maria Erazo Sanchez | 3 | Video Game Store |
 | Dic 03 | 3:00 p.m. | 11 | Samuel Bartolo Ospina | 6 | Event Ticketing |
-|  |  | 01 | Laura Sofia Alzate Salazar / Nicolás Lemus Mora | 9 | Gym Membership Management |
+| Dic 04 | 10:30 a.m. | 01 | Laura Sofia Alzate Salazar / Nicolás Lemus Mora | 9 | Gym Membership Management |
 |  |  | 07 | Jeronimo Lopez Tangarife | 9 | Gym Membership Management |
 |  |  | 10 | Andres Mauricio Lopez Mutis | 5 | Movie Rental |
 
