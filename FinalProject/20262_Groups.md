@@ -24,9 +24,7 @@
 |  |  | 03 | 10 | Andres Mauricio Lopez Mutis | 5 | Movie Rental |
 |  |  | 03 | 11 | Samuel Bartolo Ospina | 6 | Event Ticketing |
 
-## Examen del grupo 02
-
-Jueves 3 de diciembre de 2026. Cada turno tiene 9 estudiantes. Los integrantes de cada equipo presentan el examen en el mismo horario, con un estudiante que trabaja individualmente en cada turno.
+## Examen final
 
 | Fecha | Hora | Grupo | Equipo | Integrantes |
 | --- | --- | --- | --- | --- |
