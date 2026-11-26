@@ -26,43 +26,58 @@
 
 ## Examen final
 
-| Fecha | Hora | Grupo | Estudiante | Lugar |
-| --- | --- | --- | --- | --- |
-| Dic 03 | 7:20 a.m. | 02 | Luis Álvaro Velásquez Rodríguez | Sala de cómputo I2 |
-| Dic 03 | 7:20 a.m. | 02 | Yurany Acevedo Durán | Sala de cómputo I2 |
-| Dic 03 | 7:20 a.m. | 02 | Juan Andrés Martínez Gutiérrez | Sala de cómputo I2 |
-| Dic 03 | 7:20 a.m. | 02 | David Fernando Arias Castrillón | Sala de cómputo I2 |
-| Dic 03 | 7:20 a.m. | 02 | Esteban Gonzalez García | Sala de cómputo I2 |
-| Dic 03 | 7:20 a.m. | 02 | Alejandro Ocampo Escobar | Sala de cómputo I2 |
-| Dic 03 | 7:20 a.m. | 02 | Joshua Franco Ortegon | Sala de cómputo I2 |
-| Dic 03 | 7:20 a.m. | 02 | Alan Gomez Ortiz | Sala de cómputo I2 |
-| Dic 03 | 7:20 a.m. | 02 | Valeria Alexandra Claro Vargas | Sala de cómputo I2 |
-| Dic 03 | 8:20 a.m. | 02 | Juan Felipe Cardona Cardenas | Sala de cómputo I2 |
-| Dic 03 | 8:20 a.m. | 02 | Diego Alejandro Ocampo Ospina | Sala de cómputo I2 |
-| Dic 03 | 8:20 a.m. | 02 | Jose Luis Perea Martinez | Sala de cómputo I2 |
-| Dic 03 | 8:20 a.m. | 02 | Sergio Alejandro Henao Caicedo | Sala de cómputo I2 |
-| Dic 03 | 8:20 a.m. | 02 | Leonardo Antonio Rivera Higidio | Sala de cómputo I2 |
-| Dic 03 | 8:20 a.m. | 02 | Sebastián Velasco Pérez | Sala de cómputo I2 |
-| Dic 03 | 8:20 a.m. | 02 | Kevin Samuel León Uribe | Sala de cómputo I2 |
-| Dic 03 | 8:20 a.m. | 02 | Juan Sebastián Salinas Ramírez | Sala de cómputo I2 |
-| Dic 03 | 8:20 a.m. | 02 | Daniel Santiago Losada Cogua | Sala de cómputo I2 |
-| Dic 03 | 4:20 p.m. | 03 | Laura Sofia Alzate Salazar | Sala de cómputo I1 |
-| Dic 03 | 4:20 p.m. | 03 | Nicolás Lemus Mora | Sala de cómputo I1 |
-| Dic 03 | 4:20 p.m. | 03 | David Quinchia Morcillo | Sala de cómputo I1 |
-| Dic 03 | 4:20 p.m. | 03 | Daniel Sebastian Narvaez Muñoz | Sala de cómputo I1 |
-| Dic 03 | 4:20 p.m. | 03 | Mateo Piedrahita Ortiz | Sala de cómputo I1 |
-| Dic 03 | 4:20 p.m. | 03 | Sergio López Loaiza | Sala de cómputo I1 |
-| Dic 03 | 4:20 p.m. | 03 | María Camila Orozco Reinosa | Sala de cómputo I1 |
-| Dic 03 | 4:20 p.m. | 03 | Ricardo Peña Henao | Sala de cómputo I1 |
-| Dic 03 | 4:20 p.m. | 03 | Sarah Maria Erazo Sanchez | Sala de cómputo I1 |
-| Dic 03 | 5:20 p.m. | 03 | Juan Manuel Ramirez Cardona | Sala de cómputo I1 |
-| Dic 03 | 5:20 p.m. | 03 | Rafael Marin Quintero | Sala de cómputo I1 |
-| Dic 03 | 5:20 p.m. | 03 | Alejandro Aguirre Torres | Sala de cómputo I1 |
-| Dic 03 | 5:20 p.m. | 03 | Jeronimo Lopez Tangarife | Sala de cómputo I1 |
-| Dic 03 | 5:20 p.m. | 03 | Sofia Buitrago Cardona | Sala de cómputo I1 |
-| Dic 03 | 5:20 p.m. | 03 | Santiago Loaiza Giraldo | Sala de cómputo I1 |
-| Dic 03 | 5:20 p.m. | 03 | Andres Mauricio Lopez Mutis | Sala de cómputo I1 |
-| Dic 03 | 5:20 p.m. | 03 | Samuel Bartolo Ospina | Sala de cómputo I1 |
+### Grupo 02
+
+Fecha: jueves 3 de diciembre de 2026.
+
+Lugar: Sala de cómputo I2.
+
+| Hora | Estudiante |
+| --- | --- |
+| 7:20 a.m. | Luis Álvaro Velásquez Rodríguez |
+| 7:20 a.m. | Yurany Acevedo Durán |
+| 7:20 a.m. | Juan Andrés Martínez Gutiérrez |
+| 7:20 a.m. | David Fernando Arias Castrillón |
+| 7:20 a.m. | Esteban Gonzalez García |
+| 7:20 a.m. | Alejandro Ocampo Escobar |
+| 7:20 a.m. | Joshua Franco Ortegon |
+| 7:20 a.m. | Alan Gomez Ortiz |
+| 7:20 a.m. | Valeria Alexandra Claro Vargas |
+| 8:20 a.m. | Juan Felipe Cardona Cardenas |
+| 8:20 a.m. | Diego Alejandro Ocampo Ospina |
+| 8:20 a.m. | Jose Luis Perea Martinez |
+| 8:20 a.m. | Sergio Alejandro Henao Caicedo |
+| 8:20 a.m. | Leonardo Antonio Rivera Higidio |
+| 8:20 a.m. | Sebastián Velasco Pérez |
+| 8:20 a.m. | Kevin Samuel León Uribe |
+| 8:20 a.m. | Juan Sebastián Salinas Ramírez |
+| 8:20 a.m. | Daniel Santiago Losada Cogua |
+
+### Grupo 03
+
+Fecha: jueves 3 de diciembre de 2026.
+
+Lugar: Sala de cómputo I1.
+
+| Hora | Estudiante |
+| --- | --- |
+| 4:20 p.m. | Laura Sofia Alzate Salazar |
+| 4:20 p.m. | Nicolás Lemus Mora |
+| 4:20 p.m. | David Quinchia Morcillo |
+| 4:20 p.m. | Daniel Sebastian Narvaez Muñoz |
+| 4:20 p.m. | Mateo Piedrahita Ortiz |
+| 4:20 p.m. | Sergio López Loaiza |
+| 4:20 p.m. | María Camila Orozco Reinosa |
+| 4:20 p.m. | Ricardo Peña Henao |
+| 4:20 p.m. | Sarah Maria Erazo Sanchez |
+| 5:20 p.m. | Juan Manuel Ramirez Cardona |
+| 5:20 p.m. | Rafael Marin Quintero |
+| 5:20 p.m. | Alejandro Aguirre Torres |
+| 5:20 p.m. | Jeronimo Lopez Tangarife |
+| 5:20 p.m. | Sofia Buitrago Cardona |
+| 5:20 p.m. | Santiago Loaiza Giraldo |
+| 5:20 p.m. | Andres Mauricio Lopez Mutis |
+| 5:20 p.m. | Samuel Bartolo Ospina |
 
 ### Condiciones para el examen
 
