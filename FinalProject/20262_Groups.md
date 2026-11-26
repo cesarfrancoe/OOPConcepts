@@ -1,4 +1,6 @@
-# Horarios de sustentación de proyectos del periodo 20262
+# Curso de Programación Orientada a Objetos - 20262
+
+## Horarios de sustentación de proyectos
 
 | Fecha | Hora | Grupo | Equipo | Integrantes | ID del proyecto | Nombre del proyecto |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -26,7 +28,7 @@
 
 ---
 
-## Examen final
+## Horaios examen final
 
 ### Condiciones para el examen
 
