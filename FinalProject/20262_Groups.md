@@ -23,3 +23,20 @@
 |  |  | 03 | 09 | Sarah Maria Erazo Sanchez | 3 | Video Game Store |
 |  |  | 03 | 10 | Andres Mauricio Lopez Mutis | 5 | Movie Rental |
 |  |  | 03 | 11 | Samuel Bartolo Ospina | 6 | Event Ticketing |
+
+## Examen del grupo 02
+
+Jueves 3 de diciembre de 2026. Cada turno tiene 9 estudiantes. Los integrantes de cada equipo presentan el examen en el mismo horario, con un estudiante que trabaja individualmente en cada turno.
+
+| Fecha | Hora | Grupo | Equipo | Integrantes |
+| --- | --- | --- | --- | --- |
+| Dic 03 | 7:30 a.m. | 02 | 01 | Luis Álvaro Velásquez Rodríguez |
+| Dic 03 | 7:30 a.m. | 02 | 02 | Yurany Acevedo Durán / Juan Andrés Martínez Gutiérrez |
+| Dic 03 | 7:30 a.m. | 02 | 03 | David Fernando Arias Castrillón / Esteban Gonzalez García |
+| Dic 03 | 7:30 a.m. | 02 | 04 | Alejandro Ocampo Escobar / Joshua Franco Ortegon |
+| Dic 03 | 7:30 a.m. | 02 | 05 | Alan Gomez Ortiz / Valeria Alexandra Claro Vargas |
+| Dic 03 | 8:15 a.m. | 02 | 06 | Juan Felipe Cardona Cardenas / Diego Alejandro Ocampo Ospina |
+| Dic 03 | 8:15 a.m. | 02 | 07 | Jose Luis Perea Martinez / Sergio Alejandro Henao Caicedo |
+| Dic 03 | 8:15 a.m. | 02 | 08 | Leonardo Antonio Rivera Higidio / Sebastián Velasco Pérez |
+| Dic 03 | 8:15 a.m. | 02 | 09 | Kevin Samuel León Uribe |
+| Dic 03 | 8:15 a.m. | 02 | 10 | Juan Sebastián Salinas Ramírez / Daniel Santiago Losada Cogua |
