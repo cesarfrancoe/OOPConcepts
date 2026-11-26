@@ -26,49 +26,52 @@
 
 ## Examen final
 
-| Fecha | Hora | Grupo | Equipo | Estudiante |
-| --- | --- | --- | --- | --- |
-| Dic 03 | 7:20 a.m. | 02 | 01 | Luis Álvaro Velásquez Rodríguez |
-| Dic 03 | 7:20 a.m. | 02 | 02 | Yurany Acevedo Durán |
-| Dic 03 | 7:20 a.m. | 02 | 02 | Juan Andrés Martínez Gutiérrez |
-| Dic 03 | 7:20 a.m. | 02 | 03 | David Fernando Arias Castrillón |
-| Dic 03 | 7:20 a.m. | 02 | 03 | Esteban Gonzalez García |
-| Dic 03 | 7:20 a.m. | 02 | 04 | Alejandro Ocampo Escobar |
-| Dic 03 | 7:20 a.m. | 02 | 04 | Joshua Franco Ortegon |
-| Dic 03 | 7:20 a.m. | 02 | 05 | Alan Gomez Ortiz |
-| Dic 03 | 7:20 a.m. | 02 | 05 | Valeria Alexandra Claro Vargas |
-| Dic 03 | 8:20 a.m. | 02 | 06 | Juan Felipe Cardona Cardenas |
-| Dic 03 | 8:20 a.m. | 02 | 06 | Diego Alejandro Ocampo Ospina |
-| Dic 03 | 8:20 a.m. | 02 | 07 | Jose Luis Perea Martinez |
-| Dic 03 | 8:20 a.m. | 02 | 07 | Sergio Alejandro Henao Caicedo |
-| Dic 03 | 8:20 a.m. | 02 | 08 | Leonardo Antonio Rivera Higidio |
-| Dic 03 | 8:20 a.m. | 02 | 08 | Sebastián Velasco Pérez |
-| Dic 03 | 8:20 a.m. | 02 | 09 | Kevin Samuel León Uribe |
-| Dic 03 | 8:20 a.m. | 02 | 10 | Juan Sebastián Salinas Ramírez |
-| Dic 03 | 8:20 a.m. | 02 | 10 | Daniel Santiago Losada Cogua |
-| Dic 03 | 4:20 p.m. | 03 | 01 | Laura Sofia Alzate Salazar |
-| Dic 03 | 4:20 p.m. | 03 | 01 | Nicolás Lemus Mora |
-| Dic 03 | 4:20 p.m. | 03 | 02 | David Quinchia Morcillo |
-| Dic 03 | 4:20 p.m. | 03 | 02 | Daniel Sebastian Narvaez Muñoz |
-| Dic 03 | 4:20 p.m. | 03 | 03 | Mateo Piedrahita Ortiz |
-| Dic 03 | 4:20 p.m. | 03 | 03 | Sergio López Loaiza |
-| Dic 03 | 4:20 p.m. | 03 | 04 | María Camila Orozco Reinosa |
-| Dic 03 | 4:20 p.m. | 03 | 04 | Ricardo Peña Henao |
-| Dic 03 | 4:20 p.m. | 03 | 09 | Sarah Maria Erazo Sanchez |
-| Dic 03 | 5:20 p.m. | 03 | 05 | Juan Manuel Ramirez Cardona |
-| Dic 03 | 5:20 p.m. | 03 | 05 | Rafael Marin Quintero |
-| Dic 03 | 5:20 p.m. | 03 | 06 | Alejandro Aguirre Torres |
-| Dic 03 | 5:20 p.m. | 03 | 07 | Jeronimo Lopez Tangarife |
-| Dic 03 | 5:20 p.m. | 03 | 08 | Sofia Buitrago Cardona |
-| Dic 03 | 5:20 p.m. | 03 | 08 | Santiago Loaiza Giraldo |
-| Dic 03 | 5:20 p.m. | 03 | 10 | Andres Mauricio Lopez Mutis |
-| Dic 03 | 5:20 p.m. | 03 | 11 | Samuel Bartolo Ospina |
+| Fecha | Hora | Grupo | Estudiante |
+| --- | --- | --- | --- |
+| Dic 03 | 7:20 a.m. | 02 | Luis Álvaro Velásquez Rodríguez |
+| Dic 03 | 7:20 a.m. | 02 | Yurany Acevedo Durán |
+| Dic 03 | 7:20 a.m. | 02 | Juan Andrés Martínez Gutiérrez |
+| Dic 03 | 7:20 a.m. | 02 | David Fernando Arias Castrillón |
+| Dic 03 | 7:20 a.m. | 02 | Esteban Gonzalez García |
+| Dic 03 | 7:20 a.m. | 02 | Alejandro Ocampo Escobar |
+| Dic 03 | 7:20 a.m. | 02 | Joshua Franco Ortegon |
+| Dic 03 | 7:20 a.m. | 02 | Alan Gomez Ortiz |
+| Dic 03 | 7:20 a.m. | 02 | Valeria Alexandra Claro Vargas |
+| Dic 03 | 8:20 a.m. | 02 | Juan Felipe Cardona Cardenas |
+| Dic 03 | 8:20 a.m. | 02 | Diego Alejandro Ocampo Ospina |
+| Dic 03 | 8:20 a.m. | 02 | Jose Luis Perea Martinez |
+| Dic 03 | 8:20 a.m. | 02 | Sergio Alejandro Henao Caicedo |
+| Dic 03 | 8:20 a.m. | 02 | Leonardo Antonio Rivera Higidio |
+| Dic 03 | 8:20 a.m. | 02 | Sebastián Velasco Pérez |
+| Dic 03 | 8:20 a.m. | 02 | Kevin Samuel León Uribe |
+| Dic 03 | 8:20 a.m. | 02 | Juan Sebastián Salinas Ramírez |
+| Dic 03 | 8:20 a.m. | 02 | Daniel Santiago Losada Cogua |
+| Dic 03 | 4:20 p.m. | 03 | Laura Sofia Alzate Salazar |
+| Dic 03 | 4:20 p.m. | 03 | Nicolás Lemus Mora |
+| Dic 03 | 4:20 p.m. | 03 | David Quinchia Morcillo |
+| Dic 03 | 4:20 p.m. | 03 | Daniel Sebastian Narvaez Muñoz |
+| Dic 03 | 4:20 p.m. | 03 | Mateo Piedrahita Ortiz |
+| Dic 03 | 4:20 p.m. | 03 | Sergio López Loaiza |
+| Dic 03 | 4:20 p.m. | 03 | María Camila Orozco Reinosa |
+| Dic 03 | 4:20 p.m. | 03 | Ricardo Peña Henao |
+| Dic 03 | 4:20 p.m. | 03 | Sarah Maria Erazo Sanchez |
+| Dic 03 | 5:20 p.m. | 03 | Juan Manuel Ramirez Cardona |
+| Dic 03 | 5:20 p.m. | 03 | Rafael Marin Quintero |
+| Dic 03 | 5:20 p.m. | 03 | Alejandro Aguirre Torres |
+| Dic 03 | 5:20 p.m. | 03 | Jeronimo Lopez Tangarife |
+| Dic 03 | 5:20 p.m. | 03 | Sofia Buitrago Cardona |
+| Dic 03 | 5:20 p.m. | 03 | Santiago Loaiza Giraldo |
+| Dic 03 | 5:20 p.m. | 03 | Andres Mauricio Lopez Mutis |
+| Dic 03 | 5:20 p.m. | 03 | Samuel Bartolo Ospina |
 
-### Recomendaciones y condiciones para el examen
+### Condiciones para el examen
 
 - Tener la cuenta de CanvasLite habilitada y verificar el acceso con varios días de antelación.
 - Llegar al menos 15 minutos antes de la hora asignada.
 - Presentar el examen de forma individual.
 - El examen se activa a la hora exacta del turno asignado.
-- Llevar preferiblemente una computadora personal para presentar el examen.
 - El examen solo se puede presentar en el auditorio de clase.
+
+### Recomendaciones para el examen
+
+- Llevar preferiblemente una computadora personal para presentar el examen.
