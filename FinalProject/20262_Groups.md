@@ -26,12 +26,12 @@
 | Dic 01 | 8:00 a.m. | 02 | David Quinchia Morcillo / Daniel Sebastian Narvaez Muñoz | 1 | Smart Parking |
 | Dic 03 | 10:00 a.m. | 04 | María Camila Orozco Reinosa / Ricardo Peña Henao | 7 | Restaurant Order Management |
 | Dic 03 | 10:30 a.m. | 08 | Sofia Buitrago Cardona / Santiago Loaiza Giraldo | 3 | Video Game Store |
+| Dic 03 | 3:00 p.m. | 11 | Samuel Bartolo Ospina | 6 | Event Ticketing |
 |  |  | 01 | Laura Sofia Alzate Salazar / Nicolás Lemus Mora | 9 | Gym Membership Management |
 |  |  | 03 | Mateo Piedrahita Ortiz / Sergio López Loaiza | 1 | Smart Parking |
 |  |  | 07 | Jeronimo Lopez Tangarife | 9 | Gym Membership Management |
 |  |  | 09 | Sarah Maria Erazo Sanchez | 3 | Video Game Store |
 |  |  | 10 | Andres Mauricio Lopez Mutis | 5 | Movie Rental |
-|  |  | 11 | Samuel Bartolo Ospina | 6 | Event Ticketing |
 
 ---
 
