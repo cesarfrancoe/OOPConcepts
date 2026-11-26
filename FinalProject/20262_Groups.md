@@ -24,6 +24,8 @@
 |  |  | 03 | 10 | Andres Mauricio Lopez Mutis | 5 | Movie Rental |
 |  |  | 03 | 11 | Samuel Bartolo Ospina | 6 | Event Ticketing |
 
+---
+
 ## Examen final
 
 ### Grupo 02
