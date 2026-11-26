@@ -28,6 +28,18 @@
 
 ## Examen final
 
+### Condiciones para el examen
+
+- Tener la cuenta de CanvasLite habilitada y verificar el acceso con varios días de antelación.
+- Llegar al menos 20 minutos antes de la hora asignada.
+- Presentar el examen de forma individual.
+- El examen se activa a la hora exacta del turno asignado.
+- El examen debe presentarse en la sala asignada al grupo: sala de cómputo I2 para el grupo 02 y sala de cómputo I1 para el grupo 03.
+
+### Recomendaciones para el examen
+
+- Llevar preferiblemente una computadora personal para presentar el examen.
+
 ### Grupo 02
 
 Fecha: jueves 3 de diciembre de 2026.
@@ -81,14 +93,4 @@ Lugar: Sala de cómputo I1.
 | 5:20 p.m. | Andres Mauricio Lopez Mutis |
 | 5:20 p.m. | Samuel Bartolo Ospina |
 
-### Condiciones para el examen
 
-- Tener la cuenta de CanvasLite habilitada y verificar el acceso con varios días de antelación.
-- Llegar al menos 20 minutos antes de la hora asignada.
-- Presentar el examen de forma individual.
-- El examen se activa a la hora exacta del turno asignado.
-- El examen debe presentarse en la sala asignada al grupo: sala de cómputo I2 para el grupo 02 y sala de cómputo I1 para el grupo 03.
-
-### Recomendaciones para el examen
-
-- Llevar preferiblemente una computadora personal para presentar el examen.
