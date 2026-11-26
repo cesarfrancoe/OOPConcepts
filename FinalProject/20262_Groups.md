@@ -67,7 +67,7 @@
 ### Condiciones para el examen
 
 - Tener la cuenta de CanvasLite habilitada y verificar el acceso con varios días de antelación.
-- Llegar al menos 15 minutos antes de la hora asignada.
+- Llegar al menos 20 minutos antes de la hora asignada.
 - Presentar el examen de forma individual.
 - El examen se activa a la hora exacta del turno asignado.
 - El examen solo se puede presentar en el auditorio de clase.
