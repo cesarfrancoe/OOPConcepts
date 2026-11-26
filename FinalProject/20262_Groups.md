@@ -10,7 +10,7 @@
 | Dic 01 | 10:00 a.m. | 02 | 05 | Alan Gomez Ortiz / Valeria Alexandra Claro Vargas | 1 | Smart Parking |
 | Dic 01 | 10:30 a.m. | 02 | 02 | Yurany Acevedo Durán / Juan Andrés Martínez Gutiérrez | 3 | Video Game Store |
 | Dic 01 | 11:00 a.m. | 02 | 08 | Leonardo Antonio Rivera Higidio / Sebastián Velasco Pérez | 5 | Movie Rental |
-|  |  | 02 | 01 | Luis Álvaro Velásquez Rodríguez | 11 | Clothing Store Management |
+| Dic 01 | 11:30 a.m. | 02 | 01 | Luis Álvaro Velásquez Rodríguez | 11 | Clothing Store Management |
 |  |  | 02 | 09 | Kevin Samuel León Uribe | 10 | Pharmacy Inventory |
 |  |  | 03 | 01 | Laura Sofia Alzate Salazar / Nicolás Lemus Mora | 9 | Gym Membership Management |
 |  |  | 03 | 02 | David Quinchia Morcillo / Daniel Sebastian Narvaez Muñoz | 1 | Smart Parking |
