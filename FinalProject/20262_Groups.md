@@ -23,6 +23,7 @@
 | --- | --- | --- | --- | --- | --- |
 | Nov 30 | 8:30 a.m. | 05 | Juan Manuel Ramirez Cardona / Rafael Marin Quintero | 10 | Pharmacy Inventory |
 | Nov 30 | 9:00 a.m. | 06 | Alejandro Aguirre Torres | 7 | Restaurant Order Management |
+| Nov 30 | 4:30 p.m. | 10 | Andrés Mauricio López Mutis | 5 | Movie Rental |
 | Dic 01 | 8:00 a.m. | 02 | David Quinchia Morcillo / Daniel Sebastian Narvaez Muñoz | 1 | Smart Parking |
 | Dic 03 | 10:00 a.m. | 04 | María Camila Orozco Reinosa / Ricardo Peña Henao | 7 | Restaurant Order Management |
 | Dic 03 | 10:30 a.m. | 08 | Sofia Buitrago Cardona / Santiago Loaiza Giraldo | 3 | Video Game Store |
@@ -31,7 +32,6 @@
 | Dic 03 | 3:00 p.m. | 11 | Samuel Bartolo Ospina | 6 | Event Ticketing |
 | Dic 04 | 10:30 a.m. | 01 | Laura Sofia Alzate Salazar / Nicolás Lemus Mora | 9 | Gym Membership Management |
 |  |  | 07 | Jeronimo Lopez Tangarife | 9 | Gym Membership Management |
-|  |  | 10 | Andres Mauricio Lopez Mutis | 5 | Movie Rental |
 
 ---
 
@@ -99,7 +99,7 @@ Lugar: Sala de cómputo I1.
 | 5:20 p.m. | Jeronimo Lopez Tangarife |
 | 5:20 p.m. | Sofia Buitrago Cardona |
 | 5:20 p.m. | Santiago Loaiza Giraldo |
-| 5:20 p.m. | Andres Mauricio Lopez Mutis |
+| 5:20 p.m. | Andrés Mauricio López Mutis |
 | 5:20 p.m. | Samuel Bartolo Ospina |
 
 
